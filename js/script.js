@@ -145,12 +145,12 @@ document.querySelectorAll('.gnb-link').forEach((link, index) => {
 });
 
 /* ==================== CTA 버튼 클릭 이벤트 ==================== */
-document.querySelectorAll('.cta-button').forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('예약 페이지로 이동합니다.');
-    });
-});
+// document.querySelectorAll('.cta-button').forEach(button => {
+//     button.addEventListener('click', (e) => {
+//         e.preventDefault();
+//         alert('예약 페이지로 이동합니다.');
+//     });
+// });
 
 /* ==================== 멤버십 버튼 클릭 이벤트 ==================== */
 const membershipBtn = document.querySelector('.membership-btn');

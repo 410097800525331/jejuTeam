@@ -164,12 +164,11 @@ body::-webkit-scrollbar {
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* 섹션 2+ 에서 header-util 전체 숨김 */
-.header.section2plus-header .header-util {
-    display: none;
-}
+
 
 .util-link {
+    position: relative;
+    right: 130px;
     color: #555;
     text-decoration: none;
     transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -180,7 +179,14 @@ body::-webkit-scrollbar {
 }
 
 .util-divider {
+    position: relative;
+    right: 130px;
     color: #ddd;
+}
+
+/* 섹션 2+ 에서 header-util 전체 숨김 */
+.header.section2plus-header .header-util {
+    display: none;
 }
 
 /* 헤더 내부 */
@@ -195,19 +201,11 @@ body::-webkit-scrollbar {
 
 .logo {
     position: absolute;
-    left: 40px;
+    left: 160px;
 }
 
-.logo-link {
-    font-size: 20px;
-    font-weight: 700;
-    color: #FF5000;
-    text-decoration: none;
-    transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.logo-link:hover {
-    color: #ff6b1a;
+.logo-link img {
+    width: 120px;
 }
 
 /* GNB 네비게이션 */
@@ -218,7 +216,7 @@ body::-webkit-scrollbar {
 }
 
 .gnb-item {
-    padding: 26px 10px;
+    padding: 26px 32px;
 }
 
 .gnb-link {
@@ -236,7 +234,7 @@ body::-webkit-scrollbar {
 /* 헤더 우측 컨트롤 */
 .header-right-controls {
     position: absolute;
-    right: 40px;
+    right: 160px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -328,13 +326,26 @@ body::-webkit-scrollbar {
 }
 
 .hero-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-    border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* 클릭 방지 */
+}
+
+/* 화면 비율에 따라 영상이 꽉 차도록 설정 */
+@media (min-aspect-ratio: 16/9) {
+  .hero-video {
+    height: 57vw; /* 100 * 9 / 16 */
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .hero-video {
+    width: 177.78vh; /* 100 * 16 / 9 */
+  }
 }
 
 .hero-overlay {

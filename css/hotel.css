@@ -830,7 +830,7 @@ input {
     gap: 4px;
 }
 
-/* ========== 새로운 Date Range Picker 날짜 스타일 ========== */
+/* ========== Range Calendar 날짜 스타일 (최종 개선) ========== */
 
 .calendar-day {
     aspect-ratio: 1;
@@ -839,58 +839,80 @@ input {
     justify-content: center;
     font-size: 0.875rem;
     color: var(--text-title);
-    border-radius: var(--radius-full);
     cursor: pointer;
     transition: all var(--transition-fast);
     border: 2px solid transparent;
     background: transparent;
+    position: relative;
 }
 
-/* 1. 오늘 날짜 - FF5000 보더 원형 */
+/* 1. 오늘 날짜 - FF5000 원형 테두리 */
 .calendar-day.today {
     border: 2px solid #FF5000;
     color: var(--text-title);
     background: transparent;
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-full);
 }
 
 /* 2. 호버 효과 - 연한 주황색 배경 */
-.calendar-day:not(.disabled):not(.selected):not(.today):not(.in-range):hover {
+.calendar-day:not(.disabled):not(.check-in):not(.check-out):not(.single-date):not(.today):not(.in-range):hover {
     background: rgba(255, 80, 0, 0.15);
-}
-
-/* 3. 선택된 날짜 - FF5000 배경 원형 */
-.calendar-day.selected {
-    background: #FF5000;
-    color: white;
-    border: 2px solid #FF5000;
-    font-weight: var(--font-weight-bold);
     border-radius: var(--radius-full);
 }
 
-/* 4. 범위 내 날짜 - 연한 주황색 배경 */
+/* 3. 체크인 날짜 - 진한 주황색 배경 */
+.calendar-day.check-in {
+    background: #FF5000;
+    color: white;
+    font-weight: var(--font-weight-bold);
+    border: none;
+    border-radius: var(--radius-full);
+    z-index: 2;
+}
+
+/* 4. 체크아웃 날짜 - 진한 주황색 배경 */
+.calendar-day.check-out {
+    background: #FF5000;
+    color: white;
+    font-weight: var(--font-weight-bold);
+    border: none;
+    border-radius: var(--radius-full);
+    z-index: 2;
+}
+
+/* 5. 단일 날짜 선택 (체크인만 선택된 경우) */
+.calendar-day.single-date {
+    background: #FF5000;
+    color: white;
+    font-weight: var(--font-weight-bold);
+    border: none;
+    border-radius: var(--radius-full);
+    z-index: 2;
+}
+
+/* 6. 범위 내 날짜 - 연한 주황색 배경 (끊김 없이 연결) */
 .calendar-day.in-range {
     background: rgba(255, 80, 0, 0.15);
     color: var(--text-title);
-    border-radius: 0;
     border: none;
-}
-
-/* 5. 호버 중 임시 범위 */
-.calendar-day.in-range-temp {
-    background: rgba(255, 80, 0, 0.15);
     border-radius: 0;
-    border: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 
-/* 6. 호버 끝점 */
-.calendar-day.hover-end {
-    background: #FF5000;
-    color: white;
-    border-radius: var(--radius-full);
-    font-weight: var(--font-weight-bold);
+/* 범위 시작 부분 (체크인 다음 날) - 왼쪽 곡선 */
+.calendar-day.in-range:first-of-type {
+    border-radius: 0;
 }
 
-/* 7. 비활성화 날짜 */
+/* 범위 끝 부분 (체크아웃 이전 날) - 오른쪽 곡선 */
+.calendar-day.in-range:last-of-type {
+    border-radius: 0;
+}
+
+/* 7. 비활성화 날짜 (과거 날짜) */
 .calendar-day.disabled {
     color: var(--text-muted);
     opacity: 0.4;
@@ -909,6 +931,22 @@ input {
     background: transparent;
     border: none;
 }
+
+/* 9. 범위 연결 개선 - 체크인과 범위의 연결 */
+.calendar-day.check-in + .calendar-day.in-range {
+    margin-left: -2px;
+}
+
+/* 10. 범위와 체크아웃의 연결 */
+.calendar-day.in-range + .calendar-day.check-out {
+    margin-left: -2px;
+}
+
+/* 11. 연속된 범위 날짜들 연결 */
+.calendar-day.in-range + .calendar-day.in-range {
+    margin-left: -2px;
+}
+
 
 /* Flexible View */
 .flexible-view {

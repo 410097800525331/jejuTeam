@@ -596,7 +596,7 @@ input {
     height: 22px;
 }
 
-/* ========== Destination Dropdown ========== */
+/* ========== Destination Dropdown (수정 완료) ========== */
 .destination-dropdown {
     position: absolute;
     top: calc(100% + 8px);
@@ -643,36 +643,52 @@ input {
     gap: var(--space-sm);
 }
 
-.destination-item {
+/* [수정] .destination-item 과 .destination-item-text 의 공통 스타일을 통합합니다. */
+.destination-item,
+.destination-item-text {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
+    gap: 12px; /* 요구사항 "gap": "12px" 반영 */
     padding: var(--space-sm);
     border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: background var(--transition-fast);
+    cursor: pointer; /* 요구사항 "cursor": "pointer" 반영 */
+    transition: background var(--transition-fast), color var(--transition-fast); /* 요구사항 "transition" 반영 */
 }
 
-.destination-item:hover {
+/* [수정] 호버 효과를 통합합니다. */
+.destination-item:hover,
+.destination-item-text:hover {
     background: var(--background);
 }
 
+/* [수정] 이미지 스타일을 명세에 맞게 명확히 정의합니다. */
 .destination-item img {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md);
-    object-fit: cover;
+    width: 48px; /* 요구사항 "width": "48px" */
+    height: 48px; /* 요구사항 "height": "48px" */
+    border-radius: 8px; /* 요구사항 "borderRadius": "8px" */
+    object-fit: cover; /* 요구사항 "objectFit": "cover" */
+    flex-shrink: 0; /* 이미지가 찌그러지지 않도록 추가 */
 }
 
 .destination-info {
     display: flex;
     flex-direction: column;
+    flex-grow: 1; /* 텍스트 영역이 남은 공간을 채우도록 추가 */
 }
 
-.destination-name {
-    font-size: 0.9375rem;
-    font-weight: var(--font-weight-medium);
-    color: var(--text-title);
+/* [수정] 텍스트 스타일을 명세에 맞게 통합하고 수정합니다. */
+.destination-item .destination-name,
+.destination-item-text .destination-name {
+    font-size: 14px; /* 요구사항 "fontSize": "14px" */
+    font-weight: 500; /* 요구사항 "fontWeight": "500" */
+    color: #000000; /* 요구사항 "color": "#000000" */
+    transition: color 0.2s ease; /* 요구사항 "transition" 반영 */
+}
+
+/* [추가] 호버 시 텍스트 색상 변경 효과를 추가합니다. */
+.destination-item:hover .destination-name,
+.destination-item-text:hover .destination-name {
+    color: #FF5000; /* 요구사항 "hoverColor": "#FF5000" */
 }
 
 .destination-count {
@@ -686,28 +702,26 @@ input {
     color: var(--text-muted);
 }
 
+/* [수정] 텍스트만 있는 항목의 레이아웃을 재정의합니다. */
 .destination-item-text {
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: background var(--transition-fast);
-}
-
-.destination-item-text:hover {
-    background: var(--background);
+    padding: 10px 8px; /* 시각적 균형을 위한 미세 조정 */
 }
 
 .destination-item-text .destination-name {
-    display: block;
+    display: inline; /* 이름과 카운트를 한 줄에 나란히 표시 */
 }
 
 .destination-item-text .destination-count {
-    display: inline;
+    display: inline; /* 이름과 카운트를 한 줄에 나란히 표시 */
 }
 
 .destination-item-text .destination-desc {
-    display: block;
+    display: block; /* 설명은 아래 줄로 내림 */
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
 }
+
 
 /* ========== Date Range Picker 캘린더 ========== */
 

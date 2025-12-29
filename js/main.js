@@ -171,8 +171,38 @@ if (membershipBtn) {
     });
 }
 
-/* ==================== 페이지 로드 시 초기화 ==================== */
+/* ==================== 페이지 로드 시 초기화 (수정됨) ==================== */
 window.addEventListener('load', () => {
+    // 1. URL에 해시(예: #section-2)가 있는지 확인
+    const hash = window.location.hash;
+    
+    if (hash) {
+        // 해시와 일치하는 섹션 찾기
+        const targetSection = document.querySelector(hash);
+        
+        if (targetSection) {
+            // 해당 섹션이 몇 번째인지 인덱스 찾기
+            const index = Array.from(sections).indexOf(targetSection);
+            
+            if (index !== -1) {
+                // 인덱스 업데이트 후 해당 위치로 이동
+                currentSectionIndex = index;
+                
+                // 브라우저 렌더링 타이밍을 고려해 살짝 늦게 실행
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+                
+                updateHeaderAndButtons(); // 헤더 상태도 그에 맞게 업데이트
+                return; // 여기서 함수 종료 (아래의 0번 이동 코드 실행 안 함)
+            }
+        }
+    }
+
+    // 2. 해시가 없거나 잘못된 경우 -> 기존처럼 맨 위로 이동
     currentSectionIndex = 0;
     scrollToSection(0);
 });
@@ -182,7 +212,7 @@ window.addEventListener('load', () => {
 
 const langData = {
     ko: {
-        pageTitle: "제주 그룹 - 제주의 모든 여행을 함께",
+        pageTitle: "제주 그룹 - 모든 여행을 제주그룹 하나로",
         login: "로그인",
         signup: "회원가입",
         customerCenter: "고객센터",
@@ -191,8 +221,8 @@ const langData = {
         navRentCar: "제주 렌트카",
         navMembership: "멤버십",
         langToggle: "English",
-        heroTitle: "제주 여행의 시작과 끝, 제주 그룹이 함께합니다.",
-        heroSubtitle: "하늘, 머물음, 그리고 드라이브. 제주의 모든 여행을 한 곳에서.",
+        heroTitle: "모든 여행의 시작과 끝, 제주그룹이 함께합니다.",
+        heroSubtitle: "하늘, 머물음, 그리고 드라이브. 모든 여행을 제주그룹 한 곳에서.",
         scrollDown: "Scroll Down",
         airTag: "제주에어",
         airTitle: "가장 빠르고 편안한 하늘길",
@@ -255,7 +285,7 @@ const langData = {
         footerCopyright: "Copyright ⓒ Jeju Group. All Rights Reserved."
     },
     en: {
-        pageTitle: "Jeju Group - All Your Jeju Travel Together",
+        pageTitle: "Jeju Group - All Your Travels, One Place: Jeju Group",
         login: "Login",
         signup: "Sign Up",
         customerCenter: "Support",
@@ -265,7 +295,7 @@ const langData = {
         navMembership: "Membership",
         langToggle: "한국어",
         heroTitle: "From Start to Finish, Jeju Group is With You.",
-        heroSubtitle: "Sky, stay, and drive. All your Jeju travel in one place.",
+        heroSubtitle: "Sky, Stay, and Drive. All Your Travels in One Place, Jeju Group.",
         scrollDown: "Scroll Down",
         airTag: "Jeju Air",
         airTitle: "The Fastest, Most Comfortable Skyway",

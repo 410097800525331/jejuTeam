@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEJU STAY - Life | 한 달 살기</title>
+    <meta name="description" content="제주스테이 라이프 - 여행이 일상이 되는 순간. 롱스테이, 워케이션, 한 달 살기 숙소를 예약하세요.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/hotel.css">
+    <link rel="stylesheet" href="../css/jejustay_life.css">
+</head>
+
+<body class="long-stay-page">
+    <!-- ========== Header ========== -->
+    <!-- ========== Header ========== -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <!-- 로고 -->
+            <a href="jejuhotel.html" class="logo">
+                <span class="logo-group">JEJU GROUP</span>
+                <span class="logo-divider">|</span>
+                <span class="logo-stay">STAY - Life</span>
+            </a>
+
+            <!-- 메인 네비게이션 -->
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="jejuhotel.html" class="nav-link">
+                            <i data-lucide="building-2" class="nav-icon"></i>
+                            숙소 예약
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="jejustay_life.html" class="nav-link active">
+                            <i data-lucide="calendar-days" class="nav-icon"></i>
+                            한 달 살기
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i data-lucide="ticket" class="nav-icon"></i>
+                            즐길 거리
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- 우측 유틸리티 -->
+            <div class="header-utils">
+                <a href="#" class="util-link lounge">
+                    <i data-lucide="wallet" class="util-icon"></i>
+                    <span class="lounge-label">JJ 포인트</span>
+                    <span class="point-badge">1,050 P</span>
+                </a>
+                <a href="#" class="util-link">
+                    <i data-lucide="clipboard-list" class="util-icon"></i>
+                    예약 확인
+                </a>
+                <a href="../sub/login.html" class="util-link login-btn">
+                    <i data-lucide="user" class="util-icon"></i>
+                    로그인
+                </a>
+            </div>
+
+            <!-- 모바일 메뉴 버튼 -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- 모바일 네비게이션 -->
+        <div class="mobile-nav" id="mobileNav">
+            <ul class="mobile-nav-list">
+                <li><a href="jejuhotel.html" class="mobile-nav-link">숙소 예약</a></li>
+                <li><a href="jejustay_life.html" class="mobile-nav-link active">한 달 살기</a></li>
+                <li><a href="#" class="mobile-nav-link">즐길 거리</a></li>
+                <li><a href="#" class="mobile-nav-link">예약 확인</a></li>
+                <li><a href="../sub/login.html" class="mobile-nav-link">로그인</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- ========== Hero & Search ========== -->
+        <section class="hero">
+            <div class="hero-background">
+                <!-- 감성적인 거실/창가 배경 -->
+                <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1920&q=80" alt="편안한 거실 풍경"
+                    class="hero-image">
+                <div class="hero-overlay" style="background: rgba(0,0,0,0.3);"></div>
+            </div>
+
+            <div class="hero-content">
+                <p class="hero-subtitle">제주항공으로 떠나는 전 세계 한 달 살기</p>
+                <h1 class="hero-title" style="font-size: 3.5rem; font-weight: 800; line-height: 1.2;">JEJU
+                    STAY<br>Global Life</h1>
+
+                <div class="search-widget-large">
+                    <!-- 롱스테이 전용 헤더 -->
+                    <div class="search-tabs-large" style="justify-content: flex-start; padding: 0 var(--space-xl);">
+                        <div
+                            style="padding: var(--space-lg) 0; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="globe"></i> JEJU STAY - Global Life (14박 이상)
+                        </div>
+                    </div>
+
+                    <div class="search-form-new" id="searchFormLongStay">
+                        <!-- Mobile Summary View (New) -->
+                        <div class="search-summary-view" id="mobileSearchSummary">
+                            <i data-lucide="search" class="summary-icon"></i>
+                            <div class="summary-text">
+                                <span class="summary-title">어디서 살아볼까요?</span>
+                                <span class="summary-desc">지역, 날짜, 필수 옵션 선택</span>
+                            </div>
+                            <i data-lucide="chevron-down" class="summary-chevron"></i>
+                        </div>
+
+                        <!-- 검색 폼 -->
+                        <div class="search-form-content" id="searchFormContent">
+                            <div class="search-row-top">
+                                <div class="search-field-new destination-field-new" id="destinationFieldLarge"
+                                    style="position: relative;">
+                                    <i data-lucide="map-pin" class="field-icon-new"></i>
+                                    <input type="text" class="field-input-new" id="destinationInput"
+                                        placeholder="전 세계 어디서 살아볼까요?" autocomplete="off">
+
+                                    <!-- 여행지 드롭다운 (Global Edition) -->
+                                    <div class="destination-dropdown" id="destinationDropdown">
+                                        <div class="dropdown-columns"
+                                            style="grid-template-columns: repeat(4, 1fr); width: 800px;">
+                                            <!-- Column 1: 동남아 -->
+                                            <div class="dropdown-column">
+                                                <div class="dropdown-header">동남아시아 (한달살기 성지)</div>
+                                                <ul class="destination-list">
+                                                    <li class="destination-item" data-value="치앙마이">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">치앙마이</span>
+                                                            <span class="destination-desc">디지털 노마드의 성지</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="발리">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">발리</span>
+                                                            <span class="destination-desc">요가와 서핑의 천국</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="다낭">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">다낭</span>
+                                                            <span class="destination-desc">가성비 최고의 휴양</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- Column 2: 유럽/미주 -->
+                                            <div class="dropdown-column">
+                                                <div class="dropdown-header">유럽 / 미주</div>
+                                                <ul class="destination-list">
+                                                    <li class="destination-item" data-value="리스본">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">리스본</span>
+                                                            <span class="destination-desc">따스한 햇살과 낭만</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="파리">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">파리</span>
+                                                            <span class="destination-desc">예술과 미식의 도시</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="뉴욕">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">뉴욕</span>
+                                                            <span class="destination-desc">잠들지 않는 도시</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- Column 3: 일본/중국 -->
+                                            <div class="dropdown-column">
+                                                <div class="dropdown-header">일본 / 중국</div>
+                                                <ul class="destination-list">
+                                                    <li class="destination-item-text" data-value="도쿄">
+                                                        <span class="destination-name">도쿄</span>
+                                                        <span class="destination-desc">트렌디한 시티 라이프</span>
+                                                    </li>
+                                                    <li class="destination-item-text" data-value="오사카">
+                                                        <span class="destination-name">오사카</span>
+                                                        <span class="destination-desc">미식 탐방의 즐거움</span>
+                                                    </li>
+                                                    <li class="destination-item-text" data-value="상하이">
+                                                        <span class="destination-name">상하이</span>
+                                                        <span class="destination-desc">현대와 전통의 조화</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- Column 4: 국내 -->
+                                            <div class="dropdown-column">
+                                                <div class="dropdown-header">국내 (JEJU & SEOUL)</div>
+                                                <ul class="destination-list">
+                                                    <li class="destination-item" data-value="제주">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">제주</span>
+                                                            <span class="destination-desc">가장 완벽한 힐링</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="서울">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name">서울</span>
+                                                            <span class="destination-desc">Dynamic Korea</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="search-row-middle">
+                                <!-- 체크인/체크아웃 (14박 이상 로직 적용) -->
+                                <div class="date-field-group">
+                                    <div class="date-field-new" id="checkInField">
+                                        <i data-lucide="calendar" class="field-icon-new"></i>
+                                        <div class="date-content-new">
+                                            <span class="date-full" id="checkInDisplay">날짜 선택</span>
+                                            <span class="date-day-new" id="checkInDay">체크인</span>
+                                        </div>
+                                    </div>
+                                    <div class="date-field-new" id="checkOutField">
+                                        <i data-lucide="calendar" class="field-icon-new"></i>
+                                        <div class="date-content-new">
+                                            <span class="date-full" id="checkOutDisplay">날짜 선택</span>
+                                            <span class="date-day-new" id="checkOutDay">체크아웃</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 캘린더 팝업 (동일 구조, JS로 제어) -->
+                                    <div class="Popup RangePicker" id="calendarPopup">
+                                        <div class="Popup__content">
+                                            <!-- JS가 렌더링 -->
+                                            <div class="RangePicker-Header">
+                                                <div class="RangePicker-NavPrev"><button class="NavBtn"
+                                                        id="prevMonth"><i data-lucide="chevron-left"></i></button></div>
+                                                <div class="RangePicker-Tabs">
+                                                    <div class="RangePicker-Tab"><button
+                                                            class="TabBtn active">캘린더</button>
+                                                    </div>
+                                                </div>
+                                                <div class="RangePicker-NavNext"><button class="NavBtn"
+                                                        id="nextMonth"><i data-lucide="chevron-right"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="RangePicker-Panel active">
+                                                <div class="DayPicker" id="dayPickerContainer">
+                                                    <div class="DayPicker-wrapper">
+                                                        <div class="DayPicker-Months" id="calendarMonths"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="RangePicker-Footer" style="justify-content: space-between;">
+                                                    <span class="warning-text" id="stayWarning"
+                                                        style="color: var(--error); font-size: 0.9rem; display: none;">*
+                                                        최소
+                                                        14박 이상 선택해주세요</span>
+                                                    <div style="display: flex; gap: 8px;">
+                                                        <button class="ActionBtn ActionBtn--clear"
+                                                            id="btn-clear">초기화</button>
+                                                        <button class="ActionBtn ActionBtn--confirm"
+                                                            id="btn-confirm">확인</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 편의공간 필터 (New) -->
+                                <div class="search-field-new" id="amenityField" style="position: relative;">
+                                    <i data-lucide="sofa" class="field-icon-new"></i>
+                                    <div class="date-content-new">
+                                        <span class="date-full" style="font-size: 1rem;">필수 옵션</span>
+                                        <span class="date-day-new" id="amenitySummary">주방, 세탁기 등</span>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="field-chevron"></i>
+
+                                    <!-- Dropdown Menu -->
+                                    <div class="amenity-dropdown" id="amenityDropdown">
+                                        <label class="amenity-option">
+                                            <input type="checkbox" value="kitchen">
+                                            <span>풀옵션 주방</span>
+                                        </label>
+                                        <label class="amenity-option">
+                                            <input type="checkbox" value="washer">
+                                            <span>세탁기/건조기</span>
+                                        </label>
+                                        <label class="amenity-option">
+                                            <input type="checkbox" value="desk">
+                                            <span>업무용 데스크</span>
+                                        </label>
+                                        <label class="amenity-option">
+                                            <input type="checkbox" value="parking">
+                                            <span>전용 주차장</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="search-row-bottom">
+                                <button class="search-btn-new" id="searchBtn">
+                                    <span>장기 숙소 검색하기</span>
+                                </button>
+                            </div>
+                        </div> <!-- End of search-form-content -->
+
+                        <!-- Ecosystem Synergy Banner -->
+                        <div class="air-synergy-banner"
+                            style="background: linear-gradient(135deg, #FF5000 0%, #FF8A00 100%); color: white;">
+                            <div class="synergy-icon">
+                                <i data-lucide="plane-takeoff" style="width: 32px; height: 32px;"></i>
+                            </div>
+                            <div class="synergy-text">
+                                <strong style="font-size: 1.2rem;">전 세계 어디서든 제주항공 X 렌터카 파트너십</strong>
+                                <span>항공권 + 숙소 + 렌터카 패키지 예약 시 <span
+                                        style="background: white; color: #FF5000; padding: 2px 6px; border-radius: 4px; font-weight: bold;">최대
+                                        50% 할인</span></span>
+                            </div>
+                            <a href="#" class="synergy-link" style="color: white; border-color: white;">Bundle Deal 확인하기
+                                <i data-lucide="arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <!-- ========== Curation Themes ========== -->
+        <section class="section container" style="margin-top: var(--space-3xl);">
+            <div class="section-header">
+                <h2 class="section-title">당신의 라이프스타일에 맞는 집</h2>
+                <p class="section-subtitle">한 달 살기, 목적에 따라 큐레이션된 숙소를 만나보세요</p>
+            </div>
+
+            <div class="curation-grid">
+                <div class="curation-card">
+                    <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=600&q=80"
+                        class="curation-bg" alt="Work-ation">
+                    <div class="curation-overlay">
+                        <h3 class="curation-title">Work-ation</h3>
+                        <p class="curation-desc">업무에 집중할 수 있는 데스크와<br>빠른 와이파이가 있는 집</p>
+                    </div>
+                </div>
+                <div class="curation-card">
+                    <img src="https://images.unsplash.com/photo-1510627489930-0c1b0dc58e85?w=600&q=80"
+                        class="curation-bg" alt="Kinfolk">
+                    <div class="curation-overlay">
+                        <h3 class="curation-title">Kinfolk Life</h3>
+                        <p class="curation-desc">제주 돌담길 속 조용한 독채,<br>느리게 걷는 삶을 위한 공간</p>
+                    </div>
+                </div>
+                <div class="curation-card">
+                    <img src="https://images.unsplash.com/photo-1585543805890-6051f7829f98?w=600&q=80"
+                        class="curation-bg" alt="Kids Friendly">
+                    <div class="curation-overlay">
+                        <h3 class="curation-title">Kids Friendly</h3>
+                        <p class="curation-desc">아이들이 마음껏 뛰어놀 수 있는<br>마당이 있는 안전한 집</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Magazine / Story ========== -->
+        <section class="magazine-section">
+            <div class="container">
+                <div class="magazine-layout">
+                    <div class="magazine-image">
+                        <img src="https://images.unsplash.com/photo-1522771753037-6333d79f2203?w=800&q=80"
+                            alt="Living Room">
+                    </div>
+                    <div class="magazine-content">
+                        <span class="magazine-tag">Monthly Pick</span>
+                        <h2 class="magazine-title">제주, 그 여유로운 아침을<br>당신의 창가로</h2>
+                        <p class="magazine-desc">
+                            매일 아침 눈을 뜨면 펼쳐지는 에메랄드 빛 바다, 혹은 숲의 향기.<br>
+                            호텔에서는 느낄 수 없는 '내 집' 같은 편안함을 선물합니다.<br>
+                            직접 요리해 먹는 즐거움과 빨래를 널며 느끼는 햇살까지,<br>
+                            진정한 제주의 삶을 경험해보세요.
+                        </p>
+                        <a href="#" class="btn-text">매거진 더 보기 <i data-lucide="arrow-right"
+                                style="width: 1em; vertical-align: middle;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Map & Infra (New) ========== -->
+        <section class="section container">
+            <div class="infra-layout">
+                <div class="infra-info">
+                    <h2 class="section-title">편리한 주변 인프라</h2>
+                    <p class="section-subtitle" style="margin-bottom: var(--space-xl);">오래 머물수록 중요한 생활 편의시설을 확인하세요</p>
+                    <ul class="infra-list">
+                        <li>
+                            <div class="infra-icon"><i data-lucide="shopping-cart"></i></div>
+                            <div><strong>대형 마트</strong> <span>도보 10분</span></div>
+                        </li>
+                        <li>
+                            <div class="infra-icon"><i data-lucide="stethoscope"></i></div>
+                            <div><strong>종합 병원</strong> <span>차량 15분</span></div>
+                        </li>
+                        <li>
+                            <div class="infra-icon"><i data-lucide="bus"></i></div>
+                            <div><strong>공항 리무진 정류장</strong> <span>도보 5분</span></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="infra-map-placeholder">
+                    <span>지도 보기 (Map Placeholder)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Long Stay Listings ========== -->
+        <section class="deals-section" style="background: var(--background);">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">장기 체류 추천 숙소</h2>
+                    <p class="section-subtitle">14박 이상 예약 시 적용되는 특별한 혜택가</p>
+                </div>
+
+                <div class="hotel-list" id="hotelList">
+                    <!-- Card 1 (Chiang Mai) -->
+                    <article class="hotel-card long-stay" data-amenity="kitchen,washer,parking">
+                        <div class="hotel-image-wrap">
+                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80"
+                                alt="치앙마이 풀빌라" class="hotel-image">
+                            <span class="stay-badge" style="background: var(--secondary);">Jeju Air 회원 특가</span>
+                        </div>
+                        <div class="hotel-info">
+                            <div class="hotel-header">
+                                <span class="hotel-tag">Digital Nomad</span>
+                                <div class="hotel-rating"><i data-lucide="star" class="filled"></i> 4.9 (342)</div>
+                            </div>
+                            <h3 class="hotel-name">치앙마이 님만해민 풀빌라</h3>
+                            <p class="hotel-location">태국 치앙마이 · 도보 5분 마트</p>
+                            <div class="hotel-amenities">
+                                <span class="amenity"><i data-lucide="wifi"></i> 1Gbps 와이파이</span>
+                                <span class="amenity"><i data-lucide="monitor"></i> 모니터 제공</span>
+                            </div>
+                            <!-- Long Stay Specific Badges -->
+                            <div class="amenity-badge-group">
+                                <span class="amenity-badge"><i data-lucide="utensils"></i> 공용 주방</span>
+                                <span class="amenity-badge"><i data-lucide="waves"></i> 수영장</span>
+                            </div>
+                        </div>
+                        <div class="hotel-price">
+                            <div class="utility-info">
+                                <i data-lucide="check-circle-2"></i> 수도/인터넷 포함
+                            </div>
+                            <div class="price-info">
+                                <span class="price-label">1박 평균 ₩85,000</span>
+                                <span class="price-discount-tag" style="background: var(--primary);">회원 50% OFF</span>
+                            </div>
+                            <div class="price-original">₩4,240,000 / 28박</div>
+                            <div class="price-final">₩2,120,000</div>
+                            <span class="price-tax">항공권 결합 추가 할인 가능</span>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <!-- Card 2 (Lisbon) -->
+                    <article class="hotel-card long-stay" data-amenity="desk,kitchen,internet">
+                        <div class="hotel-image-wrap">
+                            <img src="https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=600&q=80"
+                                alt="리스본 아파트" class="hotel-image">
+                            <span class="stay-badge">Bundle Deal</span>
+                        </div>
+                        <div class="hotel-info">
+                            <div class="hotel-header">
+                                <span class="hotel-tag">City Life</span>
+                                <div class="hotel-rating"><i data-lucide="star" class="filled"></i> 4.8 (85)</div>
+                            </div>
+                            <h3 class="hotel-name">리스본 올드타운 테라스 아파트</h3>
+                            <p class="hotel-location">포르투갈 리스본 · 구시가지</p>
+                            <div class="hotel-amenities">
+                                <span class="amenity"><i data-lucide="coffee"></i> 에스프레소 머신</span>
+                                <span class="amenity"><i data-lucide="stop-circle"></i> 트램 역세권</span>
+                            </div>
+                            <div class="amenity-badge-group">
+                                <span class="amenity-badge"><i data-lucide="monitor"></i> 업무용 데스크</span>
+                                <span class="amenity-badge"><i data-lucide="utensils"></i> 개별 주방</span>
+                            </div>
+                        </div>
+                        <div class="hotel-price">
+                            <div class="utility-info">
+                                <i data-lucide="check-circle-2"></i> 전기/수도 포함 (가스 별도)
+                            </div>
+                            <div class="price-info">
+                                <span class="price-label">1박 평균 ₩150,000</span>
+                                <span class="price-discount-tag" style="background: var(--secondary);">항공권 인증 시
+                                    55%</span>
+                            </div>
+                            <div class="price-original">€3,500 / 28박</div>
+                            <div class="price-final">₩3,200,000</div>
+                            <span class="price-tax">현지 렌터카 할인 쿠폰 포함</span>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 (Jeju - Keeping one local option) -->
+                    <article class="hotel-card long-stay" data-amenity="kitchen,parking">
+                        <div class="hotel-image-wrap">
+                            <img src="https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=600&q=80"
+                                alt="제주 바닷가 집" class="hotel-image">
+                            <span class="stay-badge">Global Standard</span>
+                        </div>
+                        <div class="hotel-info">
+                            <div class="hotel-header">
+                                <span class="hotel-tag">Nature</span>
+                                <div class="hotel-rating"><i data-lucide="star" class="filled"></i> 5.0 (203)</div>
+                            </div>
+                            <h3 class="hotel-name">제주 빈티지 돌담집 '시선'</h3>
+                            <p class="hotel-location">제주시 구좌읍 · 평대리 해변</p>
+                            <div class="hotel-amenities">
+                                <span class="amenity"><i data-lucide="wind"></i> 바닷바람</span>
+                                <span class="amenity"><i data-lucide="sun"></i> 마당</span>
+                            </div>
+                            <div class="amenity-badge-group">
+                                <span class="amenity-badge"><i data-lucide="utensils"></i> 주방</span>
+                                <span class="amenity-badge"><i data-lucide="car"></i> 전용 주차</span>
+                            </div>
+                        </div>
+                        <div class="hotel-price">
+                            <div class="utility-info">
+                                <i data-lucide="alert-circle"></i> 가스/전기 실사용량 별도
+                            </div>
+                            <div class="price-info">
+                                <span class="price-label">1박 평균 ₩70,000</span>
+                                <span class="price-discount-tag">도민 할인 30%</span>
+                            </div>
+                            <div class="price-original">₩3,000,000</div>
+                            <div class="price-final">₩1,960,000</div>
+                            <span class="price-tax">청소비 별도</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Community Reviews (New) ========== -->
+        <section class="section container">
+            <div class="section-header">
+                <h2 class="section-title">Global Life 리얼 후기</h2>
+                <p class="section-subtitle">먼저 떠난 세계 여행자들의 생생한 기록</p>
+            </div>
+            <div class="review-grid">
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="user-avatar">JM</div>
+                        <div class="user-info">
+                            <strong>지민님</strong>
+                            <span>🇹🇭 Chiang Mai · 1개월 거주</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"치앙마이에서의 매일 아침 요가와 커피는 꿈만 같았어요. 제주항공 직항으로 편하게 도착했고, 숙소의 인터넷 속도도 완벽했습니다!"</p>
+                    <div class="review-tags">
+                        <span>#디지털노마드</span><span>#치앙마이살이</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="user-avatar" style="background:var(--secondary);">YK</div>
+                        <div class="user-info">
+                            <strong>영국님</strong>
+                            <span>🇵🇹 Lisbon · 2주 거주</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"리스본의 햇살과 트램 소리가 그립네요. 가족과 함께한 올드타운 아파트는 정말 넓고 쾌적했습니다. 렌터카 할인 덕분에 근교 여행도 완벽!"
+                    </p>
+                    <div class="review-tags">
+                        <span>#유럽한달살기</span><span>#리스본감성</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Benefit Highlights ========== -->
+        <section class="promo-section" style="background: #F0F4F8;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Long Stay 멤버십 혜택</h2>
+                </div>
+                <div class="promo-grid">
+                    <div class="promo-card promo-sub" style="background: #fff;">
+                        <div class="promo-icon" style="background: var(--primary-light); color: var(--primary);">
+                            <i data-lucide="luggage"></i>
+                        </div>
+                        <div class="promo-content">
+                            <h3 class="promo-title">위탁 수하물<br>10kg 추가 증정</h3>
+                            <p class="promo-desc">짐이 많은 장기 여행도 걱정 없이,<br>제주항공 이용 시 혜택 제공</p>
+                        </div>
+                    </div>
+                    <div class="promo-card promo-sub" style="background: #fff;">
+                        <div class="promo-icon" style="background: var(--secondary-light); color: var(--secondary);">
+                            <i data-lucide="map"></i>
+                        </div>
+                        <div class="promo-content">
+                            <h3 class="promo-title">로컬 라이프<br>멤버십 카드</h3>
+                            <p class="promo-desc">현지인 맛집, 카페, 렌터카까지<br>최대 20% 제휴 할인</p>
+                        </div>
+                    </div>
+                    <div class="promo-card promo-sub" style="background: #fff;">
+                        <div class="promo-icon" style="background: #E8F5E9; color: #2E7D32;">
+                            <i data-lucide="flower-2"></i>
+                        </div>
+                        <div class="promo-content">
+                            <h3 class="promo-title">제주 살기<br>가이드북 제공</h3>
+                            <p class="promo-desc">쓰레기 배출일부터 오일장 정보까지<br>생활 필수 정보 수록</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 2rem;">
+                <p class="footer-copyright">© 2025 JEJU STAY - Life. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/jejustay_life.js"></script>
+</body>
+
+</html>

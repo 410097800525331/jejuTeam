@@ -24,7 +24,7 @@
     <header class="header" id="header">
         <div class="header-container">
             <!-- 로고 -->
-            <a href="#" class="logo">
+            <a href="jejuhotel.html" class="logo">
                 <span class="logo-group">JEJU GROUP</span>
                 <span class="logo-divider">|</span>
                 <span class="logo-stay">STAY</span>
@@ -34,13 +34,13 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">
+                        <a href="jejuhotel.html" class="nav-link active">
                             <i data-lucide="building-2" class="nav-icon"></i>
                             숙소 예약
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="jejustay_life.html" class="nav-link">
                             <i data-lucide="calendar-days" class="nav-icon"></i>
                             한 달 살기
                         </a>
@@ -49,12 +49,6 @@
                         <a href="#" class="nav-link">
                             <i data-lucide="ticket" class="nav-icon"></i>
                             즐길 거리
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i data-lucide="crown" class="nav-icon"></i>
-                            JJ 멤버십
                         </a>
                     </li>
                 </ul>
@@ -71,7 +65,7 @@
                     <i data-lucide="clipboard-list" class="util-icon"></i>
                     예약 확인
                 </a>
-                <a href="#" class="util-link login-btn">
+                <a href="../sub/login.html" class="util-link login-btn">
                     <i data-lucide="user" class="util-icon"></i>
                     로그인
                 </a>
@@ -86,12 +80,11 @@
         <!-- 모바일 네비게이션 -->
         <div class="mobile-nav" id="mobileNav">
             <ul class="mobile-nav-list">
-                <li><a href="#" class="mobile-nav-link active">숙소 예약</a></li>
-                <li><a href="#" class="mobile-nav-link">한 달 살기</a></li>
+                <li><a href="jejuhotel.html" class="mobile-nav-link active">숙소 예약</a></li>
+                <li><a href="jejustay_life.html" class="mobile-nav-link">한 달 살기</a></li>
                 <li><a href="#" class="mobile-nav-link">즐길 거리</a></li>
-                <li><a href="#" class="mobile-nav-link">JJ 멤버십</a></li>
                 <li><a href="#" class="mobile-nav-link">예약 확인</a></li>
-                <li><a href="#" class="mobile-nav-link">로그인</a></li>
+                <li><a href="../sub/login.html" class="mobile-nav-link">로그인</a></li>
             </ul>
         </div>
     </header>
@@ -245,8 +238,8 @@
                                 <div class="date-field-new" id="checkInField">
                                     <i data-lucide="calendar" class="field-icon-new"></i>
                                     <div class="date-content-new">
-                                        <span class="date-full" id="checkInDisplay">2025년 12월 20일</span>
-                                        <span class="date-day-new" id="checkInDay">금요일</span>
+                                        <span class="date-full" id="checkInDisplay">날짜 선택</span>
+                                        <span class="date-day-new" id="checkInDay">체크인</span>
                                     </div>
                                 </div>
 
@@ -254,53 +247,85 @@
                                 <div class="date-field-new" id="checkOutField">
                                     <i data-lucide="calendar" class="field-icon-new"></i>
                                     <div class="date-content-new">
-                                        <span class="date-full" id="checkOutDisplay">2025년 12월 21일</span>
-                                        <span class="date-day-new" id="checkOutDay">토요일</span>
+                                        <span class="date-full" id="checkOutDisplay">날짜 선택</span>
+                                        <span class="date-day-new" id="checkOutDay">체크아웃</span>
                                     </div>
                                 </div>
 
                                 <!-- 캘린더 팝업 (그룹 내부에 위치하여 전체 너비 활용) -->
-                                <div class="calendar-popup" id="calendarPopup">
-                                    <!-- 캘린더 탭 -->
-                                    <div class="calendar-tabs">
-                                        <button class="calendar-tab active" data-calendar-tab="calendar">캘린더</button>
-                                    </div>
+                                <div class="Popup RangePicker RangePicker--checkIn RangePicker--with-dayuse"
+                                    id="calendarPopup" role="dialog" aria-modal="true" aria-label="체크인 날짜 선택 달력">
+                                    <div class="Popup__content Popup__content_Occupancy">
+                                        <!-- 접근성 텍스트 -->
+                                        <span class="ScreenReaderOnly">엔터 키를 눌러 캘린더를 여세요. 방향키를 사용해 체크인 및 체크아웃 날짜를 탐색할 수
+                                            있습니다.</span>
 
-                                    <!-- 캘린더 뷰 -->
-                                    <div class="calendar-view" id="calendarView">
-                                        <div class="calendar-container">
-                                            <!-- 왼쪽 달력 -->
-                                            <div class="calendar-month" id="calendarLeft">
-                                                <div class="calendar-header">
-                                                    <button class="calendar-nav prev" id="prevMonth">
-                                                        <i data-lucide="chevron-left"></i>
-                                                    </button>
-                                                    <span class="calendar-title" id="leftMonthTitle">2025년 12월</span>
+                                        <!-- 상단 탭 및 네비게이션 컨테이너 -->
+                                        <div class="RangePicker-Header">
+                                            <!-- 이전 달 버튼 (절대 위치) -->
+                                            <div class="RangePicker-NavPrev">
+                                                <button type="button" class="NavBtn NavBtn--prev" id="prevMonth"
+                                                    aria-label="Previous Month">
+                                                    <i data-lucide="chevron-left"></i>
+                                                </button>
+                                            </div>
+
+                                            <!-- 탭 리스트 -->
+                                            <div role="tablist" class="RangePicker-Tabs">
+                                                <div class="RangePicker-Tab Item">
+                                                    <button role="tab" aria-selected="true" id="tab-calendar"
+                                                        class="TabBtn active">캘린더</button>
+                                                    <div class="TabIndicator"></div>
                                                 </div>
-                                                <div class="calendar-weekdays">
-                                                    <span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span
-                                                        class="weekend">토</span><span class="weekend">일</span>
-                                                </div>
-                                                <div class="calendar-days" id="leftCalendarDays">
-                                                    <!-- 동적으로 생성 -->
+                                                <div class="RangePicker-Tab Item">
+                                                    <button role="tab" aria-selected="false" id="tab-flexible"
+                                                        class="TabBtn">날짜 미정</button>
                                                 </div>
                                             </div>
 
-                                            <!-- 오른쪽 달력 -->
-                                            <div class="calendar-month" id="calendarRight">
-                                                <div class="calendar-header">
-                                                    <span class="calendar-title" id="rightMonthTitle">2026년 1월</span>
-                                                    <button class="calendar-nav next" id="nextMonth">
-                                                        <i data-lucide="chevron-right"></i>
-                                                    </button>
+                                            <!-- 다음 달 버튼 (절대 위치) -->
+                                            <div class="RangePicker-NavNext">
+                                                <button type="button" class="NavBtn NavBtn--next" id="nextMonth"
+                                                    aria-label="Next Month">
+                                                    <i data-lucide="chevron-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- 패널 1: 캘린더 -->
+                                        <div role="tabpanel" id="panel-calendar" class="RangePicker-Panel active">
+                                            <div class="DayPicker" id="dayPickerContainer">
+                                                <!-- 두 개의 달력이 JS로 렌더링 됩니다 -->
+                                                <!-- 예시 구조 -->
+                                                <div class="DayPicker-wrapper">
+                                                    <div class="DayPicker-Months" id="calendarMonths">
+                                                        <!-- JS Injected -->
+                                                    </div>
                                                 </div>
-                                                <div class="calendar-weekdays">
-                                                    <span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span
-                                                        class="weekend">토</span><span class="weekend">일</span>
+                                            </div>
+
+                                            <!-- 하단 액션 버튼 -->
+                                            <div class="RangePicker-Footer">
+                                                <button type="button" class="ActionBtn ActionBtn--clear" id="btn-clear">
+                                                    <span>선택 해제</span>
+                                                </button>
+                                                <button type="button" class="ActionBtn ActionBtn--confirm"
+                                                    id="btn-confirm">
+                                                    <span>확인</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- 패널 2: 날짜 미정 -->
+                                        <div role="tabpanel" id="panel-flexible" class="RangePicker-Panel">
+                                            <div class="Flexible-Content">
+                                                <h3>투숙 기간은 얼마나 되시나요?</h3>
+                                                <div class="Flexible-Options">
+                                                    <button class="Flexible-Option" data-val="3">3박</button>
+                                                    <button class="Flexible-Option" data-val="7">1주일</button>
+                                                    <button class="Flexible-Option" data-val="30">1개월</button>
                                                 </div>
-                                                <div class="calendar-days" id="rightCalendarDays">
-                                                    <!-- 동적으로 생성 -->
-                                                </div>
+                                                <!-- 추가 컨텐츠 생략 -->
                                             </div>
                                         </div>
                                     </div>

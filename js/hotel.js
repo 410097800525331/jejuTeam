@@ -10,6 +10,7 @@ let calendarState = {
     tempCheckIn: null,  // 팝업 내 임시 체크인
     tempCheckOut: null  // 팝업 내 임시 체크아웃
 };
+let hoverDate = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     lucide.createIcons();
@@ -113,28 +114,43 @@ function initDestinationDropdown() {
 }
 
 /* ========== [수정] Range Calendar 초기화 ========== */
+/* ========== [수정] Agoda-style Range Calendar 초기화 ========== */
 function initCalendar() {
+    const calendarPopup = document.getElementById('calendarPopup');
     const checkInField = document.getElementById('checkInField');
     const checkOutField = document.getElementById('checkOutField');
-    const calendarPopup = document.getElementById('calendarPopup');
 
-    function openCalendar(e) {
-        e.stopPropagation();
+    // 1. Toggle Popup
+    // 1. Toggle Popup Logic (Refactored for Container-based outside click)
+    const dateFieldGroup = document.querySelector('.date-field-group');
+
+    function toggleCalendar(event) {
+        // Prevent event from bubbling if it originated from the fields
+        event.stopPropagation();
+        
+        const isActive = calendarPopup.classList.contains('active');
+        
+        // Close other popups
         closeAllPopups('calendarPopup');
-        
-        // 팝업을 열 때 이전 선택 날짜를 임시 변수에 복사
-        calendarState.tempCheckIn = calendarState.checkIn;
-        calendarState.tempCheckOut = calendarState.checkOut;
-        
-        calendarPopup.classList.add('active');
-        checkInField.classList.add('active');
-        
-        renderCalendar();
+
+        if (!isActive) {
+            calendarPopup.classList.add('active');
+            dateFieldGroup.classList.add('active'); // Optional: Add active state to container
+            renderCalendar();
+        } else {
+            // Allow toggling off if clicking the field again
+            calendarPopup.classList.remove('active');
+            dateFieldGroup.classList.remove('active');
+        }
     }
 
-    checkInField?.addEventListener('click', (e) => openCalendar(e));
-    checkOutField?.addEventListener('click', (e) => openCalendar(e));
+    checkInField?.addEventListener('click', toggleCalendar);
+    checkOutField?.addEventListener('click', toggleCalendar);
 
+    // Prevent clicks inside the popup from closing it
+    calendarPopup?.addEventListener('click', (e) => e.stopPropagation());
+
+    // 2. Navigation
     document.getElementById('prevMonth')?.addEventListener('click', (e) => {
         e.stopPropagation();
         currentMonth.setMonth(currentMonth.getMonth() - 1);
@@ -147,205 +163,290 @@ function initCalendar() {
         renderCalendar();
     });
 
-    // 캘린더 팝업 외부 클릭 시 닫기
+    // 3. Tabs Logic
+    const tabCalendar = document.getElementById('tab-calendar');
+    const tabFlexible = document.getElementById('tab-flexible');
+    const panelCalendar = document.getElementById('panel-calendar');
+    const panelFlexible = document.getElementById('panel-flexible');
+
+    function switchTab(targetTab) {
+        [tabCalendar, tabFlexible].forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+        });
+        [panelCalendar, panelFlexible].forEach(p => p.classList.remove('active'));
+
+        targetTab.classList.add('active');
+        targetTab.setAttribute('aria-selected', 'true');
+        
+        if (targetTab === tabCalendar) panelCalendar.classList.add('active');
+        else panelFlexible.classList.add('active');
+    }
+
+    tabCalendar?.addEventListener('click', () => switchTab(tabCalendar));
+    tabFlexible?.addEventListener('click', () => switchTab(tabFlexible));
+
+    // 4. Bottom Buttons
+    document.getElementById('btn-clear')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        calendarState.checkIn = null;
+        calendarState.checkOut = null;
+        calendarState.tempCheckIn = null;
+        calendarState.tempCheckOut = null;
+        updateDateDisplay('checkIn', null);
+        updateDateDisplay('checkOut', null);
+        renderCalendar();
+    });
+
+    document.getElementById('btn-confirm')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // [Fix] Confirm selection
+        calendarState.checkIn = calendarState.tempCheckIn;
+        calendarState.checkOut = calendarState.tempCheckOut;
+        closeAllPopups();
+    });
+
+    // 6. Flexible Options Interaction
+    document.querySelectorAll('.Flexible-Option').forEach(opt => {
+        opt.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.Flexible-Option').forEach(o => o.classList.remove('active'));
+            opt.classList.add('active');
+            // Logic to handle flexible date selection can be added here
+        });
+    });
+
+    // 5. Global Click Output
+    // 5. Global Click Output (Updated)
     document.addEventListener('click', (e) => {
-        if (!checkInField?.contains(e.target) && !checkOutField?.contains(e.target) && !calendarPopup?.contains(e.target)) {
-            calendarPopup?.classList.remove('active');
-            checkInField?.classList.remove('active');
-            checkOutField?.classList.remove('active');
+        // If click is outside the date field group, close the calendar
+        if (calendarPopup?.classList.contains('active') && 
+            !dateFieldGroup?.contains(e.target)) {
+            calendarPopup.classList.remove('active');
+            dateFieldGroup?.classList.remove('active');
         }
     });
 }
 
-/* ========== [수정] Range Calendar 날짜 선택 로직 ========== */
+/* ========== [수정] Agoda-style Rendering Logic ========== */
 
-// 호버 상태 관리를 위한 변수 추가
-let hoverDate = null;
+function renderCalendar() {
+    const container = document.getElementById('calendarMonths');
+    if (!container) return;
+
+    // reset
+    container.innerHTML = '';
+
+    const leftDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+    const rightDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
+
+    [leftDate, rightDate].forEach(date => {
+        const monthDiv = document.createElement('div');
+        monthDiv.className = 'DayPicker-Month';
+        monthDiv.setAttribute('role', 'grid');
+
+        // Caption
+        const caption = document.createElement('div');
+        caption.className = 'DayPicker-Caption';
+        caption.textContent = `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
+        monthDiv.appendChild(caption);
+
+        // Weekdays
+        const weekdays = document.createElement('div');
+        weekdays.className = 'DayPicker-Weekdays';
+        weekdays.setAttribute('role', 'rowgroup');
+        const daysRaw = ['월', '화', '수', '목', '금', '토', '일'];
+        daysRaw.forEach(d => {
+            const wd = document.createElement('div');
+            wd.className = 'DayPicker-Weekday';
+            wd.setAttribute('role', 'columnheader');
+            wd.innerHTML = `<abbr title="${d}요일">${d}</abbr>`;
+            weekdays.appendChild(wd);
+        });
+        monthDiv.appendChild(weekdays);
+
+        // Body
+        const body = document.createElement('div');
+        body.className = 'DayPicker-Body';
+        body.setAttribute('role', 'rowgroup');
+        body.innerHTML = generateMonthDaysHTML(date);
+        monthDiv.appendChild(body);
+
+        container.appendChild(monthDiv);
+    });
+
+    attachDayListeners();
+}
+
+function generateMonthDaysHTML(dateObj) {
+    const year = dateObj.getFullYear();
+    const month = dateObj.getMonth();
+    
+    // 월요일 시작 (0:Mon ... 6:Sun)
+    const firstDay = new Date(year, month, 1).getDay(); // 0(Sun)~6(Sat)
+    const startOffset = firstDay === 0 ? 6 : firstDay - 1; 
+
+    const lastDate = new Date(year, month + 1, 0).getDate();
+    const todayTs = new Date().setHours(0,0,0,0);
+
+    let html = '';
+
+    // Empty cells
+    for(let i=0; i<startOffset; i++) {
+        html += `<div class="DayPicker-Day DayPicker-Day--outside" aria-disabled="true"></div>`;
+    }
+
+    // Days
+    for(let d=1; d<=lastDate; d++) {
+        const currentTs = new Date(year, month, d).getTime();
+        
+        let classes = ['DayPicker-Day'];
+        let ariaDisabled = 'false';
+        let ariaSelected = 'false';
+
+        // Disabled
+        if (currentTs < todayTs) {
+            classes.push('DayPicker-Day--disabled');
+            ariaDisabled = 'true';
+        }
+
+        // Today
+        if (currentTs === todayTs) {
+            classes.push('DayPicker-Day--today');
+        }
+
+        // Selection
+        const checkIn = calendarState.tempCheckIn || calendarState.checkIn;
+        const checkOut = calendarState.tempCheckOut || calendarState.checkOut;
+
+        if (checkIn && currentTs === checkIn) {
+            classes.push('DayPicker-Day--selected', 'DayPicker-Day--checkIn');
+            if (checkOut || hoverDate > checkIn) classes.push('DayPicker-Day--hasRange');
+            ariaSelected = 'true';
+        }
+
+        if (checkOut && currentTs === checkOut) {
+            classes.push('DayPicker-Day--selected', 'DayPicker-Day--checkOut');
+            if (checkIn) classes.push('DayPicker-Day--hasRange');
+            ariaSelected = 'true';
+        }
+
+        if (checkIn && checkOut && currentTs > checkIn && currentTs < checkOut) {
+            classes.push('DayPicker-Day--inRange');
+        }
+
+        // Preview Range (Static) - 호버 시 동적 처리는 updateHoverStyles에서
+        if (checkIn && !checkOut && hoverDate && currentTs > checkIn && currentTs <= hoverDate) {
+             // Initial render might not catch this unless re-rendered on hover, 
+             // but we rely mainly on CSS classes toggled by JS.
+        }
+
+        html += `
+            <div class="${classes.join(' ')}" 
+                 role="gridcell" 
+                 tabindex="${ariaDisabled === 'true' ? -1 : 0}"
+                 aria-disabled="${ariaDisabled}"
+                 aria-selected="${ariaSelected}"
+                 data-timestamp="${currentTs}"
+                 data-day="${d}">
+                 ${d}
+            </div>
+        `;
+    }
+    return html;
+}
+
+function attachDayListeners() {
+    const days = document.querySelectorAll('.DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)');
+    days.forEach(day => {
+        day.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const ts = parseInt(day.dataset.timestamp);
+            handleDateClick(ts);
+        });
+        day.addEventListener('mouseenter', () => {
+             const ts = parseInt(day.dataset.timestamp);
+             handleDateHover(ts);
+        });
+    });
+}
 
 function handleDateClick(timestamp) {
-    // 오늘 이전 날짜는 선택 불가
     const todayTs = new Date().setHours(0, 0, 0, 0);
     if (timestamp < todayTs) return;
 
-    // 1. 첫 번째 선택 (체크인)
     if (!calendarState.tempCheckIn || (calendarState.tempCheckIn && calendarState.tempCheckOut)) {
         calendarState.tempCheckIn = timestamp;
         calendarState.tempCheckOut = null;
-        
-        // UI 즉시 업데이트 (렌더링)
         renderCalendar();
-    }
-    // 2. 두 번째 선택 (체크아웃)
-    else {
-        // 체크인 날짜보다 이전 날짜를 클릭한 경우 -> 새로운 체크인으로 설정
+    } else {
         if (timestamp < calendarState.tempCheckIn) {
             calendarState.tempCheckIn = timestamp;
             renderCalendar();
-        }
-        // 같은 날짜 클릭 (허용하지 않거나, 1박으로 설정 등 정책에 따름. 여기선 무시)
-        else if (timestamp === calendarState.tempCheckIn) {
+        } else if (timestamp === calendarState.tempCheckIn) {
             return;
-        }
-        // 정상적인 체크아웃 선택
-        else {
+        } else {
             calendarState.tempCheckOut = timestamp;
+            // 즉시 확정하지 않고 '확인' 버튼을 기다릴 수도 있으나, 
+            // 유저 경험상 선택 시 UI 업데이트는 필요.
+            // 여기서는 Input값은 업데이트하되, 팝업 닫기는 '확인' 버튼에 위임 or 자동 닫기 X
             
-            // 확정 날짜로 저장
-            calendarState.checkIn = calendarState.tempCheckIn;
-            calendarState.checkOut = calendarState.tempCheckOut;
-            
-            // 디스플레이 업데이트
-            updateDateDisplay('checkIn', new Date(calendarState.checkIn));
-            updateDateDisplay('checkOut', new Date(calendarState.checkOut));
+            // Input Display Update
+            updateDateDisplay('checkIn', new Date(calendarState.tempCheckIn));
+            updateDateDisplay('checkOut', new Date(calendarState.tempCheckOut));
             
             renderCalendar();
-
-            // 팝업 닫기 (약간의 지연 후)
-            setTimeout(() => {
-                closeAllPopups();
-            }, 300);
         }
     }
 }
 
 function handleDateHover(timestamp) {
-    // 체크인만 선택된 상태일 때만 미리보기 동작
     if (calendarState.tempCheckIn && !calendarState.tempCheckOut) {
         hoverDate = timestamp;
         updateHoverStyles();
     }
 }
 
-// 호버 스타일만 업데이트하는 가벼운 함수 (전체 렌더링 방지)
 function updateHoverStyles() {
-    const days = document.querySelectorAll('.calendar-day:not(.empty):not(.disabled)');
+    const days = document.querySelectorAll('.DayPicker-Day:not(.DayPicker-Day--outside):not(.DayPicker-Day--disabled)');
     const start = calendarState.tempCheckIn;
     const currentHover = hoverDate;
 
     days.forEach(dayEl => {
-        // 기존 미리보기 클래스 제거
-        dayEl.classList.remove('in-range-preview', 'preview-end');
+        dayEl.classList.remove('DayPicker-Day--inRange', 'DayPicker-Day--previewEnd', 'DayPicker-Day--hasRange');
+        
+        // Restore base selection classes
+        if (dayEl.classList.contains('DayPicker-Day--checkIn')) dayEl.classList.add('DayPicker-Day--hasRange');
 
         const dayTs = parseInt(dayEl.dataset.timestamp);
 
         if (start && currentHover && dayTs > start && dayTs <= currentHover) {
-            // 범위 내 날짜
-            if (dayTs < currentHover) {
-                dayEl.classList.add('in-range-preview');
-            }
-            // 끝나는 날짜 (마우스 위치)
-            else if (dayTs === currentHover) {
-                dayEl.classList.add('preview-end');
-                // 시작 날짜에도 has-preview 클래스 추가하여 오른쪽 모서리 제어
-                const startEl = document.querySelector(`.calendar-day[data-timestamp='${start}']`);
-                if (startEl) startEl.classList.add('has-preview');
-            }
-        } else {
-             // 범위 밖이나 호버 해제 시 has-preview 제거
-             const startEl = document.querySelector(`.calendar-day[data-timestamp='${start}']`);
-             if (startEl) startEl.classList.remove('has-preview');
+             if (dayTs < currentHover) {
+                 dayEl.classList.add('DayPicker-Day--inRange');
+             } else if (dayTs === currentHover) {
+                 dayEl.classList.add('DayPicker-Day--previewEnd');
+             }
         }
     });
-}
-
-/** 캘린더 그리기 */
-function renderCalendar() {
-    const leftDaysElement = document.getElementById('leftCalendarDays');
-    const rightDaysElement = document.getElementById('rightCalendarDays');
-    if (!leftDaysElement || !rightDaysElement) return;
-
-    // 현재 달과 다음 달 계산
-    const leftDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-    const rightDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
-
-    document.getElementById('leftMonthTitle').textContent = `${leftDate.getFullYear()}년 ${leftDate.getMonth() + 1}월`;
-    document.getElementById('rightMonthTitle').textContent = `${rightDate.getFullYear()}년 ${rightDate.getMonth() + 1}월`;
-
-    // HTML 생성
-    leftDaysElement.innerHTML = generateDaysHTML(leftDate);
-    rightDaysElement.innerHTML = generateDaysHTML(rightDate);
-
-    // 이벤트 리스너 및 스타일 적용
-    const todayTs = new Date().setHours(0, 0, 0, 0);
-    
-    document.querySelectorAll('.calendar-day:not(.empty)').forEach(dayEl => {
-        const d = parseInt(dayEl.dataset.day);
-        const m = parseInt(dayEl.dataset.month);
-        const y = parseInt(dayEl.dataset.year);
-        const currentTs = new Date(y, m - 1, d).setHours(0, 0, 0, 0);
-        
-        // 데이터 속성에 타임스탬프 저장 (호버 로직용)
-        dayEl.dataset.timestamp = currentTs;
-
-        // 1. 오늘 날짜
-        if (currentTs === todayTs) {
-            dayEl.classList.add('today');
-        }
-        
-        // 2. 과거 날짜 비활성화
-        if (currentTs < todayTs) {
-            dayEl.classList.add('disabled');
-        }
-
-        // 3. 선택 로직 (스타일링)
-        const start = calendarState.tempCheckIn;
-        const end = calendarState.tempCheckOut;
-
-        // 체크인 날짜
-        if (start === currentTs) {
-            dayEl.classList.add('check-in');
-            if (end) dayEl.classList.add('has-range');
-        }
-
-        // 체크아웃 날짜
-        if (end === currentTs) {
-            dayEl.classList.add('check-out');
-            if (start) dayEl.classList.add('has-range');
-        }
-
-        // 범위 내 날짜
-        if (start && end && currentTs > start && currentTs < end) {
-            dayEl.classList.add('in-range');
-        }
-
-        // 이벤트 연결
-        if (!dayEl.classList.contains('disabled')) {
-            dayEl.addEventListener('click', (e) => {
-                e.stopPropagation();
-                handleDateClick(currentTs);
-            });
-            
-            // 호버 이벤트 추가
-            dayEl.addEventListener('mouseenter', () => {
-                handleDateHover(currentTs);
-            });
-        }
-    });
-}
-
-function generateDaysHTML(date) {
-    const y = date.getFullYear();
-    const m = date.getMonth();
-    const firstDay = new Date(y, m, 1).getDay();
-    const lastDay = new Date(y, m + 1, 0).getDate();
-    const startOffset = firstDay === 0 ? 6 : firstDay - 1; // 월요일 시작 기준 보정
-    
-    let html = '';
-    for (let i = 0; i < startOffset; i++) html += '<div class="calendar-day empty"></div>';
-    for (let d = 1; d <= lastDay; d++) {
-        html += `<div class="calendar-day" data-year="${y}" data-month="${m + 1}" data-day="${d}">${d}</div>`;
-    }
-    return html;
 }
 
 function updateDateDisplay(type, dateObj) {
     const displayId = type === 'checkIn' ? 'checkInDisplay' : 'checkOutDisplay';
     const dayId = type === 'checkIn' ? 'checkInDay' : 'checkOutDay';
-    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+    const dayNames = ['일', '월', '화', '수', '목', '금', '토']; // 0-6 Sun-Sat
     
-    document.getElementById(displayId).textContent = 
-        `${dateObj.getFullYear()}년 ${dateObj.getMonth() + 1}월 ${dateObj.getDate()}일`;
-    document.getElementById(dayId).textContent = dayNames[dateObj.getDay()] + '요일';
+    if (!dateObj) {
+        document.getElementById(displayId).textContent = '날짜 선택';
+        document.getElementById(dayId).textContent = type === 'checkIn' ? '체크인' : '체크아웃';
+        return;
+    }
+
+    const y = dateObj.getFullYear();
+    const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const d = String(dateObj.getDate()).padStart(2, '0');
+    
+    document.getElementById(displayId).textContent = `${y}-${m}-${d}`;
+    document.getElementById(dayId).textContent = dayNames[dateObj.getDay()];
 }
 
 function initGuestSelector() {
@@ -425,6 +526,7 @@ function closeAllPopups(exceptId) {
     // 모든 필드 active 제거
     if (!exceptId) {
         document.querySelectorAll('.search-field-new').forEach(f => f.classList.remove('active'));
+        document.querySelectorAll('.date-field-group').forEach(f => f.classList.remove('active'));
     }
 }
 

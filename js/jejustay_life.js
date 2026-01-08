@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCalendar(); // 롱스테이 전용 로직 포함
     initAmenityFilter();
     initMobileSearch();
-    initCurrencySwitcher();
+
 });
 
 /* ========== 공통 기능 (hotel.js와 동일) ========== */
@@ -71,6 +71,13 @@ function initScrollAnimations() {
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.hotel-card, .destination-card, .curation-card').forEach(el => observer.observe(el));
+
+    // Listen for Currency Change (from FAB)
+    document.addEventListener('currencyChanged', (e) => {
+        // Optional: Re-render if complex logic needed, but FAB.js handles text replacement.
+        // If sorting or limits changed, we would re-render. 
+        // For text replacement, FAB.js does it globally.
+    });
 }
 
 function initDestinationDropdown() {
@@ -520,67 +527,13 @@ function closeAllPopups(exceptId) {
 
 /* ========== State Management (v2.0) ========== */
 const AppState = {
-    currency: localStorage.getItem('jeju_currency') || 'KRW',
     destination: localStorage.getItem('jeju_destination') || '',
-    
-    setCurrency(curr) {
-        this.currency = curr;
-        localStorage.setItem('jeju_currency', curr);
-        document.dispatchEvent(new CustomEvent('currencyChanged', { detail: curr }));
-    },
     
     setDestination(dest) {
         this.destination = dest;
         localStorage.setItem('jeju_destination', dest);
     }
 };
-
-/* ========== Currency Switcher Logic (Updated) ========== */
-function initCurrencySwitcher() {
-    const currencyBtns = document.querySelectorAll('.currency-btn-minimal');
-    
-    // Initial Render
-    updateCurrencyUI(AppState.currency);
-    
-    // Event Listeners
-    currencyBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const selectedCurrency = btn.getAttribute('data-currency');
-            if (selectedCurrency === AppState.currency) return;
-            AppState.setCurrency(selectedCurrency);
-            // UI Update handled by Event Listener below
-        });
-    });
-
-    // Global Event Handler
-    document.addEventListener('currencyChanged', (e) => {
-        updateCurrencyUI(e.detail);
-        renderLongStayHotels(); // Re-render list with new currency
-    });
-}
-
-function updateCurrencyUI(currency) {
-    const currencyBtns = document.querySelectorAll('.currency-btn-minimal');
-    currencyBtns.forEach(b => {
-        if(b.getAttribute('data-currency') === currency) {
-            b.classList.add('active');
-        } else {
-            b.classList.remove('active');
-        }
-    });
-
-    // Update Static Prices (if any remain)
-    const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.querySelectorAll('[data-krw]').forEach(el => {
-        const rawValue = el.getAttribute(`data-${currency.toLowerCase()}`);
-        if(rawValue) {
-             const symbol = currency === 'KRW' ? '₩' : '$';
-             el.textContent = `${symbol}${formatNumber(rawValue)}`;
-        }
-    });
-}
-
-/* ========== Monthly Stay Data & Rendering Logic ========== */
 
 /* ========== Monthly Stay Data & Rendering Logic (v2.0) ========== */
 
@@ -664,16 +617,12 @@ function renderLongStayHotels(hotelsData = longStayHotels) {
     const listContainer = document.getElementById('hotelList');
     if (!listContainer) return;
 
-    // Currency Conversion Factor (Simplified)
-    const KRW_TO_USD = 0.00074;
-    const isUSD = AppState.currency === 'USD';
-    const symbol = isUSD ? '$' : '₩';
+
 
     listContainer.innerHTML = hotelsData.map(hotel => {
         // Calculation Logic
         const NIGHTS = 30;
         let pDaily = hotel.priceDaily;
-        if(isUSD) pDaily = Math.round(pDaily * KRW_TO_USD);
 
         const standardTotal = pDaily * NIGHTS;
         const finalTotal = Math.round(standardTotal * (1 - hotel.discountRate));
@@ -698,7 +647,7 @@ function renderLongStayHotels(hotelsData = longStayHotels) {
                     <img src="${hotel.image}" alt="${hotel.name}">
                     <button class="wishlist-btn"><i data-lucide="heart"></i></button>
                     <!-- v2.0 Savings Badge -->
-                    <span class="stay-discount-badge">1박 대비 ${symbol}${formatMoney(savedAmount)} Save</span>
+                    <span class="stay-discount-badge">1박 대비 <span data-price-krw="${savedAmount}">₩${formatMoney(savedAmount)}</span> Save</span>
                 </div>
                 <div class="card-content">
                     <div class="card-info">
@@ -721,13 +670,13 @@ function renderLongStayHotels(hotelsData = longStayHotels) {
                     
                     <div class="card-price-section">
                         <!-- Tooltip -->
-                        <div class="price-tooltip">1박 환산 시 약 ${symbol}${formatMoney(Math.round(finalTotal/30))}</div>
+                        <div class="price-tooltip">1박 환산 시 약 <span data-price-krw="${Math.round(finalTotal/30)}">₩${formatMoney(Math.round(finalTotal/30))}</span></div>
                         
                         <div class="price-container">
                             <span class="monthly-price-label">30박 세금포함 총액</span>
                             <!-- Tone-on-tone Highlight -->
-                            <div class="monthly-price highlight">${symbol}${formatMoney(finalTotal)}</div>
-                            <div class="per-night-price">1박 평균 ${symbol}${formatMoney(pDaily)}</div>
+                            <div class="monthly-price highlight"><span data-price-krw="${finalTotal}">₩${formatMoney(finalTotal)}</span></div>
+                            <div class="per-night-price">1박 평균 <span data-price-krw="${pDaily}">₩${formatMoney(pDaily)}</span></div>
                         </div>
 
                         <div class="badges-container">

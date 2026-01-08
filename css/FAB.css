@@ -1,0 +1,305 @@
+/* ========== FAB System Styles ========== */
+:root {
+    --fab-primary: #FF5000;
+    --fab-hover: #E64800;
+    --fab-text: #333;
+    --fab-bg: #fff;
+    --fab-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    --fab-z: 9999;
+}
+
+.fab-wrapper {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: var(--fab-z);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-family: 'FlightSans', sans-serif;
+    pointer-events: none; /* Let clicks pass through empty space */
+}
+
+.fab-wrapper * {
+    pointer-events: auto;
+}
+
+/* Main Button */
+.fab-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--fab-primary);
+    color: white;
+    border: none;
+    box-shadow: var(--fab-shadow);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s;
+    position: relative;
+}
+
+.fab-btn:hover {
+    background: var(--fab-hover);
+    transform: scale(1.05);
+}
+
+.fab-btn:active {
+    transform: scale(0.95);
+}
+
+.fab-logo-img {
+    width: 32px;
+    height: auto;
+    filter: brightness(0) invert(1); /* Make white */
+    transition: opacity 0.2s;
+}
+
+.fab-close-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    transform: rotate(-90deg);
+    transition: all 0.3s;
+}
+
+/* Active State for Main Button */
+.fab-wrapper.active .fab-logo-img {
+    opacity: 0;
+}
+.fab-wrapper.active .fab-close-icon {
+    opacity: 1;
+    transform: rotate(0);
+}
+.fab-wrapper.active .fab-main {
+    background: #333;
+}
+
+/* Top Button */
+.fab-top {
+    width: 48px;
+    height: 0; /* Default hidden height */
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: var(--fab-text);
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s;
+    pointer-events: none;
+    overflow: hidden; /* Hide content when collapsed */
+    border-radius: 50%;
+}
+.fab-top.visible {
+    height: 48px; /* Expand when visible */
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    box-shadow: var(--fab-shadow); /* Shadow only when visible */
+}
+.fab-top:hover {
+    background: #f5f5f5;
+    color: var(--fab-primary);
+}
+
+/* Menu Actions */
+.fab-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0; /* Removed to rely on parent gap */
+}
+
+/* Controls Container */
+.fab-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* Uniform spacing */
+}
+
+.fab-action {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    box-shadow: var(--fab-shadow);
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px) scale(0.5);
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.fab-action:hover {
+    color: var(--fab-primary);
+}
+
+/* Tooltip Labels */
+.fab-action::before {
+    content: attr(data-label);
+    position: absolute;
+    right: 60px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.2s;
+    pointer-events: none;
+}
+
+.fab-action:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Menu Active State */
+.fab-wrapper.active .fab-action {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Staggered Animation Delay for Menu Items */
+.fab-wrapper.active .fab-action:nth-child(1) { transition-delay: 0.15s; } /* Bottom-most */
+.fab-wrapper.active .fab-action:nth-child(2) { transition-delay: 0.1s; }
+.fab-wrapper.active .fab-action:nth-child(3) { transition-delay: 0.05s; } 
+/* Note: Flex direction is column, check order in HTML */
+/* Actually, usually menus expand upwards. In HTML, top is top. */
+/* If flex-direction is column, first child is top. We want bottom first? 
+   No, usually we want closest to main button first.
+   Let's assume default order: 1 (Currency) is top. 3 (Chatbot) is bottom.
+   So delays: 3->0.05, 2->0.1, 1->0.15.
+*/
+.fab-wrapper.active #fabChatbot { transition-delay: 0.05s; }
+.fab-wrapper.active #fabWishlist { transition-delay: 0.1s; }
+.fab-wrapper.active #fabCurrency { transition-delay: 0.15s; }
+
+
+/* Badge */
+.fab-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #d32f2f;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid #fff;
+}
+
+.curr-text {
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+/* Layers (Popup) */
+.fab-layer {
+    position: fixed;
+    bottom: 100px;
+    right: 32px;
+    width: 320px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUpFade 0.3s ease;
+    z-index: 9998;
+}
+
+.fab-layer.active {
+    display: flex;
+}
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.layer-header {
+    padding: 16px;
+    background: var(--fab-primary);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.layer-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+}
+.close-layer {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.layer-content {
+    padding: 16px;
+    min-height: 150px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Chatbot Styles */
+.chat-bubble {
+    background: #f1f3f5;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+.chat-input-area {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+.chat-input-area input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 4px 12px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .fab-wrapper {
+        bottom: 80px; /* Above Bottom Nav usually */
+        right: 16px;
+    }
+    .fab-layer {
+        right: 16px;
+        left: 16px;
+        width: auto;
+        bottom: 150px;
+    }
+}

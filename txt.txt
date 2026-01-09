@@ -1,2 +1,446 @@
-1. 수정해야할것
-캘린더 전면 수정
+제주 그룹(JEJU GROUP) 기술 아키텍처 보고서: 몰입형 페이지 전환 시스템 설계 및 구현1. 개요 (Executive Summary)현대적인 웹 애플리케이션 환경에서 페이지 전환(Page Transition)은 단순한 화면의 변경이 아닌, 사용자 경험(UX)의 연속성을 보장하고 브랜드의 정체성을 강화하는 핵심적인 역할을 수행합니다. 제주 그룹(JEJU GROUP)의 통합 여행 플랫폼 리빌딩 프로젝트의 일환으로 제안된 '제주 이륙(Jeju Takeoff)' 트랜지션 시스템은 사용자가 메인 인덱스 페이지에서 호텔 예약 페이지(jejuhotel.html)로 이동하는 과정에서 발생하는 데이터 로딩 지연 시간을 '여행의 시작'이라는 서사적 경험으로 치환하는 것을 목표로 합니다.본 보고서는 10년 차 이상의 시니어 프론트엔드 엔지니어이자 리드 디자이너의 관점에서, 제주 그룹의 디자인 시스템을 엄격히 준수하며 사용자의 요청사항인 "활주로 이륙 및 구름 푱푱(Piong Piong) 애니메이션"을 기술적으로 완벽하게 구현하기 위한 심층 분석 및 가이드를 제공합니다. 특히, 기존의 딱딱한 로딩 인디케이터 대신 '귀여움(Kawaii)'과 '아기자기함'을 강조하는 애니메이션 물리학을 적용하여 사용자의 인지적 대기 시간을 단축시키고 긍정적인 감정 전이(Emotional Transfer)를 유도하는 전략을 채택하였습니다.1기술적으로는 현재 프로젝트의 기반인 HTML5, CSS3(Variables), Vanilla JavaScript를 활용하여 외부 라이브러리 의존성을 최소화하면서도, CSS 3D Transform과 Cubic-bezier 이징 함수를 통해 고성능(60fps) 애니메이션을 구현합니다. 또한, 향후 React 및 Next.js 환경으로의 현대화를 고려하여 컴포넌트 단위의 설계와 상태 관리 전략을 함께 제시합니다.2. [UI/UX 설계] 감성적 트랜지션 디자인 및 시스템 통합2.1 디자인 철학: 여행의 설렘을 시각화하다사용자가 jejuhotel.html로 이동하기 위해 링크를 클릭하는 순간은 단순한 HTTP 요청의 시작이 아니라, 실제 제주도로 떠나는 여정의 시작점과 같습니다. 따라서 이 전환 과정은 기술적인 대기 시간이 아닌, 브랜드 스토리텔링의 장(場)이 되어야 합니다.내러티브 단계(Narrative Phases):발단 (The Departure): 사용자가 클릭하는 즉시 뷰포트가 활주로의 1인칭 시점으로 전환되며, 제주 그룹의 아이덴티티 컬러인 Jeju Orange (#FF5000) 로 칠해진 비행기가 화면 중앙 하단에 등장합니다.전개 (The Ascent): 비행기가 가속하며 이륙함과 동시에, 화면 하단에서 둥글고 부드러운 구름들이 '푱푱(Elastic Pop)' 하는 탄성 효과와 함께 솟아오릅니다. 이는 정적인 등장이 아닌, 고무공이 튀어 오르는 듯한 과장된 물리 효과를 적용하여 '아기자기한' 감성을 극대화합니다.3절정 (The Cloud Cover - Loading): 구름들이 화면을 가득 채우며 반투명한 글래스모피즘(Glassmorphism) 효과로 배경을 흐리게 만듭니다. 이때 비행기는 구름 속으로 사라지거나 로고로 변형되며, 백그라운드에서는 실제 데이터 페칭(Fetching)이 이루어집니다.결말 (The Arrival): 데이터 로딩이 완료되면 구름이 걷히며(Fade Out & Scale Down) 새로운 페이지인 jejuhotel.html의 UI가 드러납니다.2.2 디자인 시스템 및 컴포넌트 구조제주 그룹의 브랜드 가이드를 준수하기 위해 모든 시각 요소는 지정된 변수와 스타일 원칙을 따릅니다.색상 및 스타일 적용 전략:UI 구성 요소적용 변수 / 값디자인 의도 및 스타일링비행기 (Airplane)var(--primary) (#FF5000)Lucide Icon을 기반으로 하되, 선의 두께(Stroke-width)를 2.5px로 늘리고 모서리(Line-join)를 둥글게 처리하여 귀여운 인상을 줍니다.활주로 (Runway)var(--secondary) (#00758F)짙은 파란색 계열의 아스팔트 텍스처를 사용하며, CSS 3D Perspective를 통해 원근감을 부여합니다.구름 (Clouds)#FFFFFF + rgba(255,255,255,0.8)var(--radius-lg) 이상의 완전한 원형(50%)을 사용하며, backdrop-filter: blur(10px)를 적용하여 제주 그룹의 글래스모피즘 테마를 계승합니다.5타이포그래피FlightSans (Bold)로딩 중 표시되는 텍스트("제주로 떠나는 중...")에 브랜드 폰트를 적용하여 일관성을 유지합니다.레이아웃 구조:트랜지션 화면은 기존 DOM 위에 덮어씌워지는 오버레이(Overlay) 형식을 취하며, z-index: 9999로 최상단에 위치합니다. 내부 구조는 3차원 공간감을 표현하기 위한 perspective-container와 2차원 UI 요소(구름, 텍스트)가 결합된 하이브리드 형태입니다.2.3 애니메이션 물리학: '푱푱'의 정의사용자가 요청한 "푱푱" 느낌은 일반적인 선형(Linear) 애니메이션으로는 구현할 수 없습니다. 이는 물리학적으로 오버슈트(Overshoot) 현상을 의미합니다. 즉, 목표 크기가 100%라면, 애니메이션 과정에서 120%까지 커졌다가 다시 100%로 줄어드는 탄성 효과가 필요합니다. 이를 위해 CSS의 cubic-bezier 함수를 정교하게 설계해야 합니다.6Linear: 기계적이고 딱딱함.Ease-in-out: 부드럽지만 탄성이 없음.Custom Spring (Piong): cubic-bezier(0.34, 1.56, 0.64, 1) - 그래프가 1.0을 초과하여 솟구쳤다 돌아오는 곡선입니다.3. [코드 구현] 아키텍처 및 스타일링본 섹션에서는 HTML 구조와 CSS 애니메이션 정의를 다룹니다. 제주 그룹의 기존 파일 구조(hotel.css, jejustay_life.css)를 존중하여 변수를 재사용합니다.3.1 HTML 구조 (components/transition-loader.html 프래그먼트)이 코드는 모든 페이지의 <body> 태그 바로 아래에 주입되거나, 공통 레이아웃 파일에 포함되어야 합니다. WAI-ARIA 접근성 규칙에 따라 로딩 중에는 스크린 리더 사용자에게 상태를 알립니다.HTML<div id="jeju-takeoff-overlay" class="takeoff-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+  
+  <div class="scene-container">
+    <div class="sky-gradient"></div>
+    
+    <div class="runway-wrapper">
+      <div class="runway">
+        <div class="runway-markings"></div>
+        <div class="runway-lights left"></div>
+        <div class="runway-lights right"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="plane-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" 
+         stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" 
+         class="jeju-plane-icon">
+      <path d="M2 12h20"/>
+      <path d="M13 2l9 10-9 10"/>
+      <g class="engine-fumes"></g>
+    </svg>
+    <div class="shadow-spot"></div>
+  </div>
+
+  <div class="clouds-container" id="cloud-spawner">
+    </div>
+
+  <div class="loading-message">
+    <h2 class="flight-font-bold">Jeju Hotel</h2>
+    <p>설레는 여행을 준비하고 있어요...</p>
+  </div>
+</div>
+3.2 CSS 스타일링 (css/transition.css)기존 hotel.css의 변수를 활용하되, 애니메이션 전용 변수를 로컬 스코프에 정의하여 유지보수성을 높입니다.CSS/* 별도의 CSS 파일로 분리하여 관리하거나 main.css에 import 하세요. */
+
+:root {
+  /* 기존 제주 그룹 변수 재활용 (가정) */
+  --primary: #FF5000;       /* Jeju Orange */
+  --secondary: #00758F;     /* Secondary Blue */
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --radius-lg: 1rem;
+  
+  /* 트랜지션 전용 변수 */
+  --runway-color: #343a40;
+  --sky-top: #e0f7fa;
+  --sky-bottom: #ffffff;
+  
+  /* 애니메이션 타이밍 함수: Piong Piong Effect */
+  /* Overshoot를 위한 커스텀 베지어 곡선 */
+  --ease-piong: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 오버레이 기본 스타일 */
+.takeoff-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none; /* 클릭 방지 */
+  transition: opacity 0.4s ease;
+  overflow: hidden;
+}
+
+.takeoff-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 3D 활주로 씬 (Scene) */
+.scene-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px; /* 3D 원근감의 핵심 [8] */
+  overflow: hidden;
+  z-index: 1;
+}
+
+.runway-wrapper {
+  position: absolute;
+  bottom: -20%;
+  left: 50%;
+  transform: translateX(-50%) rotateX(60deg); /* 바닥에 눕힘 */
+  transform-style: preserve-3d;
+  width: 400px;
+  height: 200vh;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.takeoff-overlay.active.runway-wrapper {
+  opacity: 1;
+}
+
+.runway {
+  width: 100%;
+  height: 100%;
+  background: var(--runway-color);
+  position: relative;
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
+}
+
+/* 활주로 마킹 애니메이션 */
+.runway-markings {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 100px,
+    #ffffff 100px,
+    #ffffff 200px
+  );
+  transform: translateX(-50%);
+  animation: scroll-runway 0.5s linear infinite; /* 고속 이동 효과 */
+}
+
+@keyframes scroll-runway {
+  from { background-position: 0 0; }
+  to { background-position: 0 200px; }
+}
+
+/* 비행기 스타일 및 애니메이션 */
+.plane-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(200px) scale(0.5); /* 초기 위치: 아래쪽 */
+  opacity: 0;
+}
+
+.takeoff-overlay.active.plane-wrapper {
+  animation: plane-enter 0.8s ease-out forwards, 
+             plane-float 2s ease-in-out infinite 0.8s;
+}
+
+/* 비행기 그림자 */
+.shadow-spot {
+  width: 40px;
+  height: 10px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  margin-top: 20px;
+  filter: blur(4px);
+  animation: shadow-scale 2s ease-in-out infinite 0.8s;
+}
+
+/* 이륙 애니메이션 키프레임 */
+@keyframes plane-enter {
+  0% {
+    transform: translateY(200px) scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* 비행 중 둥실거리는 효과 */
+@keyframes plane-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-2deg); }
+}
+
+@keyframes shadow-scale {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(0.8); opacity: 0.1; }
+}
+
+/* 구름 푱푱 (Piong Piong) 스타일 */
+.clouds-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 40% 40% 40% 40%; /* 둥글둥글한 모양 */
+  backdrop-filter: blur(8px); /* 글래스모피즘  */
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 16px rgba(0, 75, 143, 0.1); /* Secondary Blue 틴트 그림자 */
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* 구름 모양의 다양성을 위한 가상 요소 */
+.cloud::after,.cloud::before {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+/* 푱푱 애니메이션 클래스 */
+.cloud.piong {
+  animation: piong-pop 1s var(--ease-piong) forwards;
+}
+
+/* 
+  [Core Animation] 
+  0% -> 120% (Overshoot) -> 100% (Settle)
+*/
+@keyframes piong-pop {
+  0% { transform: scale(0) translateY(100px); opacity: 0; }
+  60% { transform: scale(1.2) translateY(-20px); opacity: 1; }
+  80% { transform: scale(0.9); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* 구름이 걷히는(Exit) 애니메이션 */
+.cloud.clear-sky {
+  animation: cloud-exit 0.6s ease-in forwards;
+}
+
+@keyframes cloud-exit {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* 로딩 텍스트 스타일 */
+.loading-message {
+  position: absolute;
+  bottom: 15%;
+  width: 100%;
+  text-align: center;
+  z-index: 20;
+  color: var(--secondary);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease 0.5s;
+}
+
+.takeoff-overlay.active.loading-message {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.flight-font-bold {
+  font-family: 'FlightSans', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+4. 트랜지션 엔진 구현순수 자바스크립트(Vanilla JS)를 사용하여 페이지 이동을 가로채고(Intercept), 애니메이션 시퀀스를 제어한 뒤, 실제 페이지로 이동시키는 로직입니다. 시니어 엔지니어로서 메모리 누수를 방지하고 이벤트 리스너를 효율적으로 관리하는 패턴을 사용합니다.94.1 구현 로직 (js/page-transition.js)JavaScript/**
+ * Jeju Group Page Transition Module
+ * Description: 메인 -> 호텔 페이지 이동 시 이륙 및 구름 효과를 오케스트레이션합니다.
+ * Author: Senior Front-end Lead
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM 요소 캐싱 (Performance Optimization)
+    const overlay = document.getElementById('jeju-takeoff-overlay');
+    const cloudContainer = document.getElementById('cloud-spawner');
+    const targetLinks = document.querySelectorAll('a[href*="jejuhotel.html"]'); // 특정 링크 타겟팅
+
+    // 설정값 (Config)
+    const CONFIG = {
+        cloudCount: 12,      // 생성할 구름의 개수
+        minSize: 80,         // 구름 최소 크기 (px)
+        maxSize: 200,        // 구름 최대 크기 (px)
+        animationTime: 2800, // 전체 트랜지션 지속 시간 (ms)
+        redirectDelay: 2000  // 페이지 이동 시작 시간 (ms)
+    };
+
+    /**
+     * 랜덤 범위 정수 생성 유틸리티
+     */
+    const random = (min, max) => Math.random() * (max - min) + min;
+
+    /**
+     * 구름 생성 및 푱푱 애니메이션 실행 함수
+     */
+    function spawnClouds() {
+        // 기존 구름 초기화
+        cloudContainer.innerHTML = '';
+        const fragment = document.createDocumentFragment(); // 리플로우 최소화 
+
+        for (let i = 0; i < CONFIG.cloudCount; i++) {
+            const cloud = document.createElement('div');
+            cloud.classList.add('cloud');
+            
+            // 랜덤 크기 및 위치 설정
+            const size = random(CONFIG.minSize, CONFIG.maxSize);
+            const posX = random(-10, 110); // 화면 밖에서도 시작 가능하도록
+            const posY = random(20, 100);  // 화면 하단 위주로 배치
+            
+            cloud.style.width = `${size}px`;
+            cloud.style.height = `${size * 0.6}px`; // 타원형 비율 유지
+            cloud.style.left = `${posX}%`;
+            cloud.style.top = `${posY}%`;
+            
+            // 애니메이션 딜레이를 주어 순차적으로 '푱푱' 올라오게 함
+            const delay = random(0, 0.8);
+            cloud.style.animationDelay = `${delay}s`;
+            
+            // 구름 모양 변형 (가상요소 위치 조정)
+            cloud.style.setProperty('--after-pos', `${random(-20, 20)}px`);
+            
+            fragment.appendChild(cloud);
+        }
+        
+        cloudContainer.appendChild(fragment);
+
+        // 다음 프레임에 애니메이션 클래스 추가 (Reflow 강제 후 실행)
+        requestAnimationFrame(() => {
+            const clouds = cloudContainer.querySelectorAll('.cloud');
+            clouds.forEach(c => c.classList.add('piong'));
+        });
+    }
+
+    /**
+     * 트랜지션 시퀀스 실행
+     * @param {string} url - 이동할 목적지 URL
+     */
+    function startTakeoffSequence(url) {
+        // 1. 오버레이 활성화 및 접근성 처리
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        
+        // 2. 구름 생성 (푱푱 효과 시작)
+        spawnClouds();
+
+        // 3. 비행기 이륙 애니메이션 (CSS에서.active 클래스로 자동 실행됨)
+        
+        // 4. 구름 걷힘 및 페이지 이동 (비동기 처리)
+        setTimeout(() => {
+            // 구름이 걷히는 효과 (선택 사항: 로딩이 길어질 경우 유지)
+            // const clouds = cloudContainer.querySelectorAll('.cloud');
+            // clouds.forEach(c => c.classList.add('clear-sky'));
+            
+            // 실제 페이지 이동
+            window.location.href = url;
+            
+            // sessionStorage를 활용하여 돌아왔을 때 애니메이션 반복 방지 가능 [12]
+            sessionStorage.setItem('transition_played', 'true');
+            
+        }, CONFIG.redirectDelay);
+    }
+
+    // 이벤트 리스너 바인딩
+    targetLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Cmd/Ctrl 클릭(새 탭)은 기본 동작 허용
+            if (e.metaKey |
+
+| e.ctrlKey) return;
+
+            e.preventDefault(); // 기본 이동 막기
+            const targetUrl = link.href;
+            startTakeoffSequence(targetUrl);
+        });
+    });
+});
+5. 현대화 제안: React & Framer Motion 마이그레이션현재의 Vanilla JS 구현은 가볍고 빠르지만, 프로젝트가 React/Next.js 환경으로 고도화될 경우 Framer Motion 라이브러리 도입을 강력히 제안합니다. CSS의 cubic-bezier는 시간을 기반으로 하지만, Framer Motion의 Spring 물리학은 질량(Mass), 강성(Stiffness), 감쇠(Damping)를 사용하여 훨씬 더 자연스럽고 '쫀득한' 푱푱 효과를 만들어냅니다.React 컴포넌트 예시 (components/TransitionLayout.tsx):TypeScriptimport { motion, AnimatePresence } from 'framer-motion';
+import { Plane } from 'lucide-react'; // Lucide React 컴포넌트 활용 [13]
+import { useRouter } from 'next/navigation';
+
+// 스프링 물리 효과 설정 (푱푱 느낌 극대화)
+const piongPhysics = {
+  type: "spring",
+  stiffness: 300,
+  damping: 15, // 낮을수록 더 많이 튕김
+  mass: 1
+};
+
+export default function TakeoffTransition({ children }) {
+  const router = useRouter();
+  
+  // 상태 관리 (Zustand 등을 통해 전역 로딩 상태 제어 권장)
+
+  return (
+    <AnimatePresence mode='wait'>
+      <motion.div
+        key={router.pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-sky-100"
+      >
+        {/* 구름 컴포넌트 반복 생성 */}
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-white/80 rounded-full backdrop-blur-md"
+            initial={{ scale: 0, y: 100 }}
+            animate={{ scale: 1, y: 0 }}
+            transition={{ 
+             ...piongPhysics, 
+              delay: i * 0.1 // 순차적 등장
+            }}
+            style={{
+              width: Math.random() * 100 + 80,
+              height: Math.random() * 60 + 50,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`
+            }}
+          />
+        ))}
+        
+        {/* 비행기 아이콘 */}
+        <motion.div
+          animate={{ 
+            scale: [1, 1.5, 5], 
+            rotate: [0, -10, -25],
+            y: [0, -50, -500] 
+          }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        >
+          <Plane size={80} color="#FF5000" strokeWidth={2.5} />
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+6. 시니어의 팁 & 설치 가이드6.1 성능 최적화 (Performance Optimization)Composite Layer 승격: 애니메이션되는 요소(비행기, 구름)에 will-change: transform, opacity; 속성을 추가하면 브라우저가 미리 GPU 레이어를 할당하여 페인트(Paint) 과정을 생략하고 합성(Composite) 단계만 수행하므로 60fps를 보장할 수 있습니다.14 하지만 남용 시 메모리 사용량이 증가하므로 애니메이션 중에만 클래스로 적용하는 것이 좋습니다.SVG 최적화: Lucide 아이콘을 그대로 사용하기보다, 빌드 타임에 SVGOMG 등을 통해 불필요한 메타데이터를 제거하고 Path 데이터를 최적화해야 합니다.Reflow 방지: JS에서 구름을 생성할 때 DocumentFragment를 사용하여 DOM 조작을 한 번에 처리하십시오.116.2 보안 및 접근성 (Security & Accessibility)동작 줄이기 (Reduced Motion): 전정 기관 장애가 있는 사용자를 위해 OS 설정에서 '동작 줄이기'를 켠 경우, 트랜지션을 단순 페이드인/아웃으로 대체해야 합니다.CSS@media (prefers-reduced-motion: reduce) {
+ .takeoff-overlay *,.cloud,.plane-wrapper {
+    animation: none!important;
+    transition: none!important;
+  }
+}
+보안: window.location.href 사용 시 외부에서 주입된 URL로 이동하지 않도록, 도메인 검증 로직을 추가하는 것이 안전합니다.6.3 설치 및 실행 명령어React/Next.js 환경으로 마이그레이션 시 필요한 패키지 설치 명령어입니다.Bash# Lucide React 아이콘 및 Framer Motion 설치
+npm install lucide-react framer-motion
+
+# Tailwind CSS 관련 설치 (기존 프로젝트에 없다면)
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+6.4 데이터 요약 및 비교아래 표는 바닐라 JS 방식과 React(Framer Motion) 방식의 장단점을 비교하여 프로젝트 상황에 맞는 선택을 돕습니다.비교 항목Vanilla JS + CSS3React + Framer Motion번들 사이즈매우 작음 (Zero Dependency)큼 (~30kb 추가)애니메이션 품질베지어 곡선 의존 (시간 기반)스프링 물리학 (물리 기반, 자연스러움)개발 생산성복잡한 시퀀스 구현 시 코드량 증가선언적 코드로 복잡한 시퀀스도 간단함유지 보수CSS와 JS 간 로직 분산컴포넌트 내 응집력 높음추천 대상현재 프로젝트 (HTML/JS 기반)차세대 마이그레이션 프로젝트이 보고서에 명시된 아키텍처를 따르면, 제주 그룹의 여행 플랫폼은 단순한 예약 도구를 넘어 사용자에게 여행의 설렘을 전달하는 감성적인 플랫폼으로 거듭날 것입니다.

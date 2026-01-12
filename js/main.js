@@ -354,3 +354,68 @@ document.addEventListener('DOMContentLoaded', () => {
     // 페이지가 처음 로드될 때 기본 언어(한국어)로 텍스트를 설정합니다.
     changeLanguage(currentLang);
 });
+
+/* ==================== 비디오 전환 로직 ==================== */
+document.addEventListener('DOMContentLoaded', () => {
+    // 호텔 페이지로 이동하는 모든 링크 선택 (버튼 포함)
+    const hotelLinks = document.querySelectorAll('a[href="sub/jejuhotel.html"]');
+    const videoOverlay = document.getElementById('video-overlay');
+    const transitionVideo = document.getElementById('transition-video');
+
+    if (hotelLinks.length > 0 && videoOverlay && transitionVideo) {
+        hotelLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // 기본 이동 동작 방지
+
+                // 오버레이 표시
+                videoOverlay.classList.add('active');
+                
+                // 비디오 속성 설정 (자동 재생 정책 대응)
+                transitionVideo.muted = true;
+                transitionVideo.playsInline = true;
+                transitionVideo.currentTime = 0;
+
+                // 비디오 재생 시도
+                const playPromise = transitionVideo.play();
+
+                let navigationTriggered = false;
+                const triggerNavigation = () => {
+                    if (!navigationTriggered) {
+                        navigationTriggered = true;
+                        window.location.href = 'sub/jejuhotel.html';
+                    }
+                };
+
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // 자동 재생 성공
+                        console.log("비디오 재생 시작");
+                        
+                        // 4초 후 강제 이동
+                        setTimeout(() => {
+                            console.log("4초 경과: 페이지 이동");
+                            triggerNavigation();
+                        }, 4000);
+                    })
+                    .catch(error => {
+                        console.error("비디오 재생 실패:", error);
+                        // 재생 실패 시 즉시 이동
+                        triggerNavigation();
+                    });
+                }
+
+                // 비디오가 4초보다 짧을 경우 종료 시 이동
+                transitionVideo.onended = () => {
+                    triggerNavigation();
+                };
+
+                // 만약 비디오가 너무 오래(5초) 끝나지 않으면 강제 이동 (안전 장치 - 4초 로직 실패 시 대비)
+                setTimeout(() => {
+                    if (videoOverlay.classList.contains('active')) {
+                        triggerNavigation();
+                    }
+                }, 5000); 
+            });
+        });
+    }
+});

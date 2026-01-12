@@ -67,7 +67,12 @@ const fabHTML = `
 
     <!-- Cards Container -->
     <div class="fab-cards-container">
-        <!-- Card 1: Top (Leftmost) -->
+        <!-- Card 0: Home (New Leftmost) -->
+        <div class="fab-card card-0" id="fabHome">
+            <i data-lucide="home" class="card-icon"></i>
+            <span class="card-label">HOME</span>
+        </div>
+        <!-- Card 1: Top -->
         <div class="fab-card card-1" id="fabTop">
             <i data-lucide="arrow-up" class="card-icon"></i>
             <span class="card-label">TOP</span>
@@ -114,6 +119,10 @@ function initFAB() {
     holder.addEventListener('click', toggleFabAnimation);
 
     // 5. Card Actions
+    document.getElementById('fabHome').addEventListener('click', () => {
+        window.location.href = '../../index.html';
+    });
+    
     document.getElementById('fabTop').addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         // Optional: Close FAB after action? 
@@ -214,6 +223,7 @@ function toggleFabAnimation() {
     }
 
     const tl = gsap.timeline();
+    const c0 = '.card-0'; // HOME
     const c1 = '.card-1';
     const c2 = '.card-2';
     const c3 = '.card-3';
@@ -228,22 +238,22 @@ function toggleFabAnimation() {
     if (!isFabOpen) {
         // [Phase A: Opening]
         // Reset visibility (in case CSS hidden them)
-        gsap.set([c1, c2, c3, c4], { opacity: 1 });
+        gsap.set([c0, c1, c2, c3, c4], { opacity: 1 });
         
         // Stage 1: Eject Up (All cards)
-        // From Y=20 (Hidden) to Y=-75 (Higher rise)
-        tl.fromTo([c1, c2, c3, c4], 
+        // From Y=20 (Hidden) to Y=-100 (Higher rise)
+        tl.fromTo([c0, c1, c2, c3, c4], 
             { y: 20, opacity: 0 },
             { y: -100, opacity: 1, duration: 0.6, ease: "power3.out" }
         )
         
-        // Step 2: Slide C1 to Left (approx 3 cards width + gaps)
-        // Card=65px. Gap=10px. 
-        // Positions from right: C4(0), C3(-75), C2(-150), C1(-225)
-          .to(c1, { x: -225, duration: 1.0, ease: "elastic.out(1.2, 0.5)" })
-          
-        // Step 3: Fan out C2, C3, C4
-          .to(c2, { x: -150, duration: 1.0, ease: "elastic.out(1.2, 0.5)" }, "-=0.85")
+        // Step 2: Slide C0 to Left (Most left)
+        // Positions: C4(0), C3(-75), C2(-150), C1(-225), C0(-300)
+          .to(c0, { x: -300, duration: 1.0, ease: "elastic.out(1.2, 0.5)" })
+        
+        // Step 3: Fan out others
+          .to(c1, { x: -225, duration: 1.0, ease: "elastic.out(1.2, 0.5)" }, "-=0.85")
+          .to(c2, { x: -150, duration: 1.0, ease: "elastic.out(1.2, 0.5)" }, "-=0.9")
           .to(c3, { x: -75, duration: 1.0, ease: "elastic.out(1.2, 0.5)" }, "-=0.9")
           .to(c4, { x: 0, duration: 1.0, ease: "elastic.out(1.2, 0.5)" }, "-=0.9");
           
@@ -254,12 +264,13 @@ function toggleFabAnimation() {
         // Stage 1: Stack & Hide
         
         // Collapse X
-        tl.to(c1, { x: -150, duration: 0.15, ease: "power2.in" })
-          .to([c1, c2], { x: -75, duration: 0.15, ease: "power2.in" })
-          .to([c1, c2, c3], { x: 0, duration: 0.15, ease: "power2.in" })
+        tl.to(c0, { x: -225, duration: 0.15, ease: "power2.in" }) // Synced inwards
+          .to([c0, c1], { x: -150, duration: 0.15, ease: "power2.in" })
+          .to([c0, c1, c2], { x: -75, duration: 0.15, ease: "power2.in" })
+          .to([c0, c1, c2, c3], { x: 0, duration: 0.15, ease: "power2.in" })
         
         // Stage 2: Tuck In (Y=20, Opacity 0)
-          .to([c1, c2, c3, c4], { y: 20, opacity: 0, duration: 0.3, ease: "power3.in" });
+          .to([c0, c1, c2, c3, c4], { y: 20, opacity: 0, duration: 0.3, ease: "power3.in" });
           
         gsap.to(holder, { y: 0, opacity: 1, duration: 0.3 }); // Restore holder
     }

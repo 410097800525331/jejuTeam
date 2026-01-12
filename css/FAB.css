@@ -212,6 +212,13 @@
     z-index: 2;
 }
 
+/* Card Specifics */
+.fab-card.card-0 { z-index: 5; } /* Priority over others if needed */
+.fab-card.card-1 { z-index: 4; }
+.fab-card.card-2 { z-index: 3; }
+.fab-card.card-3 { z-index: 2; }
+.fab-card.card-4 { z-index: 1; }
+
 /* Brand Stripe */
 .fab-card::after {
     content: '';

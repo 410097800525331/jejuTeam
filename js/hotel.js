@@ -433,11 +433,24 @@ function updateHoverStyles() {
 function updateDateDisplay(type, dateObj) {
     const displayId = type === 'checkIn' ? 'checkInDisplay' : 'checkOutDisplay';
     const dayId = type === 'checkIn' ? 'checkInDay' : 'checkOutDay';
-    const dayNames = ['일', '월', '화', '수', '목', '금', '토']; // 0-6 Sun-Sat
+    const lang = document.documentElement.lang || 'ko';
     
+    // Localized Day Names
+    const dayNames = lang === 'en' 
+        ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        : ['일', '월', '화', '수', '목', '금', '토'];
+    
+    const elDisplay = document.getElementById(displayId); // Explicitly get element to be safe
+    const elDay = document.getElementById(dayId);
+
     if (!dateObj) {
-        document.getElementById(displayId).textContent = '날짜 선택';
-        document.getElementById(dayId).textContent = type === 'checkIn' ? '체크인' : '체크아웃';
+        if (lang === 'en') {
+            if(elDisplay) elDisplay.textContent = 'Select Date';
+            if(elDay) elDay.textContent = type === 'checkIn' ? 'Check-in' : 'Check-out';
+        } else {
+            if(elDisplay) elDisplay.textContent = '날짜 선택';
+            if(elDay) elDay.textContent = type === 'checkIn' ? '체크인' : '체크아웃';
+        }
         return;
     }
 
@@ -445,8 +458,8 @@ function updateDateDisplay(type, dateObj) {
     const m = String(dateObj.getMonth() + 1).padStart(2, '0');
     const d = String(dateObj.getDate()).padStart(2, '0');
     
-    document.getElementById(displayId).textContent = `${y}-${m}-${d}`;
-    document.getElementById(dayId).textContent = dayNames[dateObj.getDay()];
+    if(elDisplay) elDisplay.textContent = `${y}-${m}-${d}`;
+    if(elDay) elDay.textContent = dayNames[dateObj.getDay()];
 }
 
 function initGuestSelector() {
@@ -498,15 +511,47 @@ function updateGuestSummary() {
     const guestSummary = document.getElementById('guestSummary');
     const roomSummary = document.getElementById('roomSummary');
     
+    // 언어 상태 확인 (document.documentElement.lang 사용)
+    const lang = document.documentElement.lang || 'ko';
+
     // 요약 텍스트 업데이트
-    let guestText = `성인 ${adults}명`;
-    if (children > 0) {
-        guestText += `, 아동 ${children}명`;
+    let guestText = '';
+    let roomText = '';
+
+    if (lang === 'en') {
+        guestText = `Adult${adults > 1 ? 's' : ''} ${adults}`;
+        if (children > 0) {
+            guestText += `, Child${children > 1 ? 'ren' : ''} ${children}`;
+        }
+        roomText = `Room${rooms > 1 ? 's' : ''} ${rooms}`;
+    } else {
+        guestText = `성인 ${adults}명`;
+        if (children > 0) {
+            guestText += `, 아동 ${children}명`;
+        }
+        roomText = `객실 ${rooms}개`;
     }
     
     guestSummary.textContent = guestText;
-    roomSummary.textContent = `객실 ${rooms}개`;
+    roomSummary.textContent = roomText;
 }
+
+// 언어 변경 이벤트 감지
+// 언어 변경 이벤트 감지 (Isolated for FAB)
+// 언어 변경 이벤트 감지 (Isolated for FAB)
+document.addEventListener('fabLanguageChanged', (e) => {
+    updateGuestSummary();
+    
+    // Update dates if they exist (to prevent data-lang overwriting selected dates)
+    const checkInDate = calendarState.checkIn ? new Date(calendarState.checkIn) : (calendarState.tempCheckIn ? new Date(calendarState.tempCheckIn) : null);
+    const checkOutDate = calendarState.checkOut ? new Date(calendarState.checkOut) : (calendarState.tempCheckOut ? new Date(calendarState.tempCheckOut) : null);
+    
+    updateDateDisplay('checkIn', checkInDate);
+    updateDateDisplay('checkOut', checkOutDate);
+    
+    // Also re-render Calendar for month names
+    renderCalendar();
+});
 
 function closeAllPopups(exceptId) {
     const popups = ['destinationDropdown', 'calendarPopup', 'guestPopupLarge'];

@@ -8,9 +8,41 @@ class HotelChatbot {
         this.isLoading = false;
         this.conversationHistory = [];
         
-        // System prompt updated with Jeju Air specific benefits
-        // Sent to backend to be included in the API call
-        this.systemPrompt = `당신은 제주항공(Jeju Air)과 연계된 JEJU STAY 예약 상담 AI입니다.
+        // Initialize Language
+        this.language = localStorage.getItem('jeju_fab_lang') || 'ko';
+        
+        this.init();
+    }
+
+    init() {
+        this.updateSystemPrompt(this.language);
+        this.createChatbotUI();
+        this.attachEventListeners();
+        this.addWelcomeMessage();
+    }
+
+    updateSystemPrompt(lang) {
+        this.language = lang;
+        if (lang === 'en') {
+            this.systemPrompt = `You are the JEJU STAY reservation AI assistant, affiliated with Jeju Air.
+
+[Benefits & Important Info]
+1. Additional 7% discount on worldwide hotels when verified as a Jeju Air passenger.
+2. Hotel payments available using Jeju Air Refresh Points.
+3. Special rates for long-term stays (14+ nights).
+4. All prices can be provided in KRW and USD.
+
+[Role]
+- Maintain a friendly and professional tone.
+- Guide on hotel reservations, locations, room types, and amenities.
+- Keep answers concise (3-4 sentences).
+- Recommend contacting the Front Desk (1599-1500) for uncertain info.
+
+[Hotel Info]
+- Name: JEJU STAY (Global Hotel Booking Platform)
+- Feature: Lowest price reservations for over 2 million hotels/resorts/pensions worldwide.`;
+        } else {
+            this.systemPrompt = `당신은 제주항공(Jeju Air)과 연계된 JEJU STAY 예약 상담 AI입니다.
 
 [상담 혜택 및 중요 정보]
 1. 제주항공 탑승객 인증 시 전 세계 호텔 7% 추가 할인 혜택이 있습니다.
@@ -20,28 +52,20 @@ class HotelChatbot {
 
 [역할]
 - 친절하고 전문적인 톤앤매너 유지.
-- 호텔 예약, 위치, 객실 타입, 편의 시설 등 안내.
 - 답변은 3~4문장 내외로 간결하게.
 - 확실하지 않은 정보는 프론트 데스크(1599-1500) 문의 권장.
 
 [호텔 정보]
 - 명칭: JEJU STAY (글로벌 호텔 예약 플랫폼)
 - 특징: 전 세계 200만 개 호텔/리조트/펜션 최저가 예약.`;
-
-        this.init();
-    }
-
-    init() {
-        this.createChatbotUI();
-        this.attachEventListeners();
-        this.addWelcomeMessage();
+        }
     }
 
     createChatbotUI() {
         const toggleBtn = document.createElement('button');
         toggleBtn.className = 'chatbot-toggle-btn hidden'; // Default hidden
         toggleBtn.innerHTML = '<i data-lucide="message-circle"></i>';
-        toggleBtn.setAttribute('aria-label', '챗봇 열기');
+        toggleBtn.setAttribute('aria-label', this.language === 'en' ? 'Open Chatbot' : '챗봇 열기');
         document.body.appendChild(toggleBtn);
 
         const container = document.createElement('div');
@@ -49,9 +73,9 @@ class HotelChatbot {
         container.innerHTML = `
             <div class="chatbot-header">
                 <div class="chatbot-header-title">
-                   AI 상담사
+                   ${this.language === 'en' ? 'AI Assistant' : 'AI 상담사'}
                 </div>
-                <button class="chatbot-close-btn" aria-label="챗봇 닫기">
+                <button class="chatbot-close-btn" aria-label="${this.language === 'en' ? 'Close' : '닫기'}">
                     <i data-lucide="x" style="width:20px; height:20px;"></i>
                 </button>
             </div>
@@ -62,11 +86,11 @@ class HotelChatbot {
                         type="text" 
                         class="chatbot-input" 
                         id="chatbotInput" 
-                        placeholder="문의하실 내용을 입력해주세요..."
+                        placeholder="${this.language === 'en' ? 'How can I help you?' : '문의하실 내용을 입력해주세요...'}"
                         autocomplete="off"
                     />
                 </div>
-                <button class="chatbot-send-btn" id="chatbotSendBtn" aria-label="메시지 전송">
+                <button class="chatbot-send-btn" id="chatbotSendBtn" aria-label="${this.language === 'en' ? 'Send' : '전송'}">
                     <i data-lucide="send" style="width:20px; height:20px;"></i>
                 </button>
             </div>
@@ -100,6 +124,46 @@ class HotelChatbot {
                 this.closeChatbot();
             }
         });
+
+        // Language Change Listener
+        document.addEventListener('fabLanguageChanged', (e) => {
+            this.updateLanguage(e.detail);
+        });
+    }
+
+    updateLanguage(lang) {
+        this.updateSystemPrompt(lang);
+        
+        // Update UI Text
+        const titleEl = this.container.querySelector('.chatbot-header-title');
+        const inputEl = this.input;
+        
+        if (lang === 'en') {
+            titleEl.textContent = 'AI Assistant';
+            inputEl.placeholder = 'How can I help you?';
+            this.toggleBtn.setAttribute('aria-label', 'Open Chatbot');
+        } else {
+            titleEl.textContent = 'AI 상담사';
+            inputEl.placeholder = '문의하실 내용을 입력해주세요...';
+            this.toggleBtn.setAttribute('aria-label', '챗봇 열기');
+        }
+
+        // Reset Chat Logic
+        this.messages = [];
+        this.conversationHistory = [];
+        this.messagesContainer.innerHTML = ''; // Clear UI
+        
+        // Add System Notification
+        const notification = {
+            type: 'bot',
+            content: lang === 'en' ? 'Language changed. Chat history has been reset.' : '언어가 변경되어 대화 내용이 초기화되었습니다.',
+            timestamp: new Date()
+        };
+        this.messages.push(notification);
+        this.renderMessage(notification, 'system');
+
+        // New Welcome Message
+        this.addWelcomeMessage();
     }
 
     toggleChatbot() {
@@ -127,9 +191,13 @@ class HotelChatbot {
     }
 
     addWelcomeMessage() {
+        const welcomeContent = this.language === 'en' 
+            ? 'Hello! 👋 I am your Jeju Stay AI Assistant. I can help with reservations, 7% discounts, and more.' 
+            : '안녕하세요! 👋 제주그룹 회원님을 위한 특별한 혜택 상담을 도와드릴까요? (7% 할인, 포인트 결제 등)';
+
         const welcomeMsg = {
             type: 'bot',
-            content: '안녕하세요! 👋 제주그룹 회원님을 위한 특별한 혜택 상담을 도와드릴까요? (7% 할인, 포인트 결제 등)',
+            content: welcomeContent,
             timestamp: new Date()
         };
         this.messages.push(welcomeMsg);

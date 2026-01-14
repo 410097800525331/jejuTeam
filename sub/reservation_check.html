@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>예약 확인 | 제주그룹</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/reservation.css">
+</head>
+
+<body class="reservation-page">
+    <header class="header">
+        <div class="header-util">
+            <!-- Will be consistent with other pages, but for now assuming login.html structure is good base -->
+            <a href="login.html" class="util-link" data-lang="login">로그인</a>
+            <span class="util-divider">|</span>
+            <a href="signup.html" class="util-link" data-lang="signup">회원가입</a>
+            <span class="util-divider">|</span>
+            <a href="customer_center.html" class="util-link" data-lang="customerCenter">고객센터</a>
+        </div>
+
+        <div class="header-inner">
+            <div class="logo">
+                <a href="../index.html" class="logo-link"><img src="../images/logo_jejuGP.png" alt="제주그룹"></a>
+            </div>
+
+            <nav class="gnb" id="gnb">
+                <ul class="gnb-list">
+                    <li class="gnb-item"><a href="../index.html#section-2" class="gnb-link" data-lang="navAir">제주에어</a>
+                    </li>
+                    <li class="gnb-item"><a href="../index.html#section-3" class="gnb-link" data-lang="navHotel">제주
+                            스테이</a></li>
+                    <li class="gnb-item"><a href="../index.html#section-4" class="gnb-link" data-lang="navRentCar">제주
+                            렌트카</a></li>
+                    <li class="gnb-item"><a href="../index.html#section-5" class="gnb-link"
+                            data-lang="navMembership">멤버십</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right-controls">
+                <button class="lang-toggle">English</button>
+                <button class="mypage-btn"><i class="fa-solid fa-plane-departure"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="reservation-wrapper">
+        <div class="reservation-card">
+
+            <div class="reservation-header">
+                <h2 class="reservation-title" data-lang="resCheckTitle">비회원 예약 조회</h2>
+                <p class="reservation-desc" data-lang="resCheckDesc">예약 번호와 정보를 입력하여 예약을 확인하세요.</p>
+            </div>
+
+            <form class="reservation-form">
+                <div class="input-group">
+                    <label for="reservationNumber" data-lang="resNumLabel">예약 번호</label>
+                    <input type="text" id="reservationNumber" placeholder="예약 번호를 입력하세요"
+                        data-lang-placeholder="resNumPlaceholder" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email" data-lang="emailLabel">이메일</label>
+                    <input type="email" id="email" placeholder="예약 시 사용한 이메일"
+                        data-lang-placeholder="resEmailPlaceholder" required>
+                </div>
+
+                <button type="submit" class="reservation-btn" data-lang="checkButton">조회하기</button>
+            </form>
+
+            <div class="reservation-links">
+                <p><span data-lang="isMember">회원이신가요?</span> <a href="login.html" data-lang="loginCheckLink">로그인하여
+                        확인하기</a></p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer section" id="section-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p><strong data-lang="footerCompany">(주)제주 그룹</strong></p>
+                <p data-lang="footerCEO">대표이사: 김이배</p>
+                <p data-lang="footerBizNum">사업자등록번호: 616-81-50527</p>
+                <p data-lang="footerSaleNum">통신판매업신고: 제주 2006-125호</p>
+                <p data-lang="footerHosting">호스팅 사업자: AWS</p>
+                <br>
+                <p data-lang="footerAddr">주소: 제주특별자치도 제주시 신대로 64 (연동, 건설공제회관 3층)</p>
+                <p data-lang="footerCs">고객센터: 1599-1500 (09:00 ~ 19:00)</p>
+                <p data-lang="footerCsEmail">고객 문의: jejugroup.help@jejugroup.net</p>
+                <p data-lang="footerPartnerEmail">제휴 문의: partnership@jejugroup.net</p>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p data-lang="footerCopyright">Copyright ⓒ Jeju Group. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <button class="top-btn" id="topBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="../js/lang_data.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

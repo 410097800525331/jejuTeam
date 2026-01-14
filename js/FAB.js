@@ -2,24 +2,53 @@
 /* Uses GSAP for animation */
 
 const FABState = {
-    currency: localStorage.getItem('jeju_currency') || 'KRW',
+    currency: localStorage.getItem('jeju_fab_currency') || 'KRW',
+    language: localStorage.getItem('jeju_fab_lang') || 'ko',
     wishlist: JSON.parse(localStorage.getItem('jeju_wishlist') || '[]'),
     
-    setCurrency(curr) {
+    setCurrencyAndLang(curr, lang) {
         this.currency = curr;
-        localStorage.setItem('jeju_currency', curr);
-        document.dispatchEvent(new CustomEvent('currencyChanged', { detail: curr }));
-        this.updateCurrencyUI();
+        this.language = lang;
+        localStorage.setItem('jeju_fab_currency', curr);
+        localStorage.setItem('jeju_fab_lang', lang);
+        
+        this.updateUI();
+        this.changeLanguage(lang);
+
+        // Dispatch Events (Isolated) - After changeLanguage ensures doc.lang is updated
+        document.dispatchEvent(new CustomEvent('fabCurrencyChanged', { detail: curr }));
+        document.dispatchEvent(new CustomEvent('fabLanguageChanged', { detail: lang }));
     },
 
-    addToWishlist(id) {
-        if (!this.wishlist.includes(id)) {
-            this.wishlist.push(id);
+    addToWishlist(item) {
+        const index = this.wishlist.findIndex(i => i.id === item.id);
+        if (index === -1) {
+            this.wishlist.push(item);
         } else {
-            this.wishlist = this.wishlist.filter(item => item !== id);
+            this.wishlist.splice(index, 1);
         }
         localStorage.setItem('jeju_wishlist', JSON.stringify(this.wishlist));
         this.updateBadge();
+        
+        // Dispatch event for other components to update their UI (e.g. fill hearts)
+        document.dispatchEvent(new CustomEvent('fabWishlistUpdated', { detail: this.wishlist }));
+    },
+
+    removeFromWishlist(id) {
+        this.wishlist = this.wishlist.filter(item => item.id !== id);
+        localStorage.setItem('jeju_wishlist', JSON.stringify(this.wishlist));
+        this.updateBadge();
+        document.dispatchEvent(new CustomEvent('fabWishlistUpdated', { detail: this.wishlist }));
+        
+        // Re-render preview if open
+        const modal = document.getElementById('wishlistLayer');
+        if (modal && modal.style.display !== 'none') {
+            renderWishlistPreview();
+        }
+    },
+
+    isInWishlist(id) {
+        return this.wishlist.some(item => item.id === id);
     },
 
     updateBadge() {
@@ -27,13 +56,17 @@ const FABState = {
         if (badge) badge.textContent = this.wishlist.length;
     },
 
-    updateCurrencyUI() {
+    updateUI() {
+        // Update Button Label
         const btnText = document.querySelector('#fabCurrency .card-label');
-        if (btnText) btnText.textContent = this.currency;
+        if (btnText) {
+             btnText.textContent = this.currency === 'KRW' ? 'KOR' : 'ENG';
+        }
 
         const rate = 1300;
         const symbol = this.currency === 'KRW' ? '₩' : '$';
         
+        // Update Prices
         document.querySelectorAll('[data-price-krw]').forEach(el => {
             const krw = parseInt(el.getAttribute('data-price-krw'));
             if (!isNaN(krw)) {
@@ -43,6 +76,32 @@ const FABState = {
                 el.textContent = `${symbol}${displayPrice}`;
             }
         });
+    },
+
+    changeLanguage(lang) {
+        if (typeof langData === 'undefined') return;
+
+        // Update Text Content
+        document.querySelectorAll('[data-lang]').forEach(el => {
+            const key = el.dataset.lang;
+            if (langData[lang] && langData[lang][key] !== undefined) {
+                 if (el.innerHTML.includes('<') && el.innerHTML.includes('>')) {
+                    el.innerHTML = langData[lang][key];
+                 } else {
+                    el.textContent = langData[lang][key];
+                 }
+            }
+        });
+
+        // Update Placeholders
+        document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+            const key = el.dataset.langPlaceholder;
+            if (langData[lang] && langData[lang][key] !== undefined) {
+                el.placeholder = langData[lang][key];
+            }
+        });
+
+        document.documentElement.lang = lang;
     }
 };
 
@@ -77,10 +136,10 @@ const fabHTML = `
             <i data-lucide="arrow-up" class="card-icon"></i>
             <span class="card-label">TOP</span>
         </div>
-        <!-- Card 2: Currency -->
+        <!-- Card 2: Currency/Language Toggle -->
         <div class="fab-card card-2" id="fabCurrency">
-            <i data-lucide="coins" class="card-icon"></i>
-            <span class="card-label">KRW</span>
+            <i data-lucide="globe" class="card-icon"></i>
+            <span class="card-label">KOR</span>
         </div>
         <!-- Card 3: Wishlist -->
         <div class="fab-card card-3" id="fabWishlist">
@@ -120,18 +179,18 @@ function initFAB() {
 
     // 5. Card Actions
     document.getElementById('fabHome').addEventListener('click', () => {
-        window.location.href = '../../index.html';
+        window.location.href = '../index.html'; // Assuming we are in sub/
     });
     
     document.getElementById('fabTop').addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Optional: Close FAB after action? 
-        // toggleFabAnimation(); 
     });
 
+    // Modified Logic: Toggle Both Currency and Language
     document.getElementById('fabCurrency').addEventListener('click', () => {
-        const next = FABState.currency === 'KRW' ? 'USD' : 'KRW';
-        FABState.setCurrency(next);
+        const nextCurr = FABState.currency === 'KRW' ? 'USD' : 'KRW';
+        const nextLang = FABState.language === 'ko' ? 'en' : 'ko';
+        FABState.setCurrencyAndLang(nextCurr, nextLang);
     });
 
     document.getElementById('fabWishlist').addEventListener('click', (e) => {
@@ -169,8 +228,10 @@ function initFAB() {
         const modal = document.getElementById('wishlistLayer');
         const overlay = document.querySelector('.modal-overlay');
         
+        if (!modal) return;
+
         modal.classList.remove('is-active');
-        overlay.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
         
         // Wait for transition then hide
         setTimeout(() => {
@@ -199,7 +260,7 @@ function initFAB() {
 
     // Initial State
     FABState.updateBadge();
-    FABState.updateCurrencyUI();
+    FABState.updateUI(); // Initial Update
     
     // Add Hover Animations (GSAP)
     cards.forEach(card => {
@@ -284,7 +345,39 @@ function layerToggle(id) {
 
 function renderWishlistPreview() {
     const el = document.getElementById('wishlistContent');
-    if(el) el.innerHTML = `<p>${FABState.wishlist.length}개의 저장된 항목</p>`;
+    if(!el) return;
+
+    if (FABState.wishlist.length === 0) {
+        el.innerHTML = `
+            <div class="wishlist-empty">
+                <i data-lucide="heart-off" style="width: 48px; height: 48px; color: #cbd5e1; margin-bottom: 16px;"></i>
+                <p>저장된 숙소가 없습니다.</p>
+                <button class="btn-explore" onclick="document.querySelector('.close-wishlist').click()">숙소 둘러보기</button>
+            </div>
+        `;
+        if(window.lucide) lucide.createIcons();
+        return;
+    }
+
+    el.innerHTML = FABState.wishlist.map(item => `
+        <div class="wishlist-item-card">
+            <img src="${item.image}" alt="${item.name}" class="wishlist-thumb">
+            <div class="wishlist-info">
+                <div class="wishlist-top">
+                    <span class="wishlist-location">${item.location.split('·')[0]}</span>
+                    <button class="wishlist-remove" onclick="FABState.removeFromWishlist(${item.id})">
+                        <i data-lucide="trash-2" style="width:14px; height:14px;"></i>
+                    </button>
+                </div>
+                <h4 class="wishlist-title">${item.name}</h4>
+                <div class="wishlist-price">
+                    ${item.price}
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    if(window.lucide) lucide.createIcons();
 }
 
 function toggleLayer(id) {
@@ -294,3 +387,6 @@ function toggleLayer(id) {
 
 // Auto Init
 document.addEventListener('DOMContentLoaded', initFAB);
+
+// Expose to Global
+window.FABState = FABState;

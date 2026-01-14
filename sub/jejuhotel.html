@@ -16,6 +16,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/hotel.css">
     <link rel="stylesheet" href="../css/FAB.css">
     <link rel="stylesheet" href="../css/chatbot-style.css">
@@ -38,19 +39,19 @@
                     <li class="nav-item">
                         <a href="jejuhotel.html" class="nav-link active">
                             <i data-lucide="building-2" class="nav-icon"></i>
-                            숙소 예약
+                            <span data-lang="navHotel">숙소 예약</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="jejustay_life.html" class="nav-link">
                             <i data-lucide="calendar-days" class="nav-icon"></i>
-                            전 세계 한 달 살기
+                            <span data-lang="navLife">전 세계 한 달 살기</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="activities.html" class="nav-link">
                             <i data-lucide="ticket" class="nav-icon"></i>
-                            즐길 거리
+                            <span data-lang="navActivity">즐길 거리</span>
                         </a>
                     </li>
                 </ul>
@@ -60,16 +61,20 @@
             <div class="header-utils">
                 <a href="#" class="util-link lounge">
                     <i data-lucide="wallet" class="util-icon"></i>
-                    <span class="lounge-label">JJ 포인트</span>
+                    <span class="lounge-label" data-lang="navLounge">JJ 포인트</span>
                     <span class="point-badge">1,050 P</span>
                 </a>
-                <a href="#" class="util-link">
+                <a href="reservation_check.html" class="util-link">
                     <i data-lucide="clipboard-list" class="util-icon"></i>
-                    예약 확인
+                    <span data-lang="navResCheck">예약 확인</span>
                 </a>
                 <a href="../sub/login.html" class="util-link login-btn">
                     <i data-lucide="user" class="util-icon"></i>
-                    로그인
+                    <span data-lang="navLogin">로그인</span>
+                </a>
+                <a href="customer_center.html" class="util-link">
+                    <i data-lucide="headphones" class="util-icon"></i>
+                    <span data-lang="navCs">고객센터</span>
                 </a>
             </div>
 
@@ -82,11 +87,11 @@
         <!-- 모바일 네비게이션 -->
         <div class="mobile-nav" id="mobileNav">
             <ul class="mobile-nav-list">
-                <li><a href="jejuhotel.html" class="mobile-nav-link active">숙소 예약</a></li>
-                <li><a href="jejustay_life.html" class="mobile-nav-link">한 달 살기</a></li>
-                <li><a href="#" class="mobile-nav-link">즐길 거리</a></li>
-                <li><a href="#" class="mobile-nav-link">예약 확인</a></li>
-                <li><a href="../sub/login.html" class="mobile-nav-link">로그인</a></li>
+                <li><a href="jejuhotel.html" class="mobile-nav-link active" data-lang="mobileNavHotel">숙소 예약</a></li>
+                <li><a href="jejustay_life.html" class="mobile-nav-link" data-lang="mobileNavLife">한 달 살기</a></li>
+                <li><a href="#" class="mobile-nav-link" data-lang="mobileNavActivity">즐길 거리</a></li>
+                <li><a href="#" class="mobile-nav-link" data-lang="navResCheck">예약 확인</a></li>
+                <li><a href="../sub/login.html" class="mobile-nav-link" data-lang="navLogin">로그인</a></li>
             </ul>
         </div>
     </header>
@@ -101,7 +106,7 @@
             </div>
 
             <div class="hero-content">
-                <p class="hero-subtitle-top">전 세계 200만 개 이상의 호텔, 리조트, 펜션을 최저가로 예약</p>
+                <p class="hero-subtitle-top" data-lang="heroSubtitleTop">전 세계 200만 개 이상의 호텔, 리조트, 펜션을 최저가로 예약</p>
 
                 <!-- 새로운 레이아웃 검색 위젯 -->
                 <div class="search-widget-large">
@@ -109,15 +114,15 @@
                     <div class="search-tabs-large">
                         <button class="search-tab-large active" data-tab="hotel">
                             <i data-lucide="building-2"></i>
-                            <span>호텔 & 리조트</span>
+                            <span data-lang="tabHotel">호텔 & 리조트</span>
                         </button>
                         <button class="search-tab-large" data-tab="pension">
                             <i data-lucide="home"></i>
-                            <span>펜션 & 풀빌라</span>
+                            <span data-lang="tabPension">펜션 & 풀빌라</span>
                         </button>
                         <button class="search-tab-large" data-tab="activity">
                             <i data-lucide="compass"></i>
-                            <span>즐길거리</span>
+                            <span data-lang="tabActivity">즐길거리</span>
                         </button>
                     </div>
 
@@ -128,102 +133,122 @@
                             <div class="search-field-new destination-field-new" id="destinationFieldLarge">
                                 <i data-lucide="search" class="field-icon-new"></i>
                                 <input type="text" class="field-input-new" id="destinationInput"
-                                    placeholder="어디로 떠나시나요?" autocomplete="off">
+                                    placeholder="어디로 떠나시나요?" autocomplete="off" data-lang-placeholder="destPlaceholder">
 
                                 <!-- 여행지 드롭다운 -->
                                 <div class="destination-dropdown" id="destinationDropdown">
                                     <div class="dropdown-columns">
                                         <div class="dropdown-column">
-                                            <div class="dropdown-header">대한민국 내 여행지</div>
+                                            <div class="dropdown-header" data-lang="destKr">대한민국 내 여행지</div>
                                             <ul class="destination-list">
                                                 <li class="destination-item" data-value="서울">
                                                     <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
                                                         alt="서울">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">서울</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameSeoul">서울</span>
                                                         <span class="destination-count">(5,945)</span>
-                                                        <span class="destination-desc">쇼핑, 레스토랑</span>
+                                                        <span class="destination-desc"
+                                                            data-lang="descShoppingDining">쇼핑, 레스토랑</span>
                                                     </div>
                                                 </li>
                                                 <li class="destination-item" data-value="인천">
                                                     <img src="https://images.unsplash.com/photo-1583425921686-c5daf5f49e4a?w=100&h=100&fit=crop"
                                                         alt="인천">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">인천</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameIncheon">인천</span>
                                                         <span class="destination-count">(2,147)</span>
-                                                        <span class="destination-desc">관광</span>
+                                                        <span class="destination-desc" data-lang="descTourism">관광</span>
                                                     </div>
                                                 </li>
                                                 <li class="destination-item" data-value="부산">
-                                                    <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=100&h=100&fit=crop"
+                                                    <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
                                                         alt="부산">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">부산</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameBusan">부산</span>
                                                         <span class="destination-count">(2,734)</span>
-                                                        <span class="destination-desc">해변, 레스토랑</span>
+                                                        <span class="destination-desc" data-lang="descBeachDining">해변,
+                                                            레스토랑</span>
                                                     </div>
                                                 </li>
                                                 <li class="destination-item" data-value="속초">
                                                     <img src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=100&h=100&fit=crop"
                                                         alt="속초">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">속초</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameSokcho">속초</span>
                                                         <span class="destination-count">(800)</span>
-                                                        <span class="destination-desc">해변, 레스토랑</span>
+                                                        <span class="destination-desc" data-lang="descBeachDining">해변,
+                                                            레스토랑</span>
                                                     </div>
                                                 </li>
                                                 <li class="destination-item" data-value="제주">
                                                     <img src="https://images.unsplash.com/photo-1562680802-9cf8b15f419d?w=100&h=100&fit=crop"
                                                         alt="제주">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">제주</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameJeju">제주</span>
                                                         <span class="destination-count">(4,939)</span>
-                                                        <span class="destination-desc">자연경관, 해변</span>
+                                                        <span class="destination-desc" data-lang="destDescJeju">자연경관,
+                                                            해변</span>
                                                     </div>
                                                 </li>
                                                 <li class="destination-item" data-value="경주">
                                                     <img src="https://images.unsplash.com/photo-1653632445016-b0de695eab90?w=100&h=100&fit=crop"
                                                         alt="경주">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">경주</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameGyeongju">경주</span>
                                                         <span class="destination-count">(1,439)</span>
-                                                        <span class="destination-desc">문화, 종교 관심 활동</span>
+                                                        <span class="destination-desc"
+                                                            data-lang="descCultureReligion">문화, 종교 관심 활동</span>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="dropdown-column">
-                                            <div class="dropdown-header">해외 여행지</div>
+                                            <div class="dropdown-header" data-lang="destOverseas">해외 여행지</div>
                                             <ul class="destination-list overseas">
                                                 <li class="destination-item-text" data-value="오사카">
-                                                    <span class="destination-name">오사카</span>
+                                                    <span class="destination-name" data-lang="destNameOsaka">오사카</span>
                                                     <span class="destination-count">(10,018)</span>
-                                                    <span class="destination-desc">쇼핑, 레스토랑</span>
+                                                    <span class="destination-desc" data-lang="descShoppingDining">쇼핑,
+                                                        레스토랑</span>
                                                 </li>
                                                 <li class="destination-item-text" data-value="도쿄">
-                                                    <span class="destination-name">도쿄 / 동경</span>
+                                                    <span class="destination-name" data-lang="destNameTokyo">도쿄 /
+                                                        동경</span>
                                                     <span class="destination-count">(12,486)</span>
-                                                    <span class="destination-desc">쇼핑, 관광</span>
+                                                    <span class="destination-desc"
+                                                        data-lang="descShoppingSightseeing">쇼핑, 관광</span>
                                                 </li>
                                                 <li class="destination-item-text" data-value="후쿠오카">
-                                                    <span class="destination-name">후쿠오카</span>
+                                                    <span class="destination-name"
+                                                        data-lang="destNameFukuoka">후쿠오카</span>
                                                     <span class="destination-count">(2,181)</span>
-                                                    <span class="destination-desc">관광, 해변</span>
+                                                    <span class="destination-desc" data-lang="descSightseeingBeach">관광,
+                                                        해변</span>
                                                 </li>
                                                 <li class="destination-item-text" data-value="방콕">
-                                                    <span class="destination-name">방콕</span>
+                                                    <span class="destination-name" data-lang="destNameBangkok">방콕</span>
                                                     <span class="destination-count">(8,450)</span>
-                                                    <span class="destination-desc">쇼핑, 관광</span>
+                                                    <span class="destination-desc"
+                                                        data-lang="descShoppingSightseeing">쇼핑, 관광</span>
                                                 </li>
                                                 <li class="destination-item-text" data-value="다낭">
-                                                    <span class="destination-name">다낭</span>
+                                                    <span class="destination-name" data-lang="destNameDanang">다낭</span>
                                                     <span class="destination-count">(2,890)</span>
-                                                    <span class="destination-desc">해변, 리조트</span>
+                                                    <span class="destination-desc" data-lang="descBeachResort">해변,
+                                                        리조트</span>
                                                 </li>
                                                 <li class="destination-item-text" data-value="싱가포르">
-                                                    <span class="destination-name">싱가포르</span>
+                                                    <span class="destination-name"
+                                                        data-lang="destNameSingapore">싱가포르</span>
                                                     <span class="destination-count">(1,890)</span>
-                                                    <span class="destination-desc">쇼핑, 관광</span>
+                                                    <span class="destination-desc"
+                                                        data-lang="descShoppingSightseeing">쇼핑, 관광</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -240,8 +265,8 @@
                                 <div class="date-field-new" id="checkInField">
                                     <i data-lucide="calendar" class="field-icon-new"></i>
                                     <div class="date-content-new">
-                                        <span class="date-full" id="checkInDisplay">날짜 선택</span>
-                                        <span class="date-day-new" id="checkInDay">체크인</span>
+                                        <span class="date-full" id="checkInDisplay" data-lang="dateSelect">날짜 선택</span>
+                                        <span class="date-day-new" id="checkInDay" data-lang="checkIn">체크인</span>
                                     </div>
                                 </div>
 
@@ -249,8 +274,8 @@
                                 <div class="date-field-new" id="checkOutField">
                                     <i data-lucide="calendar" class="field-icon-new"></i>
                                     <div class="date-content-new">
-                                        <span class="date-full" id="checkOutDisplay">날짜 선택</span>
-                                        <span class="date-day-new" id="checkOutDay">체크아웃</span>
+                                        <span class="date-full" id="checkOutDisplay" data-lang="dateSelect">날짜 선택</span>
+                                        <span class="date-day-new" id="checkOutDay" data-lang="checkOut">체크아웃</span>
                                     </div>
                                 </div>
 
@@ -276,12 +301,12 @@
                                             <div role="tablist" class="RangePicker-Tabs">
                                                 <div class="RangePicker-Tab Item">
                                                     <button role="tab" aria-selected="true" id="tab-calendar"
-                                                        class="TabBtn active">캘린더</button>
+                                                        class="TabBtn active" data-lang="calTitle">캘린더</button>
                                                     <div class="TabIndicator"></div>
                                                 </div>
                                                 <div class="RangePicker-Tab Item">
                                                     <button role="tab" aria-selected="false" id="tab-flexible"
-                                                        class="TabBtn">날짜 미정</button>
+                                                        class="TabBtn" data-lang="calFlexible">날짜 미정</button>
                                                 </div>
                                             </div>
 
@@ -309,11 +334,11 @@
                                             <!-- 하단 액션 버튼 -->
                                             <div class="RangePicker-Footer">
                                                 <button type="button" class="ActionBtn ActionBtn--clear" id="btn-clear">
-                                                    <span>선택 해제</span>
+                                                    <span data-lang="btnReset">선택 해제</span>
                                                 </button>
                                                 <button type="button" class="ActionBtn ActionBtn--confirm"
                                                     id="btn-confirm">
-                                                    <span>확인</span>
+                                                    <span data-lang="btnConfirm">확인</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -321,11 +346,14 @@
                                         <!-- 패널 2: 날짜 미정 -->
                                         <div role="tabpanel" id="panel-flexible" class="RangePicker-Panel">
                                             <div class="Flexible-Content">
-                                                <h3>투숙 기간은 얼마나 되시나요?</h3>
+                                                <h3 data-lang="calFlexTitle">투숙 기간은 얼마나 되시나요?</h3>
                                                 <div class="Flexible-Options">
-                                                    <button class="Flexible-Option" data-val="3">3박</button>
-                                                    <button class="Flexible-Option" data-val="7">1주일</button>
-                                                    <button class="Flexible-Option" data-val="30">1개월</button>
+                                                    <button class="Flexible-Option" data-val="3"
+                                                        data-lang="calFlex3">3박</button>
+                                                    <button class="Flexible-Option" data-val="7"
+                                                        data-lang="calFlex7">1주일</button>
+                                                    <button class="Flexible-Option" data-val="30"
+                                                        data-lang="calFlex30">1개월</button>
                                                 </div>
                                                 <!-- 추가 컨텐츠 생략 -->
                                             </div>
@@ -347,7 +375,7 @@
                                 <div class="guest-popup-new" id="guestPopupLarge">
                                     <div class="guest-row-new">
                                         <div class="guest-info-new">
-                                            <span class="guest-type-new">객실</span>
+                                            <span class="guest-type-new" data-lang="guestRooms">객실</span>
                                         </div>
                                         <div class="guest-counter-new">
                                             <button class="counter-btn-new minus" data-target="rooms">
@@ -361,8 +389,8 @@
                                     </div>
                                     <div class="guest-row-new">
                                         <div class="guest-info-new">
-                                            <span class="guest-type-new">성인</span>
-                                            <span class="guest-desc-new">18세 이상</span>
+                                            <span class="guest-type-new" data-lang="guestAdults">성인</span>
+                                            <span class="guest-desc-new" data-lang="guestAdultsDesc">18세 이상</span>
                                         </div>
                                         <div class="guest-counter-new">
                                             <button class="counter-btn-new minus" data-target="adults">
@@ -376,8 +404,8 @@
                                     </div>
                                     <div class="guest-row-new">
                                         <div class="guest-info-new">
-                                            <span class="guest-type-new">아동</span>
-                                            <span class="guest-desc-new">0 - 17세</span>
+                                            <span class="guest-type-new" data-lang="guestChildren">아동</span>
+                                            <span class="guest-desc-new" data-lang="guestChildrenDesc">0 - 17세</span>
                                         </div>
                                         <div class="guest-counter-new">
                                             <button class="counter-btn-new minus" data-target="children">
@@ -396,7 +424,7 @@
                         <!-- 하단: 검색 버튼 (중앙 배치) -->
                         <div class="search-row-bottom">
                             <button class="search-btn-new" id="searchBtn">
-                                <span>검색하기</span>
+                                <span data-lang="searchBtn">검색하기</span>
                             </button>
                         </div>
                     </div>
@@ -408,45 +436,51 @@
                             <div class="search-field-new destination-field-new" id="destinationFieldActivity">
                                 <i data-lucide="search" class="field-icon-new"></i>
                                 <input type="text" class="field-input-new" id="destinationInputActivity"
-                                    placeholder="어디로 떠나시나요?" autocomplete="off">
+                                    placeholder="어디로 떠나시나요?" autocomplete="off" data-lang-placeholder="destPlaceholder">
 
                                 <!-- 여행지 드롭다운 (즐길거리용) -->
                                 <div class="destination-dropdown" id="destinationDropdownActivity">
                                     <div class="dropdown-columns">
                                         <div class="dropdown-column">
-                                            <div class="dropdown-header">대한민국 내 여행지</div>
+                                            <div class="dropdown-header" data-lang="destKr">대한민국 내 여행지</div>
                                             <ul class="destination-list">
                                                 <li class="destination-item" data-value="서울">
                                                     <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
                                                         alt="서울">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">서울</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameSeoul">서울</span>
                                                         <span class="destination-count">(5,945)</span>
-                                                        <span class="destination-desc">쇼핑, 레스토랑</span>
+                                                        <span class="destination-desc"
+                                                            data-lang="descShoppingDining">쇼핑, 레스토랑</span>
                                                     </div>
                                                 </li>
                                                 <li class="destination-item" data-value="제주">
-                                                    <img src="https://images.unsplash.com/photo-1579169825453-8d4b4653cc3a?w=100&h=100&fit=crop"
+                                                    <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=100&h=100&fit=crop"
                                                         alt="제주">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">제주</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameJeju">제주</span>
                                                         <span class="destination-count">(4,939)</span>
-                                                        <span class="destination-desc">자연경관, 해변</span>
+                                                        <span class="destination-desc" data-lang="destDescJeju">자연경관,
+                                                            해변</span>
                                                     </div>
                                                 </li>
                                                 <li class="destination-item" data-value="부산">
                                                     <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=100&h=100&fit=crop"
                                                         alt="부산">
                                                     <div class="destination-info">
-                                                        <span class="destination-name">부산</span>
+                                                        <span class="destination-name"
+                                                            data-lang="destNameBusan">부산</span>
                                                         <span class="destination-count">(2,734)</span>
-                                                        <span class="destination-desc">해변, 레스토랑</span>
+                                                        <span class="destination-desc" data-lang="descBeachDining">해변,
+                                                            레스토랑</span>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="dropdown-column">
-                                            <div class="dropdown-header">해외 여행지</div>
+                                            <div class="dropdown-header" data-lang="destOverseas">해외 여행지</div>
                                             <ul class="destination-list overseas">
                                                 <li class="destination-item-text" data-value="오사카">
                                                     <span class="destination-name">오사카</span>
@@ -473,7 +507,7 @@
                         <!-- 하단: 검색 버튼 (중앙 배치) -->
                         <div class="search-row-bottom">
                             <button class="search-btn-new" id="searchBtnActivity">
-                                <span>검색하기</span>
+                                <span data-lang="searchBtn">검색하기</span>
                             </button>
                         </div>
                     </div>
@@ -491,9 +525,11 @@
                         </div>
                         <div class="promo-content">
                             <span class="promo-badge">JEJU UNIVERSE</span>
-                            <h3 class="promo-title">제주항공 탑승객 인증 시<br>전 세계 호텔 <strong>7% 추가 할인</strong></h3>
-                            <p class="promo-desc">제주항공 예약 확인서를 업로드하고 특별 할인을 받으세요</p>
-                            <a href="#" class="promo-link">자세히 보기 <i data-lucide="arrow-right"></i></a>
+                            <h3 class="promo-title" data-lang="promoTitle1">제주항공 탑승객 인증 시<br>전 세계 호텔 <strong>7% 추가
+                                    할인</strong></h3>
+                            <p class="promo-desc" data-lang="promoDesc1">제주항공 예약 확인서를 업로드하고 특별 할인을 받으세요</p>
+                            <a href="#" class="promo-link"><span data-lang="promoLink1">자세히 보기</span> <i
+                                    data-lucide="arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="promo-card promo-sub">
@@ -502,8 +538,9 @@
                         </div>
                         <div class="promo-content">
                             <span class="promo-badge">REFRESH POINT</span>
-                            <h3 class="promo-title">리프레시 포인트로<br>호텔 결제 가능</h3>
-                            <a href="#" class="promo-link">포인트 사용하기 <i data-lucide="arrow-right"></i></a>
+                            <h3 class="promo-title" data-lang="promoTitle2">리프레시 포인트로<br>호텔 결제 가능</h3>
+                            <a href="#" class="promo-link"><span data-lang="promoLink2">포인트 사용하기</span> <i
+                                    data-lucide="arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="promo-card promo-sub">
@@ -512,8 +549,9 @@
                         </div>
                         <div class="promo-content">
                             <span class="promo-badge">PACKAGE DEAL</span>
-                            <h3 class="promo-title">숙소 + 렌터카<br>패키지 최대 15% 할인</h3>
-                            <a href="#" class="promo-link">패키지 보기 <i data-lucide="arrow-right"></i></a>
+                            <h3 class="promo-title" data-lang="promoTitle3">숙소 + 렌터카<br>패키지 최대 15% 할인</h3>
+                            <a href="#" class="promo-link"><span data-lang="promoLink3">패키지 보기</span> <i
+                                    data-lucide="arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -524,8 +562,8 @@
         <section class="destinations-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">한국인이 사랑하는 인기 여행지</h2>
-                    <p class="section-subtitle">지금 가장 핫한 여행지에서 특별한 숙소를 만나보세요</p>
+                    <h2 class="section-title" data-lang="destTitle">한국인이 사랑하는 인기 여행지</h2>
+                    <p class="section-subtitle" data-lang="destSubtitle">지금 가장 핫한 여행지에서 특별한 숙소를 만나보세요</p>
                 </div>
 
                 <div class="destinations-grid">
@@ -534,9 +572,9 @@
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <span class="destination-badge">특가</span>
-                            <h3 class="destination-name">제주도</h3>
-                            <p class="destination-hotels">숙소 3,240개</p>
+                            <span class="destination-badge" data-lang="badgeSpecial">특가</span>
+                            <h3 class="destination-name" data-lang="destNameJeju">제주도</h3>
+                            <p class="destination-hotels" data-lang="destCountJeju">숙소 3,240개</p>
                         </div>
                     </a>
                     <a href="#" class="destination-card">
@@ -544,9 +582,9 @@
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <span class="destination-badge">특가</span>
-                            <h3 class="destination-name">오사카</h3>
-                            <p class="destination-hotels">숙소 5,120개</p>
+                            <span class="destination-badge" data-lang="badgeSpecial">특가</span>
+                            <h3 class="destination-name" data-lang="destNameOsaka">오사카</h3>
+                            <p class="destination-hotels" data-lang="destCountOsaka">숙소 5,120개</p>
                         </div>
                     </a>
                     <a href="#" class="destination-card">
@@ -554,9 +592,9 @@
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <span class="destination-badge">특가</span>
-                            <h3 class="destination-name">다낭</h3>
-                            <p class="destination-hotels">숙소 2,890개</p>
+                            <span class="destination-badge" data-lang="badgeSpecial">특가</span>
+                            <h3 class="destination-name" data-lang="destNameDanang">다낭</h3>
+                            <p class="destination-hotels" data-lang="destCountDanang">숙소 2,890개</p>
                         </div>
                     </a>
                     <a href="#" class="destination-card">
@@ -564,9 +602,9 @@
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <span class="destination-badge">특가</span>
-                            <h3 class="destination-name">방콕</h3>
-                            <p class="destination-hotels">숙소 8,450개</p>
+                            <span class="destination-badge" data-lang="badgeSpecial">특가</span>
+                            <h3 class="destination-name" data-lang="destNameBangkok">방콕</h3>
+                            <p class="destination-hotels" data-lang="destCountBangkok">숙소 8,450개</p>
                         </div>
                     </a>
                     <a href="#" class="destination-card">
@@ -574,9 +612,9 @@
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <span class="destination-badge">특가</span>
-                            <h3 class="destination-name">도쿄</h3>
-                            <p class="destination-hotels">숙소 7,320개</p>
+                            <span class="destination-badge" data-lang="badgeSpecial">특가</span>
+                            <h3 class="destination-name" data-lang="destNameTokyo">도쿄</h3>
+                            <p class="destination-hotels" data-lang="destCountTokyo">숙소 7,320개</p>
                         </div>
                     </a>
                     <a href="#" class="destination-card">
@@ -584,8 +622,8 @@
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <h3 class="destination-name">싱가포르</h3>
-                            <p class="destination-hotels">숙소 1,890개</p>
+                            <h3 class="destination-name" data-lang="destNameSingapore">싱가포르</h3>
+                            <p class="destination-hotels" data-lang="destCountSingapore">숙소 1,890개</p>
                         </div>
                     </a>
                 </div>
@@ -596,8 +634,8 @@
         <section class="deals-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">이달의 특가 호텔</h2>
-                    <p class="section-subtitle">JJ 멤버 전용 특별 할인가로 만나보세요</p>
+                    <h2 class="section-title" data-lang="dealsTitle">이달의 특가 호텔</h2>
+                    <p class="section-subtitle" data-lang="dealsSubtitle">JJ 멤버 전용 특별 할인가로 만나보세요</p>
                 </div>
 
                 <div class="hotel-list">
@@ -621,29 +659,33 @@
                                     <i data-lucide="star" class="star-icon filled"></i>
                                 </div>
                             </div>
-                            <h3 class="hotel-name">그랜드 하얏트 제주</h3>
-                            <p class="hotel-location">
+                            <h3 class="hotel-name" data-lang="hotelNameGrandHyatt">그랜드 하얏트 제주</h3>
+                            <p class="hotel-location" data-lang="hotelLocGrandHyatt">
                                 <i data-lucide="map-pin"></i>
                                 제주시 노형동 · 해변까지 도보 5분
                             </p>
                             <div class="hotel-amenities">
-                                <span class="amenity"><i data-lucide="wifi"></i> 무료 와이파이</span>
-                                <span class="amenity"><i data-lucide="waves"></i> 수영장</span>
-                                <span class="amenity"><i data-lucide="utensils"></i> 조식 포함</span>
+                                <span class="amenity"><i data-lucide="wifi"></i> <span data-lang="amenityWifi">무료
+                                        와이파이</span></span>
+                                <span class="amenity"><i data-lucide="waves"></i> <span
+                                        data-lang="amenityPool">수영장</span></span>
+                                <span class="amenity"><i data-lucide="utensils"></i> <span
+                                        data-lang="amenityBreakfast">조식 포함</span></span>
                             </div>
                             <div class="hotel-review">
                                 <span class="review-score">9.2</span>
-                                <span class="review-text">최고 · 리뷰 2,341개</span>
+                                <span class="review-text"><span data-lang="reviewExcellent">최고</span> · 2,341<span
+                                        data-lang="reviewSuffix">개</span></span>
                             </div>
                         </div>
                         <div class="hotel-price">
                             <div class="price-info">
-                                <span class="price-label">1박 요금</span>
-                                <span class="price-discount">30% 할인</span>
+                                <span class="price-label" data-lang="pricePerNight">1박 요금</span>
+                                <span class="price-discount">30% <span data-lang="discountOff">할인</span></span>
                             </div>
                             <div class="price-original"><span data-price-krw="350000">₩350,000</span></div>
                             <div class="price-final"><span data-price-krw="245000">₩245,000</span></div>
-                            <span class="price-tax">세금 포함</span>
+                            <span class="price-tax" data-lang="priceTaxIncl">세금 포함</span>
                         </div>
                     </article>
 
@@ -667,29 +709,33 @@
                                     <i data-lucide="star" class="star-icon filled"></i>
                                 </div>
                             </div>
-                            <h3 class="hotel-name">오사카 리츠칼튼</h3>
-                            <p class="hotel-location">
+                            <h3 class="hotel-name" data-lang="hotelNameOsakaRitz">오사카 리츠칼튼</h3>
+                            <p class="hotel-location" data-lang="hotelLocOsakaRitz">
                                 <i data-lucide="map-pin"></i>
                                 오사카 키타구 · 우메다역 도보 3분
                             </p>
                             <div class="hotel-amenities">
-                                <span class="amenity"><i data-lucide="wifi"></i> 무료 와이파이</span>
-                                <span class="amenity"><i data-lucide="dumbbell"></i> 피트니스</span>
-                                <span class="amenity"><i data-lucide="sparkles"></i> 스파</span>
+                                <span class="amenity"><i data-lucide="wifi"></i> <span data-lang="amenityWifi">무료
+                                        와이파이</span></span>
+                                <span class="amenity"><i data-lucide="dumbbell"></i> <span
+                                        data-lang="amenityFitness">피트니스</span></span>
+                                <span class="amenity"><i data-lucide="sparkles"></i> <span
+                                        data-lang="amenitySpa">스파</span></span>
                             </div>
                             <div class="hotel-review">
                                 <span class="review-score">9.5</span>
-                                <span class="review-text">최고 · 리뷰 4,521개</span>
+                                <span class="review-text"><span data-lang="reviewExcellent">최고</span> · 4,521<span
+                                        data-lang="reviewSuffix">개</span></span>
                             </div>
                         </div>
                         <div class="hotel-price">
                             <div class="price-info">
-                                <span class="price-label">1박 요금</span>
-                                <span class="price-discount">25% 할인</span>
+                                <span class="price-label" data-lang="pricePerNight">1박 요금</span>
+                                <span class="price-discount">25% <span data-lang="discountOff">할인</span></span>
                             </div>
                             <div class="price-original"><span data-price-krw="480000">₩480,000</span></div>
                             <div class="price-final"><span data-price-krw="360000">₩360,000</span></div>
-                            <span class="price-tax">세금 포함</span>
+                            <span class="price-tax" data-lang="priceTaxIncl">세금 포함</span>
                         </div>
                     </article>
 
@@ -713,29 +759,33 @@
                                     <i data-lucide="star" class="star-icon"></i>
                                 </div>
                             </div>
-                            <h3 class="hotel-name">다낭 인터컨티넨탈 선 페닌슐라</h3>
-                            <p class="hotel-location">
+                            <h3 class="hotel-name" data-lang="hotelNameDanangInter">다낭 인터컨티넨탈 선 페닌슐라</h3>
+                            <p class="hotel-location" data-lang="hotelLocDanangInter">
                                 <i data-lucide="map-pin"></i>
                                 다낭 손트라 · 프라이빗 비치
                             </p>
                             <div class="hotel-amenities">
-                                <span class="amenity"><i data-lucide="wifi"></i> 무료 와이파이</span>
-                                <span class="amenity"><i data-lucide="waves"></i> 인피니티 풀</span>
-                                <span class="amenity"><i data-lucide="utensils"></i> 조식 포함</span>
+                                <span class="amenity"><i data-lucide="wifi"></i> <span data-lang="amenityWifi">무료
+                                        와이파이</span></span>
+                                <span class="amenity"><i data-lucide="waves"></i> <span data-lang="amenityInfinity">인피니티
+                                        풀</span></span>
+                                <span class="amenity"><i data-lucide="utensils"></i> <span
+                                        data-lang="amenityBreakfast">조식 포함</span></span>
                             </div>
                             <div class="hotel-review">
                                 <span class="review-score">9.0</span>
-                                <span class="review-text">훌륭함 · 리뷰 1,892개</span>
+                                <span class="review-text"><span data-lang="reviewGreat">훌륭함</span> · 1,892<span
+                                        data-lang="reviewSuffix">개</span></span>
                             </div>
                         </div>
                         <div class="hotel-price">
                             <div class="price-info">
-                                <span class="price-label">1박 요금</span>
-                                <span class="price-discount">35% 할인</span>
+                                <span class="price-label" data-lang="pricePerNight">1박 요금</span>
+                                <span class="price-discount">35% <span data-lang="discountOff">할인</span></span>
                             </div>
                             <div class="price-original"><span data-price-krw="280000">₩280,000</span></div>
                             <div class="price-final"><span data-price-krw="182000">₩182,000</span></div>
-                            <span class="price-tax">세금 포함</span>
+                            <span class="price-tax" data-lang="priceTaxIncl">세금 포함</span>
                         </div>
                     </article>
 
@@ -759,36 +809,40 @@
                                     <i data-lucide="star" class="star-icon filled"></i>
                                 </div>
                             </div>
-                            <h3 class="hotel-name">방콕 만다린 오리엔탈</h3>
-                            <p class="hotel-location">
+                            <h3 class="hotel-name" data-lang="hotelNameBangkokMandarin">방콕 만다린 오리엔탈</h3>
+                            <p class="hotel-location" data-lang="hotelLocBangkokMandarin">
                                 <i data-lucide="map-pin"></i>
                                 방콕 차오프라야강 · 리버뷰
                             </p>
                             <div class="hotel-amenities">
-                                <span class="amenity"><i data-lucide="wifi"></i> 무료 와이파이</span>
-                                <span class="amenity"><i data-lucide="sparkles"></i> 스파</span>
-                                <span class="amenity"><i data-lucide="ship"></i> 셔틀보트</span>
+                                <span class="amenity"><i data-lucide="wifi"></i> <span data-lang="amenityWifi">무료
+                                        와이파이</span></span>
+                                <span class="amenity"><i data-lucide="sparkles"></i> <span
+                                        data-lang="amenitySpa">스파</span></span>
+                                <span class="amenity"><i data-lucide="ship"></i> <span
+                                        data-lang="amenityShuttle">셔틀보트</span></span>
                             </div>
                             <div class="hotel-review">
                                 <span class="review-score">9.7</span>
-                                <span class="review-text">최고 · 리뷰 3,102개</span>
+                                <span class="review-text"><span data-lang="reviewExcellent">최고</span> · 3,102<span
+                                        data-lang="reviewSuffix">개</span></span>
                             </div>
                         </div>
                         <div class="hotel-price">
                             <div class="price-info">
-                                <span class="price-label">1박 요금</span>
-                                <span class="price-discount">20% 할인</span>
+                                <span class="price-label" data-lang="pricePerNight">1박 요금</span>
+                                <span class="price-discount">20% <span data-lang="discountOff">할인</span></span>
                             </div>
                             <div class="price-original"><span data-price-krw="420000">₩420,000</span></div>
                             <div class="price-final"><span data-price-krw="336000">₩336,000</span></div>
-                            <span class="price-tax">세금 포함</span>
+                            <span class="price-tax" data-lang="priceTaxIncl">세금 포함</span>
                         </div>
                     </article>
                 </div>
 
                 <div class="section-more">
                     <a href="#" class="more-btn">
-                        더 많은 특가 호텔 보기
+                        <span data-lang="moreHotels">더 많은 특가 호텔 보기</span>
                         <i data-lucide="chevron-right"></i>
                     </a>
                 </div>
@@ -797,85 +851,35 @@
     </main>
 
     <!-- ========== 섹션 6: 푸터 ========== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <a href="#" class="footer-logo">
-                        <span class="logo-group">JEJU GROUP</span>
-                        <span class="logo-divider">|</span>
-                        <span class="logo-stay">STAY</span>
-                    </a>
-                    <p class="footer-desc">제주그룹의 글로벌 호텔 예약 플랫폼<br>전 세계 200만 개 이상의 숙소를 최저가로 예약하세요.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <i data-lucide="instagram"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Facebook">
-                            <i data-lucide="facebook"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="YouTube">
-                            <i data-lucide="youtube"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <i data-lucide="twitter"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4 class="footer-title">고객 지원</h4>
-                        <ul class="footer-list">
-                            <li><a href="#">자주 묻는 질문</a></li>
-                            <li><a href="#">예약 변경/취소</a></li>
-                            <li><a href="#">고객센터 1588-0000</a></li>
-                            <li><a href="#">실시간 채팅 상담</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-title">회사 정보</h4>
-                        <ul class="footer-list">
-                            <li><a href="#">회사 소개</a></li>
-                            <li><a href="#">채용 정보</a></li>
-                            <li><a href="#">제휴 문의</a></li>
-                            <li><a href="#">투자자 정보</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-title">계열사</h4>
-                        <ul class="footer-list">
-                            <li><a href="#">제주항공</a></li>
-                            <li><a href="#">AK PLAZA</a></li>
-                            <li><a href="#">제주렌터카</a></li>
-                            <li><a href="#">애경산업</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-title">약관 및 정책</h4>
-                        <ul class="footer-list">
-                            <li><a href="#">이용약관</a></li>
-                            <li><a href="#">개인정보처리방침</a></li>
-                            <li><a href="#">취소/환불 정책</a></li>
-                            <li><a href="#">쿠키 정책</a></li>
-                        </ul>
-                    </div>
-                </div>
+    <footer class="footer section" id="section-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p><strong data-lang="footerCompany">(주)제주 그룹</strong></p>
+                <p data-lang="footerCEO">대표이사: 김이배</p>
+                <p data-lang="footerBizNum">사업자등록번호: 616-81-50527</p>
+                <p data-lang="footerSaleNum">통신판매업신고: 제주 2006-125호</p>
+                <p data-lang="footerHosting">호스팅 사업자: AWS</p>
+                <br>
+                <p data-lang="footerAddr">주소: 제주특별자치도 제주시 신대로 64 (연동, 건설공제회관 3층)</p>
+                <p data-lang="footerCs">고객센터: 1599-1500 (09:00 ~ 19:00)</p>
+                <p data-lang="footerCsEmail">고객 문의: jejugroup.help@jejugroup.net</p>
+                <p data-lang="footerPartnerEmail">제휴 문의: partnership@jejugroup.net</p>
             </div>
-
-            <div class="footer-bottom">
-                <div class="footer-legal">
-                    <p>주식회사 제주스테이 | 대표이사: 홍길동 | 사업자등록번호: 123-45-67890</p>
-                    <p>통신판매업신고: 제2024-서울강서-0001호 | 관광사업등록번호: 제2024-000001호</p>
-                    <p>주소: 서울특별시 강서구 하늘길 260 제주항공빌딩</p>
-                </div>
-                <p class="footer-copyright">© 2024 JEJU STAY. All rights reserved.</p>
+            <div class="footer-social">
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
             </div>
+        </div>
+        <div class="footer-copyright">
+            <p data-lang="footerCopyright">Copyright ⓒ Jeju Group. All Rights Reserved.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="../js/lang_data.js"></script>
     <script src="../js/hotel.js"></script>
     <script src="../js/FAB.js"></script>
     <script src="../js/chatbot.js"></script>

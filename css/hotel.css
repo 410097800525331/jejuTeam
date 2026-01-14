@@ -1849,12 +1849,30 @@ input {
 
 .wishlist-btn:hover {
     background: var(--surface);
-    color: var(--primary);
+    color: var(--error); /* Red on hover */
+    transform: scale(1.1);
+}
+
+.wishlist-btn.active {
+    background: var(--surface);
+    color: var(--error);
+    animation: heartPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.wishlist-btn.active svg {
+    fill: currentColor;
+}
+
+@keyframes heartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.35); }
+    100% { transform: scale(1); }
 }
 
 .wishlist-btn svg {
     width: 20px;
     height: 20px;
+    transition: fill 0.3s ease;
 }
 
 .hotel-info {
@@ -2333,5 +2351,87 @@ input {
     .price-final {
         font-size: 1.25rem;
     }
+}
+
+/* ==================== Unified Footer from Main ==================== */
+.footer {
+    background-color: #f2f2f2;
+    padding: 30px 40px;
+    margin-top: 0;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    display: block;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto 15px;
+    gap: 40px;
+}
+
+.footer-info {
+    flex: 1;
+}
+
+.footer-info p {
+    display: inline-block;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 2px;
+}
+
+.footer-info p strong {
+    font-weight: 700;
+    color: #000;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ddd;
+    border-radius: 50%;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 12px;
+}
+
+.social-icon:hover {
+    background-color: #FF5000;
+    color: white;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-copyright p {
+    font-size: 10px;
+    color: #999;
+}
+
+/* Footer가 section 클래스를 가질 때 100vh 제거 */
+.footer.section {
+    min-height: auto !important;
+    height: auto !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 

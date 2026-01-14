@@ -16,8 +16,8 @@
 /* 1. 로그인 페이지 배경 및 레이아웃 설정 */
 .login-page {
     font-family: 'FlightSans', sans-serif;
-    /* 제주 감성 배경 이미지 (무료 이미지 소스 예시) */
-    background: url('https://images.unsplash.com/photo-1542662565-7e4b66b5adaa?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+    /* 제주 감성 배경 이미지 (밝은 해변) */
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80') no-repeat center center/cover;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -26,12 +26,12 @@
     overflow-x: hidden;
 }
 
-/* 배경 어둡게 처리 (헤더 가독성 확보 핵심) */
+/* 배경 어둡게 처리 (헤더 가독성 확보 핵심) - 밝은 느낌을 위해 투명도 조절 */
 .login-page::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.2) 100%);
     z-index: 0;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .login-page .logo-link img {
-    filter: brightness(0) invert(1); /* 로고 흰색으로 변경 */
+    /* filter: brightness(0) invert(1); */ /* 로고 원본 색상 유지 */
 }
 
 .login-page .lang-toggle {

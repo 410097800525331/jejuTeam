@@ -1,181 +1,208 @@
-/* ==================== 풀페이지 스크롤 제어 (최적화됨) ==================== */
-let currentSectionIndex = 0;
-let isScrolling = false;
-let wheelTimeout;
-let lastWheelTime = 0;
-
-// DOM 요소 캐싱
-const sections = document.querySelectorAll('.section');
-const header = document.querySelector('.header');
-const topBtn = document.getElementById('topBtn');
-const footer = document.querySelector('footer');
-
-const wheelDelay = 50; // 휠 디바운스 시간 조정
-const scrollDuration = 1000; // 스크롤 애니메이션 시간
-
-/* ==================== 스크롤 함수 ==================== */
-function scrollToSection(index) {
-    if (index < 0) index = 0;
-    if (index >= sections.length) index = sections.length - 1;
+/* ==================== Strict Full Page Scroll Controller ==================== */
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Configuration ---
+    const SCROLL_COOLDOWN = 1000; // Time in ms to ignore input after scroll
+    const sections = document.querySelectorAll('.section');
+    const footer = document.querySelector('footer');
     
-    // 이미 해당 섹션이거나 스크롤 중이면 무시 (단, 강제 이동이 필요할 수 있으므로 상황에 따라 조정)
-    if (isScrolling) return;
+    // UI Elements
+    const header = document.querySelector('.header');
+    const topBtn = document.getElementById('topBtn');
+    const navLinks = document.querySelectorAll('.gnb-link');
 
-    currentSectionIndex = index;
-    isScrolling = true;
+    // --- State ---
+    let currentSectionIndex = 0; // 0 to sections.length (where last index is Footer)
+    let isScrolling = false;
+    let touchStartY = 0;
 
-    const targetSection = sections[currentSectionIndex];
-    const targetPosition = targetSection.offsetTop;
+    // The total number of stops = sections + footer
+    // Indices: 0, 1, ..., sections.length-1, sections.length (Footer)
+    const maxIndex = sections.length; 
 
-    window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-    });
+    // --- Smooth Scroll Animation Engine ---
+    const easeInOutCubic = t => t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
 
-    // 헤더 및 버튼 상태 업데이트 (즉시 반영)
-    updateHeaderAndButtons();
+    function smoothScrollTo(targetPosition, duration) {
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
 
-    setTimeout(() => {
-        isScrolling = false;
-    }, scrollDuration);
-}
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutCubic(Math.min(timeElapsed / duration, 1)); // Normalize time
 
-/* ==================== IntersectionObserver (현재 섹션 감지) ==================== */
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5 // 50% 이상 보일 때 활성화
-};
+            window.scrollTo(0, startPosition + (distance * run));
 
-const observer = new IntersectionObserver((entries) => {
-    // 자동 스크롤 중일 때는 옵저버에 의한 인덱스 변경을 막아 튀는 현상 방지
-    if (isScrolling) return;
-
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // 현재 보이는 섹션의 인덱스 찾기
-            const index = Array.from(sections).indexOf(entry.target);
-            if (index !== -1) {
-                currentSectionIndex = index;
-                updateHeaderAndButtons();
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            } else {
+                // Ensure we land exactly on target
+                window.scrollTo(0, targetPosition);
+                isScrolling = false; // Release lock only after animation finishes
             }
         }
-    });
-}, observerOptions);
 
-sections.forEach(section => {
-    observer.observe(section);
-});
-
-/* ==================== 헤더 및 UI 업데이트 함수 ==================== */
-function updateHeaderAndButtons() {
-    // 섹션 1(인덱스 0)일 때와 아닐 때 헤더 스타일 구분
-    if (currentSectionIndex === 0) {
-        header.classList.remove('transparent');
-        header.classList.add('section1-header');
-        header.classList.remove('section2plus-header');
-        
-        // 탑 버튼 숨김
-        if (topBtn) topBtn.classList.remove('show');
-    } else {
-        header.classList.add('transparent');
-        header.classList.remove('section1-header');
-        header.classList.add('section2plus-header');
-        
-        // 탑 버튼 표시
-        if (topBtn) topBtn.classList.add('show');
+        requestAnimationFrame(animation);
     }
-}
 
-/* ==================== 마우스 휠 이벤트 ==================== */
-/* ==================== 마우스 휠 이벤트 (섹션이 2개 이상일 때만 활성화) ==================== */
-if (sections.length > 1) {
-    document.addEventListener('wheel', (e) => {
-        // 기본 스크롤 동작 방지 (완전한 풀페이지 느낌을 위해)
-        e.preventDefault();
+    // --- Scroll Function ---
+    function scrollToCurrentIndex() {
+        isScrolling = true;
 
-        const now = Date.now();
-        if (now - lastWheelTime < wheelDelay) return;
-        lastWheelTime = now;
+        let targetTop = 0;
 
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-            if (e.deltaY > 0) {
-                // 아래로 스크롤
-                scrollToSection(currentSectionIndex + 1);
-            } else {
-                // 위로 스크롤
-                scrollToSection(currentSectionIndex - 1);
-            }
-        }, wheelDelay);
-    }, { passive: false });
+        if (currentSectionIndex < sections.length) {
+            targetTop = sections[currentSectionIndex].offsetTop;
+        } else {
+            targetTop = footer.offsetTop;
+        }
 
-    /* ==================== 키보드 이벤트 제어 ==================== */
-    document.addEventListener('keydown', (e) => {
-        const scrollKeys = ['ArrowUp', 'ArrowDown', ' ', 'PageUp', 'PageDown', 'Home', 'End'];
-        
-        // 스크롤 중이거나 스크롤 키가 아니면 무시
-        if (!scrollKeys.includes(e.key)) return;
-        
-        e.preventDefault(); // 기본 동작 방지
+        // Use custom animation
+        // Duration: 1000ms for a slow, premium feel
+        smoothScrollTo(targetTop, 1000); 
+
+        // Note: isScrolling is now reset inside smoothScrollTo's callback
+        // We set a backup timeout just in case animation glitch (safety net)
+        setTimeout(() => {
+            isScrolling = false;
+        }, 1200);
+    }
+
+    // --- Input Handlers ---
+    
+    // 1. Wheel Event
+    window.addEventListener('wheel', (e) => {
+        e.preventDefault(); // Lock native scroll
 
         if (isScrolling) return;
 
-        if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
-            scrollToSection(currentSectionIndex + 1);
-        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-            scrollToSection(currentSectionIndex - 1);
-        } else if (e.key === 'Home') {
-            scrollToSection(0);
-        } else if (e.key === 'End') {
-            scrollToSection(sections.length - 1);
-        }
-    }, { passive: false });
-}
-
-
-/* ==================== 탑 버튼 기능 ==================== */
-if (topBtn) {
-    topBtn.addEventListener('click', () => {
-        scrollToSection(0);
-    });
-}
-
-/* ==================== 네비게이션 링크 클릭 ==================== */
-document.querySelectorAll('.gnb-link').forEach((link) => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const sectionId = link.getAttribute('href');
-        const targetSection = document.querySelector(sectionId);
-        if (targetSection) {
-            const sectionIndex = Array.from(sections).indexOf(targetSection);
-            scrollToSection(sectionIndex);
-        }
-    });
-});
-
-/* ==================== 페이지 로드 시 초기화 ==================== */
-window.addEventListener('load', () => {
-    const hash = window.location.hash;
-    if (hash) {
-        const targetSection = document.querySelector(hash);
-        if (targetSection) {
-            const index = Array.from(sections).indexOf(targetSection);
-            if (index !== -1) {
-                // 약간의 지연 후 이동하여 정확도 높임
-                setTimeout(() => {
-                   scrollToSection(index);
-                }, 100);
-                return;
+        if (e.deltaY > 0) {
+            // Scroll Down
+            if (currentSectionIndex < maxIndex) {
+                currentSectionIndex++;
+                scrollToCurrentIndex();
+            }
+        } else {
+            // Scroll Up
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                scrollToCurrentIndex();
             }
         }
+    }, { passive: false });
+
+    // 2. Keyboard Event
+    window.addEventListener('keydown', (e) => {
+        const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+        if (keys.includes(e.key)) {
+            e.preventDefault();
+            
+            if (isScrolling) return;
+
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                if (currentSectionIndex < maxIndex) {
+                    currentSectionIndex++;
+                    scrollToCurrentIndex();
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                if (currentSectionIndex > 0) {
+                    currentSectionIndex--;
+                    scrollToCurrentIndex();
+                }
+            } else if (e.key === 'Home') {
+                currentSectionIndex = 0;
+                scrollToCurrentIndex();
+            } else if (e.key === 'End') {
+                currentSectionIndex = maxIndex;
+                scrollToCurrentIndex();
+            }
+        }
+    }, { passive: false });
+
+    // --- UI Observers (Keep UI in sync with visual position) ---
+    // This runs independently to update header colors/navs regardless of how we got there
+    const observerOptions = {
+        root: null,
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Determine logic based on visible section
+                
+                // Update Index (in case of manual hash navigation or resize)
+                // We trust our logic, but this helps sync if something goes off-beat
+                const index = Array.from(sections).indexOf(entry.target);
+                if (index !== -1 && !isScrolling) {
+                     // Note: We don't force currentSectionIndex here during active scroll
+                     // to avoid race conditions, but it CAN be useful for resize.
+                     // For strict scroll, we mostly rely on the variable.
+                     currentSectionIndex = index;
+                }
+
+                // Header Style
+                if (entry.target.id === 'section-1') {
+                    header.classList.remove('transparent', 'section2plus-header');
+                    header.classList.add('section1-header');
+                    if (topBtn) topBtn.classList.remove('show');
+                } else {
+                    header.classList.add('transparent', 'section2plus-header');
+                    header.classList.remove('section1-header');
+                    if (topBtn) topBtn.classList.add('show');
+                }
+
+                // Nav Link Active State
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${entry.target.id}`) {
+                        link.classList.add('active'); 
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+    observer.observe(footer); // Observe footer too if needed for some UI logic
+
+    // --- Click Handlers (Integration) ---
+
+    // GNB Links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Internal links only
+            const href = link.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    // Update index based on target
+                    currentSectionIndex = Array.from(sections).indexOf(targetSection);
+                    scrollToCurrentIndex();
+                }
+            }
+        });
+    });
+
+    // Top Button
+    if (topBtn) {
+        topBtn.addEventListener('click', () => {
+            currentSectionIndex = 0;
+            scrollToCurrentIndex();
+        });
     }
-    // 해시가 없으면 0번으로 초기화 (풀페이지 모드일 때만)
-    if (sections.length > 1) {
-        setTimeout(() => {
-            updateHeaderAndButtons();
-            window.scrollTo(0, 0);
-        }, 10);
+
+    // Scroll Down Button
+    const scrollDownBtn = document.querySelector('.scroll-down');
+    if (scrollDownBtn) {
+        scrollDownBtn.addEventListener('click', () => {
+            currentSectionIndex = 1; // Go to section 2
+            scrollToCurrentIndex();
+        });
     }
 });
 
@@ -224,6 +251,7 @@ if (langToggleButton) {
         
         // FAB 등 다른 컴포넌트에도 알림
         document.dispatchEvent(new CustomEvent('languageChanged', { detail: currentLang }));
+        document.dispatchEvent(new CustomEvent('fabLanguageChanged', { detail: currentLang }));
     });
 }
 

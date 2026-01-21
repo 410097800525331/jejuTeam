@@ -13,33 +13,69 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Initialize Lazy Loading
     initLazyLoad();
 
-    // 5. Initialize Animations
-    animateCards();
+    // 5. Initialize Animations (Pre-hide to prevent FOUC)
+    gsap.set(".activity-card", { autoAlpha: 0, y: 50 });
 
     // 6. Initialize Header Scroll Logic
     initHeaderScroll();
+
+    // 7. Initialize Wishlist Buttons
+    initWishlistButtons();
+});
+
+// Trigger Animation when everything is loaded (Images, Fonts)
+window.addEventListener('load', () => {
+    animateCards();
 });
 
 /* --- Filter Bar Logic --- */
 function initFilterBar() {
     const chips = document.querySelectorAll('.filter-chip');
-    
+    const cards = document.querySelectorAll('.activity-card'); // Select all cards at initiation
+
     chips.forEach(chip => {
         chip.addEventListener('click', (e) => {
-            // Active State Toggle
+            // 1. Update Active State
             chips.forEach(c => c.classList.remove('active'));
             e.currentTarget.classList.add('active');
 
-            // Animation (Stagger Effect)
-            const cards = document.querySelectorAll('.activity-card');
-            
-            // GSAP Stagger Animation for "Filtering" feedback
-            gsap.fromTo(cards, 
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.4, stagger: 0.05, ease: "power2.out" }
-            );
+            const category = e.currentTarget.dataset.category;
 
-            // In a real app, you would filter the DOM elements here based on data-category
+            // 2. Filter Logic with GSAP
+            // First, animate out *all* cards
+            gsap.to(cards, {
+                autoAlpha: 0,
+                y: 20,
+                duration: 0.3,
+                ease: "power2.in",
+                onComplete: () => {
+                    // After fade out, change display properties
+                    cards.forEach(card => {
+                        const cardCategory = card.dataset.category;
+                        if (category === 'all' || cardCategory === category) {
+                            card.style.display = 'flex'; // Restore layout
+                        } else {
+                            card.style.display = 'none'; // Remove from layout
+                        }
+                    });
+
+                    // Recalculate GSAP (since layout changed)
+                    // Then animate in only the visible ones
+                    const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+                    
+                    gsap.fromTo(visibleCards, 
+                        { autoAlpha: 0, y: 20 },
+                        { 
+                            autoAlpha: 1, 
+                            y: 0, 
+                            duration: 0.4, 
+                            stagger: 0.05, 
+                            ease: "power2.out",
+                            clearProps: "y" // Keep opacity/visibility, clear transform
+                        }
+                    );
+                }
+            });
         });
     });
 }
@@ -129,12 +165,13 @@ function initLazyLoad() {
 
 /* --- Initial Card Entrance --- */
 function animateCards() {
-    gsap.from(".activity-card", {
-        y: 50,
-        opacity: 0,
+    gsap.to(".activity-card", {
+        y: 0,
+        autoAlpha: 1,
         duration: 0.6,
         stagger: 0.1,
         ease: "power2.out",
+        clearProps: "all" // Ensure no inline styles remain after animation to allow hover effects
     });
 }
 
@@ -153,5 +190,37 @@ function initHeaderScroll() {
         } else {
             header.classList.remove('scrolled');
         }
+    });
+}
+
+/* --- Wishlist Button Logic --- */
+function initWishlistButtons() {
+    const buttons = document.querySelectorAll('.wishlist-btn');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // Prevent card click event
+
+            const isActive = btn.classList.contains('active');
+            
+            // Toggle State
+            btn.classList.toggle('active');
+
+            // Animation
+            if (!isActive) { // activating
+                gsap.fromTo(btn, 
+                    { scale: 1 },
+                    { 
+                        scale: 1.4, 
+                        duration: 0.4, 
+                        ease: "elastic.out(1, 0.3)",
+                        onComplete: () => gsap.to(btn, { scale: 1, duration: 0.2 })
+                    }
+                );
+            } else { // deactivating
+                gsap.to(btn, { scale: 0.8, duration: 0.1, yoyo: true, repeat: 1 });
+            }
+        });
     });
 }

@@ -8,6 +8,13 @@
     flex-direction: column;
     min-height: 100vh;
     position: relative;
+    overflow-y: visible !important; /* Allow scroll */
+}
+
+/* ==================== Scroll Override for Full Page Logic ==================== */
+html {
+    overflow-y: auto !important;
+    height: auto !important;
 }
 
 /* 배경 오버레이 (헤더와 본문 구분) */

@@ -424,7 +424,7 @@ input {
 /* New Search Form Layout */
 .search-form-new {
     padding: var(--space-xl);
-    padding-bottom: calc(var(--space-xl) + 36px); /* Increased by 36px (adjusted +6px) */
+    padding-bottom: calc(var(--space-xl) + 38px); /* Increased by 38px (adjusted +2px) */
 }
 
 /* Top Row - Destination (Full Width) */
@@ -1806,18 +1806,27 @@ input {
     border-radius: var(--radius-lg);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    /* box-shadow removed in favor of drop-shadow for mask support */
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+    width: 1232px;
+    height: 240px;
+    
+    /* Ticket Notches */
+    -webkit-mask-image: radial-gradient(circle 10px at 980px 0, transparent 10px, black 10.5px), radial-gradient(circle 10px at 980px 100%, transparent 10px, black 10.5px);
+    -webkit-mask-composite: destination-in;
+    mask-image: radial-gradient(circle 10px at 980px 0, transparent 10px, black 10.5px), radial-gradient(circle 10px at 980px 100%, transparent 10px, black 10.5px);
+    mask-composite: intersect;
 }
 
 .hotel-card:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.2));
     transform: translateY(-8px);
 }
 
 .hotel-image-wrap {
     position: relative;
-    width: 280px;
-    height: 260px;
+    width: 320px;
+    height: 238px;
     flex-shrink: 0;
 }
 
@@ -1871,7 +1880,9 @@ input {
 }
 
 .hotel-info {
-    flex: 1;
+    width: 660px;
+    height: 238px;
+    flex: none; /* Disable flex-grow */
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
@@ -1990,7 +2001,10 @@ input {
     justify-content: center;
     padding: var(--space-lg) var(--space-xl);
     background: var(--background);
-    min-width: 180px;
+    width: 250px;
+    height: 238px;
+    flex: none;
+    border-left: 2px dashed rgba(0, 0, 0, 0.2);
 }
 
 .price-info {
@@ -2222,6 +2236,10 @@ input {
     
     .hotel-card {
         flex-direction: column;
+        width: 100%; /* Reset width */
+        height: auto; /* Reset height */
+        -webkit-mask-image: none;
+        mask-image: none;
     }
     
     .hotel-image-wrap {
@@ -2229,11 +2247,19 @@ input {
         height: 200px;
     }
     
+    .hotel-info {
+        width: 100%;
+        height: auto;
+    }
+
     .hotel-price {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         min-width: auto;
+        width: 100%;
+        height: auto;
+        border-left: none;
     }
     
     .footer-top {

@@ -459,11 +459,6 @@ body.long-stay-page {
     height: 16px;
 }
 
-/* Unify spacing for Long Stay Search Form */
-.search-form-new .search-row-top {
-    margin-bottom: -15px;
-}
-
 /* Absolute Search Button */
 .search-widget-large .search-btn-new {
     position: absolute;
@@ -489,7 +484,7 @@ body.long-stay-page {
     border: 1px solid rgba(255, 80, 0, 0.2); /* Subtle Orange Border */
     border-radius: 12px;
     padding: 20px 24px;
-    margin-top: -30px; /* Moved up by 30px (15 + 15) */
+    margin-top: -29px; /* Moved down by 1px (from -30px) */
     margin-bottom: 0; /* Removed margin */
     width: 100%;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -654,15 +649,33 @@ body.long-stay-page {
     display: flex;
     background: #fff;
     border-radius: 12px;
-    border: 1px solid #e0e0e0;
-    overflow: hidden;
+    border: none; /* Removed border to let drop-shadow work smoothly with mask */
+    overflow: hidden; /* Keep overflow hidden for internal content, but drop-shadow is on parent/filter */
     height: 240px; /* Fixed height for consistency */
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, list-style 0.2s;
+    
+    /* Ticket Styling */
+    position: relative;
+    /* Mask for cutouts (top and bottom) at the divider position (calc(100% - 250px)) */
+    -webkit-mask: 
+        radial-gradient(circle at calc(100% - 250px) 0, transparent 8px, black 8.5px) top left,
+        radial-gradient(circle at calc(100% - 250px) 100%, transparent 8px, black 8.5px) bottom left;
+    mask: 
+        radial-gradient(circle at calc(100% - 250px) 0, transparent 8px, black 8.5px) top left,
+        radial-gradient(circle at calc(100% - 250px) 100%, transparent 8px, black 8.5px) bottom left;
+    -webkit-mask-size: 100% 51%;
+    mask-size: 100% 51%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    /* Drop Shadow instead of Box Shadow to follow shape */
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
 }
 
 .hotel-card-horizontal:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    /* Enhanced drop shadow on hover */
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.12));
 }
 
 /* 1. Image Section */
@@ -912,7 +925,7 @@ body.long-stay-page {
 .card-price-section {
     width: 250px;
     background: #F9FAFB;
-    border-left: 1px solid #f0f0f0;
+    border-left: 2px dashed #d1d5db; /* Dotted/Dashed Line */
     padding: 24px;
     display: flex;
     flex-direction: column;

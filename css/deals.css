@@ -459,11 +459,26 @@ body.deals-page .header {
     margin-right: 4px;
 }
 
+/* Price Row Updates */
 .deal-price-row {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     margin-top: 10px;
+}
+
+.price-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.discount-rate {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--error);
+    line-height: 1;
 }
 
 .original-price {

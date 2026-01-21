@@ -74,6 +74,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 1. Wheel Event
     window.addEventListener('wheel', (e) => {
+        // Allow default scroll for specific pages
+        if (document.body.classList.contains('customer-center-page') || 
+            document.body.classList.contains('scroll-normal') ||
+            document.body.classList.contains('login-page') ||
+            document.body.classList.contains('signup-page') ||
+            document.body.classList.contains('reservation-page')) {
+            return;
+        }
+
         e.preventDefault(); // Lock native scroll
 
         const now = new Date().getTime();
@@ -101,6 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Keyboard Event
     window.addEventListener('keydown', (e) => {
         const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+        
+        // Allow default scroll for specific pages
+        if (document.body.classList.contains('customer-center-page') || 
+            document.body.classList.contains('scroll-normal') ||
+            document.body.classList.contains('login-page') ||
+            document.body.classList.contains('signup-page') ||
+            document.body.classList.contains('reservation-page')) {
+            return;
+        }
+
         if (keys.includes(e.key)) {
             e.preventDefault();
             
@@ -156,13 +175,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Header Style
-                if (entry.target.id === 'section-1') {
-                    header.classList.remove('transparent', 'section2plus-header');
+                // Header Style
+                if (entry.target.tagName === 'FOOTER' || entry.target.id === 'section-footer') {
+                    header.classList.remove('section1-header', 'section2plus-header', 'transparent');
+                    header.classList.add('footer-header');
+                    // Header background for footer: usually white or transparent with dark text? 
+                    // Let's keep it consistent with design. If footer is light, header should probably be solid white or transparent-dark-text.
+                    // Given the existing code uses 'transparent' class for section2+, I'll assume we want to control transparency via CSS for .footer-header specifically or add 'transparent' if needed.
+                    // Let's NOT add 'transparent' by default here, so we can control background in CSS.
+                    if (topBtn) topBtn.classList.add('show');
+                } else if (entry.target.id === 'section-1') {
+                    header.classList.remove('transparent', 'section2plus-header', 'footer-header');
                     header.classList.add('section1-header');
                     if (topBtn) topBtn.classList.remove('show');
                 } else {
+                    header.classList.remove('section1-header', 'footer-header');
                     header.classList.add('transparent', 'section2plus-header');
-                    header.classList.remove('section1-header');
                     if (topBtn) topBtn.classList.add('show');
                 }
 

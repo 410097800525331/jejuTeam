@@ -24,6 +24,13 @@
     justify-content: space-between; /* 헤더, 컨텐츠, 푸터 분배 */
     position: relative;
     overflow-x: hidden;
+    overflow-y: visible !important; /* Allow scroll */
+}
+
+/* ==================== Scroll Override for Full Page Logic ==================== */
+html {
+    overflow-y: auto !important;
+    height: auto !important;
 }
 
 /* 배경 어둡게 처리 (헤더 가독성 확보 핵심) - 밝은 느낌을 위해 투명도 조절 */

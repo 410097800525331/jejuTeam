@@ -205,7 +205,10 @@ function renderDeals(append = false) {
     const itemsToShow = filtered.slice(0, displayedDealsCount);
 
     // Render HTML
-    const html = itemsToShow.map(deal => `
+    const html = itemsToShow.map(deal => {
+        const discountRate = Math.round(((deal.oldPrice - deal.newPrice) / deal.oldPrice) * 100);
+        
+        return `
         <div class="deal-card">
             <div class="deal-image-wrapper">
                 <span class="deal-badge">${deal.badge}</span>
@@ -219,13 +222,16 @@ function renderDeals(append = false) {
                     <span><i data-lucide="star" style="fill: #facc15; color: #facc15;"></i> ${deal.rating} (${deal.reviews})</span>
                 </div>
                 <div class="deal-price-row">
-                    <span class="original-price">${deal.oldPrice.toLocaleString()}원</span>
+                    <div class="price-left">
+                        <span class="discount-rate">${discountRate}%</span>
+                        <span class="original-price">${deal.oldPrice.toLocaleString()}원</span>
+                    </div>
                     <span class="final-price">${deal.newPrice.toLocaleString()}<span>원~</span></span>
                 </div>
                 <a href="#" class="deal-btn">지금 예약하기</a>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 
     grid.innerHTML = html;
 

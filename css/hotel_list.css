@@ -1,125 +1,849 @@
+/* ========== JEJU STAY: Hotel List Page Styles ========== */
+
+/* 1. Global Variables & Fonts (hotel.css에서 핵심 이식) */
+@font-face {
+    font-family: 'FlightSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/FlightSans-Regular.woff2') format('woff2');
+    font-weight: 400; font-display: swap;
+}
+@font-face {
+    font-family: 'FlightSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/FlightSans-Bold.woff2') format('woff2');
+    font-weight: 700; font-display: swap;
+}
+
 :root {
     --primary: #FF5000;
+    --primary-hover: #E64800;
     --secondary: #00758F;
-    --text-dark: #333333;
-    --text-gray: #666666;
-    --bg-light: #F8F9FA;
-    --white: #FFFFFF;
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-    --radius: 8px;
+    --surface: #FFFFFF;
+    --background: #F5F7FA;
+    --text-title: #1E293B;
+    --text-body: #4B5563;
+    --text-muted: #94A3B8;
+    --border: #E2E8F0;
+    
+    --header-height: 72px;
+    --container-max: 1200px;
+    --radius-lg: 12px;
+    --radius-full: 9999px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-float: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+    --font-family: 'FlightSans', 'Pretendard', sans-serif;
+
+    /* Semantic Colors */
+    --semantic-success: #10B981; /* 무료 취소, 혜택 */
+    --semantic-danger: #EF4444;  /* 매진 임박, 할인율 */
+    --semantic-info: #3B82F6;    /* 정보성 링크 */
+    --primary-soft: rgba(255, 80, 0, 0.08); /* 호버 인터랙션 */
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-family); background-color: var(--background); color: var(--text-title); padding-top: var(--header-height); }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input { font-family: inherit; border: none; outline: none; background: transparent; }
 
-body { background-color: var(--bg-light); color: var(--text-dark); }
+/* 2. Global Header (White Theme Fixed) */
+.header {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--header-height);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex; align-items: center;
+}
 
-/* Header & Sticky Search */
-.header { background: var(--white); padding: 15px 0; border-bottom: 1px solid #eee; }
-.header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-.logo { font-weight: 900; color: var(--primary); font-size: 24px; }
-.nav a { margin-right: 20px; text-decoration: none; color: var(--text-dark); font-weight: 500; }
-.nav a.active { color: var(--secondary); }
+.header-container {
+    width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between; height: 100%;
+}
 
+/* Logo */
+.logo { display: flex; align-items: center; gap: 6px; font-size: 1.25rem; font-weight: 700; color: var(--text-title); }
+.logo-stay { color: var(--primary); }
+.logo-divider { color: var(--border); margin: 0 4px; font-weight: 300; }
+
+/* Navigation */
+.main-nav { display: flex; height: 100%; }
+.nav-list { display: flex; gap: 32px; height: 100%; align-items: center; }
+.nav-link { 
+    display: flex; align-items: center; gap: 6px; 
+    font-size: 0.95rem; font-weight: 500; color: var(--text-title); 
+    height: 100%; transition: color 0.2s; 
+}
+.nav-link:hover, .nav-link.active { color: var(--primary); }
+.nav-icon { width: 18px; height: 18px; }
+
+/* Header Utils */
+.header-utils { display: flex; align-items: center; gap: 24px; }
+.util-link { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 500; color: var(--text-body); }
+.util-link:hover { color: var(--primary); }
+.mobile-menu-btn { display: none; }
+
+/* Mobile Navigation (Hidden by default) */
+.mobile-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 16px;
+    box-shadow: var(--shadow-md);
+    z-index: 999;
+}
+.mobile-nav.active { display: block; }
+
+.mobile-nav-list { display: flex; flex-direction: column; gap: 8px; }
+.mobile-nav-link {
+    display: block; padding: 12px;
+    font-size: 1rem; font-weight: 500;
+    color: var(--text-title);
+    border-radius: var(--radius-lg);
+}
+.mobile-nav-link:hover, .mobile-nav-link.active {
+    background: #F8FAFC; color: var(--primary);
+}
+
+/* 3. Sticky Search Bar (Agoda Style Capsule) */
 .search-sticky {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
+    position: sticky; top: var(--header-height); z-index: 900;
+    background: var(--surface);
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-sm);
 }
+
 .search-container {
-    max-width: 1200px; margin: 0 auto; display: flex; gap: 10px; padding: 0 20px;
-}
-.search-input-group {
-    flex: 1; display: flex; align-items: center;
-    background: #f1f1f1; padding: 10px 15px; border-radius: 4px; border: 1px solid transparent;
-}
-.search-input-group:focus-within { border-color: var(--secondary); background: #fff; }
-.search-input-group i { color: var(--text-gray); margin-right: 10px; }
-.search-input-group input {
-    border: none; background: transparent; width: 100%; font-size: 14px; outline: none;
-}
-.btn-search {
-    background: var(--secondary); color: white; border: none; padding: 0 25px;
-    border-radius: 4px; font-weight: bold; cursor: pointer;
+    max-width: 1080px; margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    display: flex; align-items: center;
+    padding: 4px;
+    box-shadow: var(--shadow-float);
+    height: 64px;
 }
 
-/* Layout */
-.main-layout {
-    max-width: 1200px; margin: 20px auto; display: grid; 
-    grid-template-columns: 280px 1fr; gap: 20px; padding: 0 20px;
+.search-box-item {
+    flex: 1; display: flex; align-items: center; gap: 12px;
+    padding: 0 24px; height: 100%;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: var(--radius-full);
 }
+.search-box-item:hover { background-color: #F8FAFC; }
 
-/* Sidebar */
-.sidebar { position: sticky; top: 90px; height: fit-content; }
-.map-widget {
-    height: 120px; background: #ddd url('https://via.placeholder.com/300x150') center/cover;
-    border-radius: var(--radius); position: relative; margin-bottom: 20px;
-    display: flex; align-items: center; justify-content: center;
+/* Dividers */
+.search-box-item::after {
+    content: ''; position: absolute; right: 0; top: 20%; height: 60%;
+    width: 1px; background-color: var(--border);
 }
-.btn-map {
-    background: white; border: 1px solid var(--secondary); color: var(--secondary);
-    padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer;
-    box-shadow: var(--shadow-sm);
+.search-box-item:last-of-type::after, 
+.search-box-item:nth-last-child(2)::after { display: none; } /* 버튼 앞과 마지막 아이템 구분선 제거 */
+
+/* Item Specifics */
+.search-destination { flex: 1.3; }
+.search-dates { flex: 1.2; }
+.search-guests { flex: 0.8; }
+
+.search-icon { font-size: 18px; color: var(--text-muted); min-width: 20px; }
+.search-text-group { display: flex; flex-direction: column; line-height: 1.3; }
+.search-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
+.search-value { font-size: 0.95rem; font-weight: 700; color: var(--text-title); }
+
+/* [New] Date Field Styles (Ported) */
+.date-field-group {
+    display: flex; align-items: center; width: 100%;
 }
-.filter-group { background: white; padding: 20px; border-radius: var(--radius); margin-bottom: 15px; border: 1px solid #eee; }
-.filter-group h3 { font-size: 16px; margin-bottom: 15px; }
-.checkbox-row { display: flex; align-items: center; margin-bottom: 10px; font-size: 14px; cursor: pointer; }
-.checkbox-row input { margin-right: 8px; accent-color: var(--secondary); }
-.count { color: var(--text-gray); font-size: 12px; margin-left: auto; }
-
-/* Hotel List Content */
-.sort-bar {
-    background: white; padding: 15px 20px; border-radius: var(--radius);
-    display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border: 1px solid #eee;
-}
-.sort-options button {
-    background: none; border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px;
-    margin-left: 5px; cursor: pointer; font-size: 13px;
-}
-.sort-options button.active { border-color: var(--secondary); color: var(--secondary); background: #f0f9fb; }
-
-/* Hotel Card Styling */
-.hotel-card {
-    display: flex; background: white; border-radius: var(--radius); overflow: hidden;
-    margin-bottom: 20px; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid #eee;
-}
-.hotel-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-
-.card-img-wrap { width: 320px; position: relative; flex-shrink: 0; }
-.card-img { width: 100%; height: 100%; object-fit: cover; }
-.card-heart {
-    position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.3);
-    color: white; padding: 8px; border-radius: 50%; cursor: pointer;
-}
-.card-heart:hover, .card-heart.active { color: #ff4757; background: white; }
-
-.card-content { flex: 1; padding: 20px; display: flex; }
-.card-info { flex: 1; padding-right: 20px; border-right: 1px solid #eee; }
-.card-price { width: 200px; padding-left: 20px; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; }
-
-.hotel-name { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
-.hotel-stars { color: #f1c40f; font-size: 12px; margin-bottom: 8px; }
-.hotel-loc { color: var(--secondary); font-size: 13px; margin-bottom: 10px; display: flex; align-items: center; }
-.hotel-loc i { margin-right: 4px; }
-.hotel-badges span {
-    display: inline-block; background: #e3fcf7; color: #00695c; 
-    font-size: 11px; padding: 4px 8px; border-radius: 4px; margin-right: 5px;
-}
-
-.rating-box { display: flex; align-items: center; margin-bottom: 10px; }
-.score { background: var(--secondary); color: white; padding: 4px 8px; border-radius: 4px 4px 4px 0; font-weight: bold; margin-right: 8px; }
-.review-text { font-size: 12px; color: var(--text-gray); }
-
-.price-original { text-decoration: line-through; color: #999; font-size: 14px; }
-.price-final { font-size: 24px; font-weight: 900; color: var(--primary); margin: 5px 0; }
-.tax-info { font-size: 11px; color: #999; margin-bottom: 15px; }
-.btn-reserve {
-    background: var(--primary); color: white; border: none; padding: 12px 24px;
-    width: 100%; border-radius: 4px; font-size: 15px; font-weight: bold; cursor: pointer;
+.date-field-new {
+    flex: 1; display: flex; align-items: center; gap: 12px;
+    padding: 0 16px; cursor: pointer; position: relative;
+    height: 100%;
     transition: background 0.2s;
 }
-.btn-reserve:hover { background: #e64a00; }
+.date-field-new:first-child { border-right: 1px solid var(--border); }
+.date-field-new:hover { background: #F8FAFC; border-radius: 20px; }
+
+.field-icon-new { width: 20px; height: 20px; color: var(--text-muted); }
+.date-content-new { display: flex; flex-direction: column; line-height: 1.3; }
+.date-full { font-size: 0.95rem; font-weight: 700; color: var(--text-title); }
+.date-day-new { font-size: 0.8rem; color: var(--text-muted); }
+
+/* Guest Content */
+.guest-content-new { display: flex; flex-direction: column; line-height: 1.3; margin-left: 12px; flex: 1; }
+
+input#destinationInput { 
+    width: 100%; font-size: 1rem; font-weight: 700; color: var(--text-title); 
+    padding: 0; margin: 0;
+}
+
+/* Search Button */
+.btn-search {
+    background: var(--primary); color: #fff;
+    height: 54px; padding: 0 36px;
+    border-radius: var(--radius-full);
+    font-size: 1rem; font-weight: 700;
+    margin-left: auto; margin-right: 2px;
+    box-shadow: 0 4px 12px rgba(255, 80, 0, 0.3);
+    transition: all 0.2s;
+}
+.btn-search:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+/* 4. Main Layout (Sidebar + List) */
+.main-layout {
+    display: flex; gap: 32px;
+    max-width: var(--container-max); margin: 32px auto; padding: 0 24px;
+    align-items: flex-start;
+}
+
+.sidebar { width: 280px; flex-shrink: 0; display: flex; flex-direction: column; gap: 24px; }
+.content-area { flex: 1; min-width: 0; }
+
+/* Filter Widgets */
+.map-widget {
+    height: 140px; border-radius: var(--radius-lg);
+    background: url('https://images.unsplash.com/photo-1658167865945-7e9949fa4d69?auto=format&fit=crop&w=600&q=80') center/cover;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0; overflow: hidden; position: relative;
+}
+.btn-map { 
+    background: var(--surface); color: var(--primary); font-weight: 700; 
+    padding: 10px 20px; border-radius: var(--radius-full); 
+    box-shadow: var(--shadow-md); z-index: 1;
+}
+
+.filter-group { background: var(--surface); padding: 20px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.filter-group h3 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; color: var(--text-title); }
+
+.checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 0.9rem; color: var(--text-body); cursor: pointer; }
+.checkbox-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); margin-top: 2px; }
+.count { margin-left: auto; color: var(--text-muted); font-size: 0.8rem; }
+
+/* Hotel List Cards */
+.sort-bar { 
+    display: flex; justify-content: space-between; align-items: center; 
+    margin-bottom: 20px; padding: 0 4px;
+}
+.sort-options button {
+    padding: 8px 16px; border: 1px solid var(--border); border-radius: var(--radius-full);
+    font-size: 0.9rem; margin-left: 8px; color: var(--text-body); transition: all 0.2s;
+}
+.sort-options button.active { border-color: var(--primary); background: #FFF5F0; color: var(--primary); font-weight: 700; }
+
+.hotel-card {
+    display: flex; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px;
+    border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px;
+    height: 280px; transition: transform 0.2s, box-shadow 0.2s;
+}
+.hotel-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+.card-img-wrap { width: 340px; position: relative; flex-shrink: 0; }
+.card-img { width: 100%; height: 100%; object-fit: cover; }
+.card-heart {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(255,255,255,0.8); width: 36px; height: 36px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #94A3B8; cursor: pointer; transition: all 0.2s;
+}
+.card-heart.active { color: var(--primary); background: #fff; }
+
+.card-content { flex: 1; padding: 24px; display: flex; }
+.card-info { flex: 1; padding-right: 24px; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+.card-price { width: 240px; padding-left: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; text-align: right; }
+
+.hotel-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+.hotel-stars { color: #F59E0B; font-size: 12px; margin-bottom: 8px; }
+.hotel-loc { font-size: 0.85rem; color: var(--text-body); margin-bottom: 12px; display: flex; align-items: center; gap: 4px; }
+.rating-box { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.score { background: var(--primary); color: #fff; padding: 4px 8px; border-radius: 6px 6px 6px 0; font-weight: 700; }
+
+.price-original { text-decoration: line-through; color: var(--text-muted); font-size: 0.9rem; }
+.price-final { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 4px 0; }
+.btn-reserve {
+    background: var(--primary); color: #fff; padding: 14px; width: 100%;
+    border-radius: 8px; font-weight: 700; font-size: 1rem; margin-top: 12px;
+    transition: background 0.2s;
+}
+.btn-reserve:hover { background: var(--primary-hover); }
+
+/* Mobile Response */
+@media (max-width: 1024px) {
+    .main-nav, .header-utils { display: none; }
+    .mobile-menu-btn { display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .search-container { max-width: 100%; border-radius: 0; background: transparent; border: none; box-shadow: none; flex-direction: column; height: auto; padding: 16px; gap: 12px; }
+    .search-box-item { width: 100%; background: #fff; border: 1px solid var(--border); height: 50px; border-radius: 8px; }
+    .btn-search { width: 100%; margin: 0; height: 50px; border-radius: 8px; }
+    .main-layout { flex-direction: column; }
+    .sidebar { display: none; }
+    .hotel-card { flex-direction: column; height: auto; }
+    .card-img-wrap { width: 100%; height: 200px; }
+    .card-content { flex-direction: column; padding: 16px; }
+    .card-info { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 16px; }
+    .card-price { width: 100%; padding-left: 0; flex-direction: row; justify-content: space-between; align-items: center; }
+    .btn-reserve { width: auto; padding: 10px 24px; margin: 0; }
+}
+
+/* =========================================
+   [Fix] HTML 클래스 매칭 및 누락된 스타일 추가
+   ========================================= */
+
+/* 1. 검색바 (Sticky Search) 내부 레이아웃 수정 */
+/* HTML의 .date-group, .guest-text 클래스 대응 */
+.date-group, 
+.guest-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 텍스트 수직 정렬 (날짜/인원) */
+.date-text, 
+.guest-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.3;
+}
+
+/* 상단 메인 텍스트 (날짜, 인원수) */
+.date-label, 
+.guest-main {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-title);
+    white-space: nowrap;
+}
+
+/* 하단 보조 텍스트 (요일, 객실수) */
+.day-label, 
+.guest-sub {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+/* 날짜 사이 세로 구분선 */
+.date-divider {
+    width: 1px;
+    height: 32px;
+    background-color: var(--border);
+    margin: 0 20px;
+}
+
+/* 검색바 내부 아이콘 색상 조정 */
+.search-dates i, 
+.search-guests i {
+    color: var(--primary); /* 브랜드 서브 컬러 -> 메인 컬러 */
+    font-size: 18px;
+}
+
+.arrow-icon {
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* 2. 사이드바 가격 슬라이더 (Price Slider) 스타일링 */
+.price-slider-box {
+    margin-top: 15px;
+    padding: 0 5px;
+}
+
+.price-slider-box input[type=range] {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none; /* 브라우저 기본 스타일 제거 */
+    cursor: pointer;
+}
+
+/* 슬라이더 핸들 (Thumb) - Chrome/Safari/Edge */
+.price-slider-box input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary); /* 브랜드 오렌지 컬러 */
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.1s;
+    margin-top: -7px; /* 트랙 중앙 정렬 */
+}
+
+.price-slider-box input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+/* 슬라이더 핸들 (Thumb) - Firefox */
+.price-slider-box input[type=range]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* 트랙 스타일 (Webkit) */
+.price-slider-box input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #e0e0e0;
+    border-radius: 5px;
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-title);
+}
+
+/* =========================================
+   [New] Interactive Popup Styles (Ported from hotel.css)
+   ========================================= */
+
+/* 1. Generic Popup & RangePicker */
+.Popup {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    min-width: 580px;
+    padding: 20px 10px 10px;
+    background: var(--surface);
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .15); 
+    overflow: hidden;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: width .3s ease-out, height .3s ease-out, max-height .3s ease-out, opacity .2s ease-out, transform .2s ease-out, visibility .2s;
+}
+
+.Popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.ScreenReaderOnly {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+}
+
+/* RangePicker Header */
+.RangePicker-Header {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; margin-bottom: 20px;
+}
+.RangePicker-Tabs {
+    display: flex; gap: 10px; justify-content: center;
+    border-bottom: 1px solid var(--border); width: 100%;
+}
+.RangePicker-Tab { position: relative; padding-bottom: 10px; }
+.TabBtn {
+    font-size: 1rem; font-weight: 500; color: var(--text-muted);
+    background: transparent; border: none; cursor: pointer;
+    padding: 8px 16px; transition: color 0.2s;
+}
+.TabBtn.active { color: var(--primary); font-weight: 700; }
+.TabIndicator {
+    position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px;
+    background: var(--primary); display: none;
+}
+.TabBtn.active + .TabIndicator { display: block; }
+
+/* Navigation Buttons */
+.NavBtn {
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; background: transparent; color: var(--text-title);
+    transition: background 0.2s; cursor: pointer;
+}
+.NavBtn:hover { background: var(--background); }
+.RangePicker-NavPrev { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); }
+.RangePicker-NavNext { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+
+/* DayPicker Grid */
+.DayPicker-wrapper { display: flex; gap: 30px; padding: 0 10px; }
+.DayPicker-Months { display: flex; gap: 30px; width: 100%; }
+.DayPicker-Month { flex: 1; }
+.DayPicker-Caption {
+    text-align: center; font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 15px; color: var(--text-title);
+}
+.DayPicker-Weekdays {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    text-align: center; margin-bottom: 8px;
+}
+.DayPicker-Weekday { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+.DayPicker-Body { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 2px; }
+
+/* Day Styling */
+.DayPicker-Day {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 0.875rem; color: var(--text-title); cursor: pointer;
+    transition: all 0.1s; border: 2px solid transparent; background: transparent;
+    border-radius: var(--radius-full);
+}
+.DayPicker-Day--today { border: 2px solid var(--primary); font-weight: 700; }
+.DayPicker-Day:hover:not(.DayPicker-Day--disabled) { background: rgba(255, 80, 0, 0.1); }
+.DayPicker-Day--selected, 
+.DayPicker-Day--checkIn, 
+.DayPicker-Day--checkOut {
+    background: var(--primary) !important; color: white; font-weight: 700; border: none;
+    z-index: 2; position: relative;
+}
+.DayPicker-Day--inRange {
+    background: rgba(255, 80, 0, 0.1) !important;
+    border-radius: 0;
+}
+.DayPicker-Day--disabled { color: var(--text-muted); opacity: 0.3; cursor: not-allowed; }
+
+/* Range Connection Logic (Agoda Style) */
+.DayPicker-Day--checkIn.DayPicker-Day--hasRange,
+.DayPicker-Day--checkOut.DayPicker-Day--hasRange {
+    border-radius: 50%;
+}
+.DayPicker-Day--checkIn.DayPicker-Day--hasRange::before {
+    content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+    background: rgba(255, 80, 0, 0.1); z-index: -1;
+}
+.DayPicker-Day--checkOut.DayPicker-Day--hasRange::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+    background: rgba(255, 80, 0, 0.1); z-index: -1;
+}
+
+/* Footer */
+.RangePicker-Footer {
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding-top: 20px; margin-top: 10px; border-top: 1px solid var(--border);
+}
+.ActionBtn {
+    padding: 8px 16px; border-radius: 4px; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+}
+.ActionBtn--clear { background: transparent; color: var(--primary); }
+.ActionBtn--confirm { background: var(--primary); color: white; }
+.RangePicker-Panel { display: none; }
+.RangePicker-Panel.active { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* 2. Destination Dropdown */
+.destination-dropdown {
+    position: absolute; top: calc(100% + 12px); left: 0; right: 0;
+    background: var(--surface); border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15); z-index: 200;
+    display: none; overflow: hidden; border: 1px solid var(--border);
+    padding: 0;
+}
+.destination-dropdown.active { display: block; }
+.dropdown-columns { display: flex; }
+.dropdown-column { flex: 1; padding: 20px; }
+.dropdown-header {
+    font-size: 0.85rem; font-weight: 600; color: var(--text-muted);
+    margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid var(--border);
+}
+.destination-list { display: flex; flex-direction: column; gap: 4px; }
+.destination-item, .destination-item-text {
+    display: flex; align-items: center; gap: 12px; padding: 8px;
+    border-radius: 8px; cursor: pointer; transition: background 0.1s;
+}
+.destination-item:hover, .destination-item-text:hover { background: #F8FAFC; }
+.destination-item img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
+.destination-info { display: flex; flex-direction: column; }
+.destination-name { font-size: 0.9rem; font-weight: 600; color: var(--text-title); }
+.destination-desc { font-size: 0.75rem; color: var(--text-muted); }
+
+/* 3. Guest Popup */
+.guest-popup-new {
+    position: absolute; top: calc(100% + 12px); right: 0; width: 320px;
+    background: var(--surface); border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15); z-index: 200;
+    display: none; border: 1px solid var(--border); padding: 20px;
+}
+.guest-popup-new.active { display: block; }
+.guest-row-new {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.guest-row-new:last-child { border-bottom: none; }
+.guest-info-new { display: flex; flex-direction: column; }
+.guest-type-new { font-weight: 600; color: var(--text-title); }
+.guest-desc-new { font-size: 0.75rem; color: var(--text-muted); }
+.guest-counter-new { display: flex; align-items: center; gap: 12px; }
+.counter-btn-new {
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; border: 1px solid var(--border); color: var(--primary);
+    background: white; cursor: pointer;
+}
+.counter-btn-new:hover { border-color: var(--primary); background: #FFF5F0; }
+.counter-value-new { font-weight: 700; width: 20px; text-align: center; }
+
+/* Mobile Adjustments for Popups */
+@media (max-width: 768px) {
+    .Popup, .destination-dropdown, .guest-popup-new {
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: 90%; max-width: 360px; min-width: auto;
+        max-height: 80vh; overflow-y: auto;
+    }
+    .Popup.active { transform: translate(-50%, -50%); }
+    .DayPicker-wrapper { flex-direction: column; }
+    .dropdown-columns { flex-direction: column; }
+}
+
+/* ==================================================
+   [Fix] 디자인 복구 및 컬러 밸런스 조정 (통합 패치)
+   ================================================== */
+
+/* 1. 검색바 (Sticky Search) 레이아웃 복구 */
+/* HTML 클래스(.date-group 등)와 매칭되지 않던 문제 해결 */
+.date-group, 
+.guest-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-text, 
+.guest-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.3;
+}
+
+.date-label, 
+.guest-main {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-title);
+    white-space: nowrap;
+}
+
+.day-label, 
+.guest-sub {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.date-divider {
+    width: 1px;
+    height: 32px;
+    background-color: var(--border);
+    margin: 0 20px;
+}
+
+.arrow-icon {
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* 2. 컬러 밸런스 조정 (주황색 빼기) */
+/* 검색바 아이콘: 주황색 -> 청록색(Secondary) 변경 */
+.search-icon, 
+.search-dates i, 
+.search-guests i {
+    color: var(--secondary) !important;
+    font-size: 18px;
+    min-width: 20px;
+}
+
+/* 호텔 가격 텍스트: 주황색 -> 검은색(Text-Title) 변경 */
+/* 정보는 명확하게, 강조는 버튼에만 집중 */
+.price-final {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-title) !important; 
+    margin: 4px 0;
+}
+
+/* 3. 사이드바 가격 슬라이더 (Range Input) 스타일링 */
+.price-slider-box {
+    margin-top: 15px;
+    padding: 0 5px;
+}
+
+.price-slider-box input[type=range] {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+/* 슬라이더 핸들 디자인 */
+.price-slider-box input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary); /* 핸들만 주황색 포인트 */
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-top: -7px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.price-slider-box input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-title);
+}
+
+/* UI Components */
+.benefit-row {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.benefit-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--semantic-success);
+    background-color: #ECFDF5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.discount-badge {
+    background-color: var(--semantic-danger);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+/* Interactive Elements */
+.checkbox-row:hover {
+    background-color: var(--primary-soft);
+    padding-left: 6px;
+    margin-left: -6px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.more-link {
+    color: var(--secondary); /* Teal for info links */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ==================== Seamless Footer ==================== */
+.footer {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-top: none !important; /* Zero Border */
+    padding: 100px 40px 60px; /* Space as Divider */
+    margin-top: 0;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    display: block;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto 15px;
+    gap: 40px;
+    background: transparent !important; /* Ensure no background on content */
+}
+
+.footer-info {
+    flex: 1;
+}
+
+.footer-info p {
+    display: inline-block;
+    font-size: 11px;
+    color: #444444; /* Darker for readability on gradient */
+    line-height: 1.8;
+    margin-bottom: 2px;
+    margin-right: 10px;
+}
+
+.footer-info p strong {
+    font-weight: 700;
+    color: #1A1A1A;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    transition: all 0.2s;
+}
+
+.social-icon:hover {
+    background: var(--primary);
+    color: white;
+}
+
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-copyright p {
+    font-size: 10px;
+    color: #999;
+}
+
+/* Footer가 section 클래스를 가질 때 100vh 제거 */
+.footer.section {
+    min-height: auto !important;
+    height: auto !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}

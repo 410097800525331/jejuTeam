@@ -59,7 +59,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="esim.html" class="nav-link">
                             <i data-lucide="smartphone" class="nav-icon"></i>
                             <span data-lang="navEsim">eSIM</span>
                         </a>
@@ -108,7 +108,7 @@
                 <li><a href="jejuhotel.html" class="mobile-nav-link active" data-lang="mobileNavHotel">숙소 예약</a></li>
                 <li><a href="jejustay_life.html" class="mobile-nav-link" data-lang="mobileNavLife">한 달 살기</a></li>
                 <li><a href="#" class="mobile-nav-link" data-lang="mobileNavActivity">즐길 거리</a></li>
-                <li><a href="#" class="mobile-nav-link" data-lang="mobileNavEsim">eSIM</a></li>
+                <li><a href="esim.html" class="mobile-nav-link" data-lang="mobileNavEsim">eSIM</a></li>
                 <li><a href="#" class="mobile-nav-link" data-lang="mobileNavGuide">여행 가이드</a></li>
                 <li><a href="#" class="mobile-nav-link" data-lang="mobileNavTips">여행 일정 팁</a></li>
                 <li><a href="#" class="mobile-nav-link" data-lang="navResCheck">예약 확인</a></li>
@@ -121,8 +121,8 @@
         <!-- ========== 섹션 2: 히어로 & 검색 위젯 ========== -->
         <section class="hero">
             <div class="hero-background">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80" alt="아름다운 해변 풍경"
-                    class="hero-image">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2500&auto=format&fit=crop"
+                    alt="Global Landmark Night View" class="hero-image">
                 <div class="hero-overlay"></div>
             </div>
 
@@ -147,389 +147,334 @@
                         </button>
                     </div>
 
-                    <!-- 검색 폼 - 호텔/펜션용 (새로운 레이아웃) -->
+                    <!-- 검색 폼 - 호텔/펜션용 (NEW Global OTA Style) -->
                     <div class="search-form-new" id="searchFormHotel">
-                        <!-- 상단: 여행지 검색 (전체 너비) -->
-                        <div class="search-row-top">
-                            <div class="search-field-new destination-field-new" id="destinationFieldLarge">
-                                <i data-lucide="search" class="field-icon-new"></i>
-                                <input type="text" class="field-input-new" id="destinationInput"
-                                    placeholder="어디로 떠나시나요?" autocomplete="off" data-lang-placeholder="destPlaceholder">
+                        <div class="global-search-container">
+                            <div class="global-search-bar">
+                                <!-- 1. 여행지 (Destination) -->
+                                <div class="search-item destination-item-new" id="destinationFieldLarge">
+                                    <div class="item-icon">
+                                        <i data-lucide="search"></i>
+                                    </div>
+                                    <div class="item-content">
+                                        <label class="item-label" data-lang="destLabel">여행지</label>
+                                        <input type="text" class="item-input" id="destinationInput"
+                                            placeholder="어디로 떠나시나요?" autocomplete="off"
+                                            data-lang-placeholder="destPlaceholder">
+                                    </div>
 
-                                <!-- 여행지 드롭다운 -->
-                                <div class="destination-dropdown" id="destinationDropdown">
-                                    <div class="dropdown-columns">
-                                        <div class="dropdown-column">
-                                            <div class="dropdown-header" data-lang="destKr">대한민국 내 여행지</div>
-                                            <ul class="destination-list">
-                                                <li class="destination-item" data-value="서울">
-                                                    <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
-                                                        alt="서울">
-                                                    <div class="destination-info">
+                                    <!-- 여행지 드롭다운 (위치 유지) -->
+                                    <div class="destination-dropdown" id="destinationDropdown">
+                                        <div class="dropdown-columns">
+                                            <div class="dropdown-column">
+                                                <div class="dropdown-header" data-lang="destKr">대한민국 내 여행지</div>
+                                                <ul class="destination-list">
+                                                    <li class="destination-item" data-value="서울">
+                                                        <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
+                                                            alt="서울">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name"
+                                                                data-lang="destNameSeoul">서울</span>
+                                                            <span class="destination-count">(5,945)</span>
+                                                            <span class="destination-desc"
+                                                                data-lang="descShoppingDining">쇼핑, 레스토랑</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="인천">
+                                                        <img src="https://images.unsplash.com/photo-1583425921686-c5daf5f49e4a?w=100&h=100&fit=crop"
+                                                            alt="인천">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name"
+                                                                data-lang="destNameIncheon">인천</span>
+                                                            <span class="destination-count">(2,147)</span>
+                                                            <span class="destination-desc"
+                                                                data-lang="descTourism">관광</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="부산">
+                                                        <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
+                                                            alt="부산">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name"
+                                                                data-lang="destNameBusan">부산</span>
+                                                            <span class="destination-count">(2,734)</span>
+                                                            <span class="destination-desc"
+                                                                data-lang="descBeachDining">해변,
+                                                                레스토랑</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="속초">
+                                                        <img src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=100&h=100&fit=crop"
+                                                            alt="속초">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name"
+                                                                data-lang="destNameSokcho">속초</span>
+                                                            <span class="destination-count">(800)</span>
+                                                            <span class="destination-desc"
+                                                                data-lang="descBeachDining">해변,
+                                                                레스토랑</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="제주">
+                                                        <img src="https://images.unsplash.com/photo-1562680802-9cf8b15f419d?w=100&h=100&fit=crop"
+                                                            alt="제주">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name"
+                                                                data-lang="destNameJeju">제주</span>
+                                                            <span class="destination-count">(4,939)</span>
+                                                            <span class="destination-desc"
+                                                                data-lang="destDescJeju">자연경관,
+                                                                해변</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="destination-item" data-value="경주">
+                                                        <img src="https://images.unsplash.com/photo-1653632445016-b0de695eab90?w=100&h=100&fit=crop"
+                                                            alt="경주">
+                                                        <div class="destination-info">
+                                                            <span class="destination-name"
+                                                                data-lang="destNameGyeongju">경주</span>
+                                                            <span class="destination-count">(1,439)</span>
+                                                            <span class="destination-desc"
+                                                                data-lang="descCultureReligion">문화, 종교 관심 활동</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown-column">
+                                                <div class="dropdown-header" data-lang="destOverseas">해외 여행지</div>
+                                                <ul class="destination-list overseas">
+                                                    <li class="destination-item-text" data-value="오사카">
                                                         <span class="destination-name"
-                                                            data-lang="destNameSeoul">서울</span>
-                                                        <span class="destination-count">(5,945)</span>
+                                                            data-lang="destNameOsaka">오사카</span>
+                                                        <span class="destination-count">(10,018)</span>
                                                         <span class="destination-desc"
-                                                            data-lang="descShoppingDining">쇼핑, 레스토랑</span>
-                                                    </div>
-                                                </li>
-                                                <li class="destination-item" data-value="인천">
-                                                    <img src="https://images.unsplash.com/photo-1583425921686-c5daf5f49e4a?w=100&h=100&fit=crop"
-                                                        alt="인천">
-                                                    <div class="destination-info">
-                                                        <span class="destination-name"
-                                                            data-lang="destNameIncheon">인천</span>
-                                                        <span class="destination-count">(2,147)</span>
-                                                        <span class="destination-desc" data-lang="descTourism">관광</span>
-                                                    </div>
-                                                </li>
-                                                <li class="destination-item" data-value="부산">
-                                                    <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
-                                                        alt="부산">
-                                                    <div class="destination-info">
-                                                        <span class="destination-name"
-                                                            data-lang="destNameBusan">부산</span>
-                                                        <span class="destination-count">(2,734)</span>
-                                                        <span class="destination-desc" data-lang="descBeachDining">해변,
+                                                            data-lang="descShoppingDining">쇼핑,
                                                             레스토랑</span>
-                                                    </div>
-                                                </li>
-                                                <li class="destination-item" data-value="속초">
-                                                    <img src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=100&h=100&fit=crop"
-                                                        alt="속초">
-                                                    <div class="destination-info">
+                                                    </li>
+                                                    <li class="destination-item-text" data-value="도쿄">
+                                                        <span class="destination-name" data-lang="destNameTokyo">도쿄 /
+                                                            동경</span>
+                                                        <span class="destination-count">(12,486)</span>
+                                                        <span class="destination-desc"
+                                                            data-lang="descShoppingSightseeing">쇼핑, 관광</span>
+                                                    </li>
+                                                    <li class="destination-item-text" data-value="후쿠오카">
                                                         <span class="destination-name"
-                                                            data-lang="destNameSokcho">속초</span>
-                                                        <span class="destination-count">(800)</span>
-                                                        <span class="destination-desc" data-lang="descBeachDining">해변,
-                                                            레스토랑</span>
-                                                    </div>
-                                                </li>
-                                                <li class="destination-item" data-value="제주">
-                                                    <img src="https://images.unsplash.com/photo-1562680802-9cf8b15f419d?w=100&h=100&fit=crop"
-                                                        alt="제주">
-                                                    <div class="destination-info">
-                                                        <span class="destination-name"
-                                                            data-lang="destNameJeju">제주</span>
-                                                        <span class="destination-count">(4,939)</span>
-                                                        <span class="destination-desc" data-lang="destDescJeju">자연경관,
+                                                            data-lang="destNameFukuoka">후쿠오카</span>
+                                                        <span class="destination-count">(2,181)</span>
+                                                        <span class="destination-desc"
+                                                            data-lang="descSightseeingBeach">관광,
                                                             해변</span>
-                                                    </div>
-                                                </li>
-                                                <li class="destination-item" data-value="경주">
-                                                    <img src="https://images.unsplash.com/photo-1653632445016-b0de695eab90?w=100&h=100&fit=crop"
-                                                        alt="경주">
-                                                    <div class="destination-info">
+                                                    </li>
+                                                    <li class="destination-item-text" data-value="방콕">
                                                         <span class="destination-name"
-                                                            data-lang="destNameGyeongju">경주</span>
-                                                        <span class="destination-count">(1,439)</span>
+                                                            data-lang="destNameBangkok">방콕</span>
+                                                        <span class="destination-count">(8,450)</span>
                                                         <span class="destination-desc"
-                                                            data-lang="descCultureReligion">문화, 종교 관심 활동</span>
+                                                            data-lang="descShoppingSightseeing">쇼핑, 관광</span>
+                                                    </li>
+                                                    <li class="destination-item-text" data-value="다낭">
+                                                        <span class="destination-name"
+                                                            data-lang="destNameDanang">다낭</span>
+                                                        <span class="destination-count">(2,890)</span>
+                                                        <span class="destination-desc" data-lang="descBeachResort">해변,
+                                                            리조트</span>
+                                                    </li>
+                                                    <li class="destination-item-text" data-value="싱가포르">
+                                                        <span class="destination-name"
+                                                            data-lang="destNameSingapore">싱가포르</span>
+                                                        <span class="destination-count">(1,890)</span>
+                                                        <span class="destination-desc"
+                                                            data-lang="descShoppingSightseeing">쇼핑, 관광</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="search-divider"></div>
+
+                                <!-- 2. 일정 (Dates: Check-in & Check-out merged) -->
+                                <div class="search-item date-item-new" id="checkInField">
+                                    <div class="item-icon">
+                                        <i data-lucide="calendar"></i>
+                                    </div>
+                                    <div class="item-content">
+                                        <label class="item-label" data-lang="dateLabel">체크인 - 체크아웃</label>
+                                        <div class="date-display-text">
+                                            <span id="checkInDisplay" data-lang="dateSelect">날짜 선택</span>
+                                            <span class="date-separator"> - </span>
+                                            <span id="checkOutDisplay" data-lang="dateSelect">날짜 선택</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 캘린더 팝업 (위치 유지) -->
+                                    <div class="Popup RangePicker RangePicker--checkIn RangePicker--with-dayuse"
+                                        id="calendarPopup" role="dialog" aria-modal="true" aria-label="체크인 날짜 선택 달력">
+                                        <div class="Popup__content Popup__content_Occupancy">
+                                            <span class="ScreenReaderOnly">엔터 키를 눌러 캘린더를 여세요. 방향키를 사용해 체크인 및 체크아웃 날짜를
+                                                탐색할 수
+                                                있습니다.</span>
+                                            <div class="RangePicker-Header">
+                                                <div class="RangePicker-NavPrev">
+                                                    <button type="button" class="NavBtn NavBtn--prev" id="prevMonth"
+                                                        aria-label="Previous Month">
+                                                        <i data-lucide="chevron-left"></i>
+                                                    </button>
+                                                </div>
+                                                <div role="tablist" class="RangePicker-Tabs">
+                                                    <div class="RangePicker-Tab Item">
+                                                        <button role="tab" aria-selected="true" id="tab-calendar"
+                                                            class="TabBtn active" data-lang="calTitle">캘린더</button>
+                                                        <div class="TabIndicator"></div>
                                                     </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="dropdown-column">
-                                            <div class="dropdown-header" data-lang="destOverseas">해외 여행지</div>
-                                            <ul class="destination-list overseas">
-                                                <li class="destination-item-text" data-value="오사카">
-                                                    <span class="destination-name" data-lang="destNameOsaka">오사카</span>
-                                                    <span class="destination-count">(10,018)</span>
-                                                    <span class="destination-desc" data-lang="descShoppingDining">쇼핑,
-                                                        레스토랑</span>
-                                                </li>
-                                                <li class="destination-item-text" data-value="도쿄">
-                                                    <span class="destination-name" data-lang="destNameTokyo">도쿄 /
-                                                        동경</span>
-                                                    <span class="destination-count">(12,486)</span>
-                                                    <span class="destination-desc"
-                                                        data-lang="descShoppingSightseeing">쇼핑, 관광</span>
-                                                </li>
-                                                <li class="destination-item-text" data-value="후쿠오카">
-                                                    <span class="destination-name"
-                                                        data-lang="destNameFukuoka">후쿠오카</span>
-                                                    <span class="destination-count">(2,181)</span>
-                                                    <span class="destination-desc" data-lang="descSightseeingBeach">관광,
-                                                        해변</span>
-                                                </li>
-                                                <li class="destination-item-text" data-value="방콕">
-                                                    <span class="destination-name" data-lang="destNameBangkok">방콕</span>
-                                                    <span class="destination-count">(8,450)</span>
-                                                    <span class="destination-desc"
-                                                        data-lang="descShoppingSightseeing">쇼핑, 관광</span>
-                                                </li>
-                                                <li class="destination-item-text" data-value="다낭">
-                                                    <span class="destination-name" data-lang="destNameDanang">다낭</span>
-                                                    <span class="destination-count">(2,890)</span>
-                                                    <span class="destination-desc" data-lang="descBeachResort">해변,
-                                                        리조트</span>
-                                                </li>
-                                                <li class="destination-item-text" data-value="싱가포르">
-                                                    <span class="destination-name"
-                                                        data-lang="destNameSingapore">싱가포르</span>
-                                                    <span class="destination-count">(1,890)</span>
-                                                    <span class="destination-desc"
-                                                        data-lang="descShoppingSightseeing">쇼핑, 관광</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 중간: 체크인/체크아웃/인원 (3열 -> 2열 구조로 변경) -->
-                        <div class="search-row-middle">
-                            <!-- 체크인/체크아웃 통합 그룹 (CSS grid 2fr 영역) -->
-                            <div class="date-field-group">
-                                <!-- 체크인 -->
-                                <div class="date-field-new" id="checkInField">
-                                    <i data-lucide="calendar" class="field-icon-new"></i>
-                                    <div class="date-content-new">
-                                        <span class="date-full" id="checkInDisplay" data-lang="dateSelect">날짜 선택</span>
-                                        <span class="date-day-new" id="checkInDay" data-lang="checkIn">체크인</span>
-                                    </div>
-                                </div>
-
-                                <!-- 체크아웃 -->
-                                <div class="date-field-new" id="checkOutField">
-                                    <i data-lucide="calendar" class="field-icon-new"></i>
-                                    <div class="date-content-new">
-                                        <span class="date-full" id="checkOutDisplay" data-lang="dateSelect">날짜 선택</span>
-                                        <span class="date-day-new" id="checkOutDay" data-lang="checkOut">체크아웃</span>
-                                    </div>
-                                </div>
-
-                                <!-- 캘린더 팝업 (그룹 내부에 위치하여 전체 너비 활용) -->
-                                <div class="Popup RangePicker RangePicker--checkIn RangePicker--with-dayuse"
-                                    id="calendarPopup" role="dialog" aria-modal="true" aria-label="체크인 날짜 선택 달력">
-                                    <div class="Popup__content Popup__content_Occupancy">
-                                        <!-- 접근성 텍스트 -->
-                                        <span class="ScreenReaderOnly">엔터 키를 눌러 캘린더를 여세요. 방향키를 사용해 체크인 및 체크아웃 날짜를 탐색할 수
-                                            있습니다.</span>
-
-                                        <!-- 상단 탭 및 네비게이션 컨테이너 -->
-                                        <div class="RangePicker-Header">
-                                            <!-- 이전 달 버튼 (절대 위치) -->
-                                            <div class="RangePicker-NavPrev">
-                                                <button type="button" class="NavBtn NavBtn--prev" id="prevMonth"
-                                                    aria-label="Previous Month">
-                                                    <i data-lucide="chevron-left"></i>
-                                                </button>
-                                            </div>
-
-                                            <!-- 탭 리스트 -->
-                                            <div role="tablist" class="RangePicker-Tabs">
-                                                <div class="RangePicker-Tab Item">
-                                                    <button role="tab" aria-selected="true" id="tab-calendar"
-                                                        class="TabBtn active" data-lang="calTitle">캘린더</button>
-                                                    <div class="TabIndicator"></div>
+                                                    <div class="RangePicker-Tab Item">
+                                                        <button role="tab" aria-selected="false" id="tab-flexible"
+                                                            class="TabBtn" data-lang="calFlexible">날짜 미정</button>
+                                                    </div>
                                                 </div>
-                                                <div class="RangePicker-Tab Item">
-                                                    <button role="tab" aria-selected="false" id="tab-flexible"
-                                                        class="TabBtn" data-lang="calFlexible">날짜 미정</button>
+                                                <div class="RangePicker-NavNext">
+                                                    <button type="button" class="NavBtn NavBtn--next" id="nextMonth"
+                                                        aria-label="Next Month">
+                                                        <i data-lucide="chevron-right"></i>
+                                                    </button>
                                                 </div>
                                             </div>
 
-                                            <!-- 다음 달 버튼 (절대 위치) -->
-                                            <div class="RangePicker-NavNext">
-                                                <button type="button" class="NavBtn NavBtn--next" id="nextMonth"
-                                                    aria-label="Next Month">
-                                                    <i data-lucide="chevron-right"></i>
-                                                </button>
+                                            <div role="tabpanel" id="panel-calendar" class="RangePicker-Panel active">
+                                                <div class="DayPicker" id="dayPickerContainer">
+                                                    <div class="DayPicker-wrapper">
+                                                        <div class="DayPicker-Months" id="calendarMonths"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="RangePicker-Footer">
+                                                    <button type="button" class="ActionBtn ActionBtn--clear"
+                                                        id="btn-clear">
+                                                        <span data-lang="btnReset">선택 해제</span>
+                                                    </button>
+                                                    <button type="button" class="ActionBtn ActionBtn--confirm"
+                                                        id="btn-confirm">
+                                                        <span data-lang="btnConfirm">확인</span>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <!-- 패널 1: 캘린더 -->
-                                        <div role="tabpanel" id="panel-calendar" class="RangePicker-Panel active">
-                                            <div class="DayPicker" id="dayPickerContainer">
-                                                <!-- 두 개의 달력이 JS로 렌더링 됩니다 -->
-                                                <!-- 예시 구조 -->
-                                                <div class="DayPicker-wrapper">
-                                                    <div class="DayPicker-Months" id="calendarMonths">
-                                                        <!-- JS Injected -->
+                                            <div role="tabpanel" id="panel-flexible" class="RangePicker-Panel">
+                                                <div class="Flexible-Content">
+                                                    <h3 data-lang="calFlexTitle">투숙 기간은 얼마나 되시나요?</h3>
+                                                    <div class="Flexible-Options">
+                                                        <button class="Flexible-Option" data-val="3"
+                                                            data-lang="calFlex3">3박</button>
+                                                        <button class="Flexible-Option" data-val="7"
+                                                            data-lang="calFlex7">1주일</button>
+                                                        <button class="Flexible-Option" data-val="30"
+                                                            data-lang="calFlex30">1개월</button>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            <!-- 하단 액션 버튼 -->
-                                            <div class="RangePicker-Footer">
-                                                <button type="button" class="ActionBtn ActionBtn--clear" id="btn-clear">
-                                                    <span data-lang="btnReset">선택 해제</span>
+                                <div class="search-divider"></div>
+
+                                <!-- 3. 여행자 (Guests) -->
+                                <div class="search-item guest-item-new" id="guestFieldLarge">
+                                    <div class="item-icon">
+                                        <i data-lucide="users"></i>
+                                    </div>
+                                    <div class="item-content">
+                                        <label class="item-label" data-lang="guestLabel">여행자</label>
+                                        <div class="guest-display-text">
+                                            <span id="guestSummary">성인 1명, 객실 1개</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 인원 선택 팝업 -->
+                                    <div class="guest-popup-new" id="guestPopupLarge">
+                                        <div class="guest-row-new">
+                                            <div class="guest-info-new">
+                                                <span class="guest-type-new" data-lang="guestRooms">객실</span>
+                                            </div>
+                                            <div class="guest-counter-new">
+                                                <button class="counter-btn-new minus" data-target="rooms">
+                                                    <i data-lucide="minus"></i>
                                                 </button>
-                                                <button type="button" class="ActionBtn ActionBtn--confirm"
-                                                    id="btn-confirm">
-                                                    <span data-lang="btnConfirm">확인</span>
+                                                <span class="counter-value-new" id="roomsCountLarge">1</span>
+                                                <button class="counter-btn-new plus" data-target="rooms">
+                                                    <i data-lucide="plus"></i>
                                                 </button>
                                             </div>
                                         </div>
-
-                                        <!-- 패널 2: 날짜 미정 -->
-                                        <div role="tabpanel" id="panel-flexible" class="RangePicker-Panel">
-                                            <div class="Flexible-Content">
-                                                <h3 data-lang="calFlexTitle">투숙 기간은 얼마나 되시나요?</h3>
-                                                <div class="Flexible-Options">
-                                                    <button class="Flexible-Option" data-val="3"
-                                                        data-lang="calFlex3">3박</button>
-                                                    <button class="Flexible-Option" data-val="7"
-                                                        data-lang="calFlex7">1주일</button>
-                                                    <button class="Flexible-Option" data-val="30"
-                                                        data-lang="calFlex30">1개월</button>
-                                                </div>
-                                                <!-- 추가 컨텐츠 생략 -->
+                                        <div class="guest-row-new">
+                                            <div class="guest-info-new">
+                                                <span class="guest-type-new" data-lang="guestAdults">성인</span>
+                                                <span class="guest-desc-new" data-lang="guestAdultsDesc">18세 이상</span>
+                                            </div>
+                                            <div class="guest-counter-new">
+                                                <button class="counter-btn-new minus" data-target="adults">
+                                                    <i data-lucide="minus"></i>
+                                                </button>
+                                                <span class="counter-value-new" id="adultsCountLarge">1</span>
+                                                <button class="counter-btn-new plus" data-target="adults">
+                                                    <i data-lucide="plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="guest-row-new">
+                                            <div class="guest-info-new">
+                                                <span class="guest-type-new" data-lang="guestChildren">아동</span>
+                                                <span class="guest-desc-new" data-lang="guestChildrenDesc">0 -
+                                                    17세</span>
+                                            </div>
+                                            <div class="guest-counter-new">
+                                                <button class="counter-btn-new minus" data-target="children">
+                                                    <i data-lucide="minus"></i>
+                                                </button>
+                                                <span class="counter-value-new" id="childrenCountLarge">0</span>
+                                                <button class="counter-btn-new plus" data-target="children">
+                                                    <i data-lucide="plus"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- 인원 및 객실 -->
-                            <div class="search-field-new guest-field-new" id="guestFieldLarge">
-                                <i data-lucide="users" class="field-icon-new"></i>
-                                <div class="guest-content-new">
-                                    <span class="guest-main" id="guestSummary">성인 1명</span>
-                                    <span class="guest-sub" id="roomSummary">객실 1개</span>
-                                </div>
-                                <i data-lucide="chevron-down" class="field-chevron"></i>
-
-                                <!-- 인원 선택 팝업 -->
-                                <div class="guest-popup-new" id="guestPopupLarge">
-                                    <div class="guest-row-new">
-                                        <div class="guest-info-new">
-                                            <span class="guest-type-new" data-lang="guestRooms">객실</span>
-                                        </div>
-                                        <div class="guest-counter-new">
-                                            <button class="counter-btn-new minus" data-target="rooms">
-                                                <i data-lucide="minus"></i>
-                                            </button>
-                                            <span class="counter-value-new" id="roomsCountLarge">1</span>
-                                            <button class="counter-btn-new plus" data-target="rooms">
-                                                <i data-lucide="plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="guest-row-new">
-                                        <div class="guest-info-new">
-                                            <span class="guest-type-new" data-lang="guestAdults">성인</span>
-                                            <span class="guest-desc-new" data-lang="guestAdultsDesc">18세 이상</span>
-                                        </div>
-                                        <div class="guest-counter-new">
-                                            <button class="counter-btn-new minus" data-target="adults">
-                                                <i data-lucide="minus"></i>
-                                            </button>
-                                            <span class="counter-value-new" id="adultsCountLarge">1</span>
-                                            <button class="counter-btn-new plus" data-target="adults">
-                                                <i data-lucide="plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="guest-row-new">
-                                        <div class="guest-info-new">
-                                            <span class="guest-type-new" data-lang="guestChildren">아동</span>
-                                            <span class="guest-desc-new" data-lang="guestChildrenDesc">0 - 17세</span>
-                                        </div>
-                                        <div class="guest-counter-new">
-                                            <button class="counter-btn-new minus" data-target="children">
-                                                <i data-lucide="minus"></i>
-                                            </button>
-                                            <span class="counter-value-new" id="childrenCountLarge">0</span>
-                                            <button class="counter-btn-new plus" data-target="children">
-                                                <i data-lucide="plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                <!-- 4. 검색 버튼 (Pill Button inside the bar) -->
+                                <div class="search-btn-wrapper">
+                                    <button class="search-btn-pill" id="searchBtn">
+                                        <i data-lucide="search" class="search-btn-icon"></i>
+                                        <span class="search-btn-text" data-lang="searchBtn">검색</span>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- 하단: 검색 버튼 (중앙 배치) -->
-                        <div class="search-row-bottom">
-                            <button class="search-btn-new" id="searchBtn">
-                                <span data-lang="searchBtn">검색하기</span>
-                            </button>
                         </div>
                     </div>
 
-                    <!-- 검색 폼 - 즐길거리용 -->
+                    <!-- 검색 폼 - 즐길거리용 (Placeholder) -->
                     <div class="search-form-new hidden" id="searchFormActivity">
-                        <!-- 상단: 여행지 검색 (전체 너비) -->
-                        <div class="search-row-top">
-                            <div class="search-field-new destination-field-new" id="destinationFieldActivity">
-                                <i data-lucide="search" class="field-icon-new"></i>
-                                <input type="text" class="field-input-new" id="destinationInputActivity"
-                                    placeholder="어디로 떠나시나요?" autocomplete="off" data-lang-placeholder="destPlaceholder">
-
-                                <!-- 여행지 드롭다운 (즐길거리용) -->
-                                <div class="destination-dropdown" id="destinationDropdownActivity">
-                                    <div class="dropdown-columns">
-                                        <div class="dropdown-column">
-                                            <div class="dropdown-header" data-lang="destKr">대한민국 내 여행지</div>
-                                            <ul class="destination-list">
-                                                <li class="destination-item" data-value="서울">
-                                                    <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
-                                                        alt="서울">
-                                                    <div class="destination-info">
-                                                        <span class="destination-name"
-                                                            data-lang="destNameSeoul">서울</span>
-                                                        <span class="destination-count">(5,945)</span>
-                                                        <span class="destination-desc"
-                                                            data-lang="descShoppingDining">쇼핑, 레스토랑</span>
-                                                    </div>
-                                                </li>
-                                                <li class="destination-item" data-value="제주">
-                                                    <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=100&h=100&fit=crop"
-                                                        alt="제주">
-                                                    <div class="destination-info">
-                                                        <span class="destination-name"
-                                                            data-lang="destNameJeju">제주</span>
-                                                        <span class="destination-count">(4,939)</span>
-                                                        <span class="destination-desc" data-lang="destDescJeju">자연경관,
-                                                            해변</span>
-                                                    </div>
-                                                </li>
-                                                <li class="destination-item" data-value="부산">
-                                                    <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=100&h=100&fit=crop"
-                                                        alt="부산">
-                                                    <div class="destination-info">
-                                                        <span class="destination-name"
-                                                            data-lang="destNameBusan">부산</span>
-                                                        <span class="destination-count">(2,734)</span>
-                                                        <span class="destination-desc" data-lang="descBeachDining">해변,
-                                                            레스토랑</span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="dropdown-column">
-                                            <div class="dropdown-header" data-lang="destOverseas">해외 여행지</div>
-                                            <ul class="destination-list overseas">
-                                                <li class="destination-item-text" data-value="오사카">
-                                                    <span class="destination-name">오사카</span>
-                                                    <span class="destination-count">(10,018)</span>
-                                                    <span class="destination-desc">쇼핑, 레스토랑</span>
-                                                </li>
-                                                <li class="destination-item-text" data-value="도쿄">
-                                                    <span class="destination-name">도쿄 / 동경</span>
-                                                    <span class="destination-count">(12,486)</span>
-                                                    <span class="destination-desc">쇼핑, 관광</span>
-                                                </li>
-                                                <li class="destination-item-text" data-value="방콕">
-                                                    <span class="destination-name">방콕</span>
-                                                    <span class="destination-count">(8,450)</span>
-                                                    <span class="destination-desc">쇼핑, 관광</span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                        <div class="global-search-container">
+                            <div class="global-search-bar">
+                                <!-- 여행지 (Destination) -->
+                                <div class="search-item destination-item-new" id="destinationFieldActivity">
+                                    <div class="item-icon">
+                                        <i data-lucide="search"></i>
+                                    </div>
+                                    <div class="item-content">
+                                        <label class="item-label">떠나고 싶은 곳</label>
+                                        <input type="text" class="item-input" id="destinationInputActivity"
+                                            placeholder="액티비티, 체험 명 검색" autocomplete="off">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- 하단: 검색 버튼 (중앙 배치) -->
-                        <div class="search-row-bottom">
-                            <button class="search-btn-new" id="searchBtnActivity">
-                                <span data-lang="searchBtn">검색하기</span>
-                            </button>
+                                <div class="search-btn-wrapper">
+                                    <button class="search-btn-pill" id="searchBtnActivity">
+                                        <i data-lucide="search" class="search-btn-icon"></i>
+                                        <span class="search-btn-text">검색</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -143,6 +143,17 @@ input {
 }
 
 /* ========== Utility Classes ========== */
+.ScreenReaderOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
 .container {
     max-width: var(--container-max);
     margin: 0 auto;
@@ -199,7 +210,7 @@ input {
     align-items: center;
     width: 240px; /* Zone 1: Fixed Width */
     flex-shrink: 0;
-    border-right: 1px solid rgba(0, 0, 0, 0.05); /* Softened Divider */
+    border-right: 1px solid rgba(0, 0, 0, 0.08); /* Divider */
     padding-right: 40px;
     margin-right: 40px;
 }
@@ -253,13 +264,6 @@ input {
     height: 18px;
 }
 
-/* Nav Diet: Hide text for last 3 items (eSIM, Guide, Tips) */
-.nav-item:nth-last-child(-n+3) .nav-link span {
-    display: none;
-}
-
-/* Adjust gap for mixed content if needed, but flex gap handles it well */
-
 /* Header Utilities - Right Zone */
 .header-utils {
     display: flex;
@@ -268,7 +272,7 @@ input {
     gap: 24px;
     width: 240px; /* Zone 3: Fixed Width */
     flex-shrink: 0;
-    border-left: 1px solid rgba(0, 0, 0, 0.05); /* Softened Divider */
+    border-left: 1px solid rgba(0, 0, 0, 0.08); /* Divider */
     padding-left: 40px;
     margin-left: 40px;
 }
@@ -291,26 +295,6 @@ input {
 .util-icon {
     width: 18px;
     height: 18px;
-}
-
-/* Primary Action: Login Capsule Button */
-.login-btn {
-    background-color: var(--primary);
-    color: white !important; /* Force white text */
-    padding: 8px 24px;
-    border-radius: 999px; /* Capsule shape */
-    font-weight: 700;
-    box-shadow: var(--shadow-sm);
-}
-
-.login-btn:hover {
-    background-color: var(--primary-dark);
-    box-shadow: var(--shadow-md);
-    color: white !important;
-}
-
-.login-btn .util-icon {
-    display: none; /* Hide user icon inside button for cleaner look? Or keep it? User didn't specify, but capsule usually text only. Let's keep icon for consistency or hide if crowded. Request said 'Capsule Button style'. I will keep icon but ensure style logic applies to .login-btn class. */
 }
 
 
@@ -386,6 +370,7 @@ input {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 60%; /* Ensure landmark visibility */
 }
 
 .hero-overlay {
@@ -394,17 +379,18 @@ input {
     left: 0;
     right: 0;
     bottom: 0;
+    /* Deep Navy/Purple Gradient for Magic Hour feel */
     background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0.4) 0%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0.5) 100%
+        rgba(10, 25, 47, 0.6) 0%,
+        rgba(10, 25, 47, 0.3) 50%,
+        rgba(10, 25, 47, 0.8) 100%
     );
 }
 
 .hero-content {
     text-align: center;
-    max-width: 900px;
+    max-width: 1200px;
     width: 100%;
 }
 
@@ -414,305 +400,528 @@ input {
     margin-bottom: var(--space-xl);
 }
 
-/* ========== NEW Search Widget Layout ========== */
+/* ========== NEW Search Widget Layout (Global OTA Style) ========== */
 .search-widget-large {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: var(--radius-2xl);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    overflow: visible;
-    max-width: 900px;
-    margin: 0 auto;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    margin-top: 40px;
 }
 
 .search-tabs-large {
     display: flex;
-    background: var(--background);
-    border-bottom: 1px solid var(--border);
-    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .search-tab-large {
-    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: var(--space-lg) var(--space-xl);
+    gap: 8px;
+    padding: 10px 24px;
     font-size: 1rem;
     font-weight: var(--font-weight-medium);
-    color: var(--text-body);
-    background: transparent;
-    border-bottom: 3px solid transparent;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    backdrop-filter: blur(4px);
     transition: all var(--transition-fast);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .search-tab-large:hover {
-    color: var(--text-title);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
 }
 
 .search-tab-large.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
+    background: #fff;
+    color: var(--text-title);
+    font-weight: var(--font-weight-bold);
 }
 
 .search-tab-large svg {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
 }
 
-/* New Search Form Layout */
-.search-form-new {
-    padding: var(--space-xl);
-    padding-bottom: calc(var(--space-xl) + 38px); /* Increased by 38px (adjusted +2px) */
-}
-
-/* Top Row - Destination (Full Width) */
-.search-row-top {
-    margin-bottom: var(--space-md);
-}
-#searchFormHotel {
-    height: 280px;
-}
-
-#searchFormActivity {
-    height: 160px;
-}
-
-.search-field-new {
+/* Global Search Container & Bar */
+.global-search-container {
+    max-width: 1100px;
+    margin: 0 auto;
     position: relative;
+}
+
+.global-search-bar {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-lg) var(--space-xl);
-    background: var(--background);
-    border-radius: var(--radius-xl);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    border: 1px solid #e5e5e5;
-}
-
-.search-field-new:hover {
-    background: var(--border-light);
-}
-
-.search-field-new:focus-within,
-.search-field-new.active {
-    /* border-color: var(--primary); */
-    background: var(--surface);
-    box-shadow: 0 0 0 4px var(--accent-blue-light);
-}
-
-.destination-field-new {
+    background: #fff;
     width: 100%;
+    height: 80px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 0 10px;
+    position: relative;
 }
 
-.field-icon-new {
-    width: 24px;
-    height: 24px;
-    color: var(--text-muted);
-    flex-shrink: 0;
-}
-
-.field-input-new {
-    flex: 1;
-    font-size: 1rem;
-    font-weight: var(--font-weight-medium);
-    color: var(--text-title);
-    background: transparent;
-}
-
-.field-input-new::placeholder {
-    color: var(--text-muted);
-}
-
-/* ========== 아고다 스타일 체크인/체크아웃 & 캘린더 ========== */
-
-/* 1. 체크인/체크아웃 통합 필드 스타일 (검색 폼 내부) */
-.search-row-middle {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* 날짜 영역을 더 넓게 */
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-}
-
-/* 날짜 필드를 감싸는 가상의 컨테이너 역할을 하도록 개별 필드 스타일 수정 */
-.date-field-group {
-    display: flex;
-    background: var(--background);
-    border: 1px solid #e5e5e5;
-    border-radius: var(--radius-xl);
-    /* overflow: hidden;  <-- REMOVED to allow popup to show */
-    background: var(--background);
-    position: relative; /* [Add] Context for absolute popup */
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.date-field-group.active {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 1px var(--primary);
-    z-index: 20;
-}
-
-
-/* 개별 날짜 필드 스타일 재정의 */
-.date-field-new {
+/* Search Items */
+.search-item {
     flex: 1;
     display: flex;
     align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
-    background: transparent; /* 배경을 부모에게 위임하거나 투명하게 */
-    border: none; /* 개별 테두리 제거 */
-    border-radius: 0; /* 모서리 제거 */
+    height: 100%;
+    padding: 10px 24px;
     cursor: pointer;
+    border-radius: 40px; /* Inner pill radius */
     transition: background var(--transition-fast);
-    position: relative; /* 캘린더 팝업 위치 기준 */
+    position: relative;
+    min-width: 180px; /* Prevent shrink */
 }
 
-.date-field-new:first-child {
-    border-right: 1px solid var(--border-light);
-    border-top-left-radius: var(--radius-xl);
-    border-bottom-left-radius: var(--radius-xl);
+.search-item:hover {
+    background: #f5f7fa;
 }
 
-.date-field-new:nth-of-type(2) {
-    border-top-right-radius: var(--radius-xl);
-    border-bottom-right-radius: var(--radius-xl);
+/* Specific flex ratios */
+.destination-item-new {
+    flex: 1.2;
+}
+.date-item-new {
+    flex: 1.4; /* Slightly larger for two dates */
+}
+.guest-item-new {
+    flex: 1;
 }
 
-.date-field-new:hover {
-    background: var(--border-light);
-}
-
-.date-field-new.active {
-    background: var(--surface);
-    box-shadow: inset 0 0 0 2px var(--primary); /* 안쪽 그림자로 활성 상태 표시 */
-    z-index: 10;
-}
-
-/* 아이콘 색상 및 스타일 */
-.field-icon-new {
-    width: 24px;
-    height: 24px;
+.item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
     color: var(--text-muted);
 }
 
-.date-field-new.active .field-icon-new {
-    color: var(--primary);
-}
-
-/* 날짜 텍스트 스타일 */
-.date-content-new {
+.item-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0; /* Prevent flex overflow */
 }
 
-.date-full {
-    font-size: 1.1rem; /* 약간 키움 */
-    font-weight: var(--font-weight-bold);
+.item-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+    display: block;
+    white-space: nowrap; /* Prevent wrap */
+}
+
+.item-input {
+    width: 100%;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-title);
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    text-overflow: ellipsis;
+}
+.item-input::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.date-display-text,
+.guest-display-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-title);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.date-separator {
+    color: var(--text-muted);
+    font-weight: 400;
+    margin: 0 4px;
+}
+
+/* Dividers */
+.search-divider {
+    width: 1px;
+    height: 40px;
+    background: #eee;
+    margin: 0 4px;
+}
+
+/* Search Button */
+.search-btn-wrapper {
+    padding-left: 10px;
+}
+
+.search-btn-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+    min-width: 60px;
+    height: 60px;
+    padding: 0 32px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: background var(--transition-fast), transform 0.1s;
+    box-shadow: 0 4px 12px rgba(255, 80, 0, 0.3);
+}
+
+.search-btn-pill:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+.search-btn-pill:active {
+    transform: translateY(1px);
+}
+
+.search-btn-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Dropdown & Popup Adjustments for new layout */
+.destination-dropdown {
+    top: calc(100% + 12px); /* Dynamic positioning */
+    left: 20px;
+    border-radius: 24px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    width: 400px !important; /* Force expansion */
+    white-space: nowrap;
+    background: #fff; /* Fix transparency */
+    z-index: 2000; /* Ensure on top */
+    padding: 24px; /* Add breathing room */
+    overflow: hidden; /* Prevent outer scrollbars */
+}
+
+.Popup.RangePicker {
+    top: calc(100% + 12px); /* Dynamic positioning */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); /* Center align */
+    display: none; /* Changed from visibility/opacity */
+    margin-left: 0; /* Reset */
+    box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    width: 700px !important; /* Force expansion for two months */
+    min-width: 700px;
+    background: #fff; /* Fix transparency */
+    z-index: 2000;
+    padding: 32px;
+    border-radius: 24px;
+}
+.Popup.RangePicker.active {
+    transform: translateX(-50%) translateY(0);
+    display: block !important; /* Force show */
+}
+/* Beak/Arrow for popup is optional, skipping for cleaner look */
+
+.guest-popup-new {
+    top: calc(100% + 12px); /* Dynamic positioning */
+    right: 0; /* Align right for guest popup */
+    left: auto;
+    width: 340px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    padding: 24px;
+    position: absolute;
+    display: none;
+    z-index: 1000;
+}
+.guest-popup-new.active {
+    display: block;
+}
+
+/* Dropdown Internal Layout */
+.dropdown-columns {
+    display: flex;
+    gap: 24px;
+    padding: 8px 0;
+}
+.dropdown-column {
+    flex: 1;
+    min-width: 0;
+}
+.dropdown-header {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: var(--text-title);
+    padding-left: 8px;
+}
+.destination-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+.destination-item-text {
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.destination-item-text:hover {
+    background: #f5f5f5;
+}
+
+.guest-row-new {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.guest-row-new:last-child {
+    margin-bottom: 0;
+}
+.guest-type-new {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-title);
+    display: block;
+}
+.guest-desc-new {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 4px;
+}
+.guest-counter-new {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.counter-btn-new {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-title);
+    transition: all 0.2s;
+}
+.counter-btn-new:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(255, 80, 0, 0.05);
+}
+.counter-value-new {
+    width: 24px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+    .global-search-bar {
+        flex-direction: column;
+        height: auto;
+        border-radius: 24px;
+        padding: 8px;
+    }
+
+    .search-item {
+        width: 100%;
+        height: 70px;
+        border-radius: 16px;
+        margin-bottom: 4px;
+    }
+    
+    .search-divider {
+        display: none;
+    }
+
+    .search-btn-wrapper {
+        width: 100%;
+        padding: 8px;
+    }
+    .search-btn-pill {
+        width: 100%;
+        height: 56px;
+        border-radius: 16px;
+    }
+
+    /* Adjust Popups for mobile - Fixed Center */
+    .destination-dropdown,
+    .guest-popup-new,
+    .Popup.RangePicker {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90% !important;
+        max-width: 400px !important;
+        /* Mobile override - reset min-width/width */
+        min-width: 0 !important;
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        z-index: 2000 !important;
+        margin: 0 !important;
+        right: auto !important;
+        bottom: auto !important;
+    }
+}
+
+/* Fix Flex Layout for Destination Items */
+.destination-item {
+    display: flex;
+    flex-direction: row; /* Ensure row layout */
+    align-items: center;
+}
+.destination-item img {
+    flex-shrink: 0; /* Prevent image crushing */
+    margin-right: 12px; /* Spacing */
+}
+
+/* Calendar Grid Layout (Missing styles added) */
+#calendarMonths {
+    display: flex;
+    gap: 32px;
+    justify-content: space-between;
+}
+.DayPicker-Month {
+    flex: 1;
+}
+.DayPicker-Caption {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
     color: var(--text-title);
 }
-
-.date-day-new {
-    font-size: 0.9rem;
+.DayPicker-Weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
+}
+.DayPicker-Weekday {
+    text-align: center;
+    font-size: 0.85rem;
     color: var(--text-muted);
+    font-weight: 500;
+}
+.DayPicker-Body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 4px;
+}
+.DayPicker-Day {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-title);
+    position: relative;
+    border-radius: 4px;
+}
+.DayPicker-Day:hover:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected) {
+    background-color: #f5f5f5;
+    border-radius: 50%;
+}
+.DayPicker-Day--selected {
+    background-color: var(--primary);
+    color: #fff;
+    border-radius: 50%;
 }
 
-/* 2. 대형 캘린더 팝업 스타일 */
-/* ========== Agoda-style Range Date Picker (Strict Specs) ========== */
-
-.Popup {
+/* [Fix] Range Highlight Logic */
+.DayPicker-Day--inRange {
+    background: rgba(255, 80, 0, 0.1) !important;
+    color: var(--text-title);
+    border-radius: 0;
+}
+.DayPicker-Day--checkIn {
+    background: var(--primary) !important;
+    color: #fff;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+/* Connect CheckIn to Range */
+.DayPicker-Day--checkIn.DayPicker-Day--hasRange::before {
+    content: '';
     position: absolute;
-    top: calc(100% + 12px);
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 80, 0, 0.1);
+    z-index: -1;
+}
+
+.DayPicker-Day--checkOut {
+    background: var(--primary) !important;
+    color: #fff;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+/* Connect CheckOut to Range */
+.DayPicker-Day--checkOut.DayPicker-Day--hasRange::before {
+    content: '';
+    position: absolute;
+    top: 0;
     left: 0;
-    min-width: 580px;
-    padding: 20px 10px 10px;
-    background: var(--surface);
-    border-radius: 8px; /* Strict Spec */
-    /* [Fix] Increased z-index and shadow */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, .15); 
-    overflow: hidden; /* Strict Spec */
-    z-index: 1000;
-    
-    /* Transitions */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: width .3s ease-out, height .3s ease-out, max-height .3s ease-out, opacity .2s ease-out, transform .2s ease-out, visibility .2s;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 80, 0, 0.1);
+    z-index: -1;
 }
-
-.Popup.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.ScreenReaderOnly {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-/* Header & Tabs */
+/* Calendar Header & Navigation */
 .RangePicker-Header {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
     position: relative;
-    margin-bottom: 20px;
+    padding: 0 10px;
 }
 
 .RangePicker-Tabs {
     display: flex;
-    gap: 10px;
-    justify-content: center;
-    border-bottom: 1px solid var(--border-light);
-    width: 100%;
+    gap: 8px;
+    background: #f5f5f5;
+    padding: 4px;
+    border-radius: 8px;
 }
-
-.RangePicker-Tab {
-    position: relative;
-    padding-bottom: 10px;
-}
-
 .TabBtn {
-    font-size: 1rem;
-    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: var(--text-muted);
     background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px 16px;
-    transition: color 0.2s;
+    transition: all 0.2s;
 }
-
 .TabBtn.active {
-    color: var(--primary); /* #FF5000 */
-    font-weight: 700;
+    background: #fff;
+    color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.TabIndicator {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--primary);
-    display: none;
-}
-
-.TabBtn.active + .TabIndicator {
-    display: block;
-}
-
-/* Navigation Buttons */
 .NavBtn {
     width: 36px;
     height: 36px;
@@ -720,107 +929,12 @@ input {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: transparent;
     color: var(--text-title);
     transition: background 0.2s;
 }
-
 .NavBtn:hover {
-    background: var(--background);
-}
-
-.RangePicker-NavPrev {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.RangePicker-NavNext {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* DayPicker Grid */
-.DayPicker-wrapper {
-    display: flex;
-    gap: 30px;
-    padding: 0 10px;
-}
-
-.DayPicker-Months {
-    display: flex;
-    gap: 30px;
-    width: 100%;
-}
-
-.DayPicker-Month {
-    flex: 1;
-}
-
-.DayPicker-Caption {
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: var(--text-title);
-}
-
-.DayPicker-Weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    margin-bottom: 8px;
-}
-
-.DayPicker-Weekday {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
-.DayPicker-Body {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    row-gap: 2px;
-}
-
-/* Day Styling */
-.DayPicker-Day {
-    aspect-ratio: 1/1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-    color: var(--text-title);
-}
-
-/* Hover Effect */
-.DayPicker-Day:hover:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected) {
-    background: var(--border-light);
-    border-radius: 50%;
-}
-
-/* Selected State (Circle) */
-.DayPicker-Day--selected {
-    background: var(--primary); /* #FF5000 */
-    color: #fff;
-    border-radius: 50%;
-    font-weight: 700;
-    z-index: 2;
-}
-
-/* Range Background */
-.DayPicker-Day--inRange {
-    background: rgba(255, 80, 0, 0.1); /* Range Overlay */
-    color: var(--text-title);
-    border-radius: 0;
+    background: #f5f5f5;
+    color: var(--primary);
 }
 
 /* Overlap Logic for connectedness */
@@ -912,27 +1026,46 @@ input {
     display: none;
 }
 .RangePicker-Panel.active {
-    display: block;
+    display: block !important;
     animation: fadeIn 0.3s ease-out forwards;
 }
 
 .Flexible-Content {
-    padding: 20px;
+    padding: 24px;
     text-align: center;
+}
+.Flexible-Desc {
+    font-size: 1rem;
+    color: var(--text-body);
+    margin-bottom: 24px;
 }
 .Flexible-Options {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
-    margin-top: 20px;
+    margin-bottom: 24px;
 }
 .Flexible-Option {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: 1px solid var(--border);
-    border-radius: 20px;
-    background: white;
+    border-radius: 24px;
     cursor: pointer;
+    background: #fff;
+    font-weight: 600;
+    transition: all 0.2s;
 }
+.Flexible-Option:hover {
+    border-color: var(--primary);
+    background: #fff5f0;
+}
+.Flexible-Option.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+
+
 .Flexible-Option:hover,
 .Flexible-Option.active {
     border-color: var(--primary);

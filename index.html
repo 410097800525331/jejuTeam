@@ -45,18 +45,41 @@
 
     <main class="main-content">
         <section class="section section-1" id="section-1">
-            <div class="hero-video-container">
-                <iframe class="hero-video"
-                    src="https://www.youtube.com/embed/Pc-XikbtLZ8?autoplay=1&mute=1&loop=1&playlist=Pc-XikbtLZ8&controls=0&modestbranding=1"
-                    title="제주 여행" loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-                <div class="hero-overlay"></div>
-            </div>
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h1 class="hero-title" data-lang="heroTitle">모든 여행의 시작과 끝, 제주그룹이 함께합니다.</h1>
-                <p class="hero-subtitle" data-lang="heroSubtitle">하늘, 머물음, 그리고 드라이브. 모든 여행을 제주그룹 한 곳에서.</p>
+                <h1 class="hero-title" data-lang="heroTitle">Connect the World</h1>
+                <!-- <p class="hero-subtitle" data-lang="heroSubtitle">Global Travel with JEJUstay</p> -->
+
+                <div class="hero-search-container">
+                    <div class="search-tabs">
+                        <button class="search-tab active">Stays</button>
+                        <button class="search-tab">Flights</button>
+                        <button class="search-tab">Cars</button>
+                    </div>
+                    <form class="search-form">
+                        <div class="search-input-group">
+                            <label for="destination">Where to?</label>
+                            <input type="text" id="destination" placeholder="Anywhere in the world"
+                                class="search-input">
+                        </div>
+                        <div class="search-divider"></div>
+                        <div class="search-input-group">
+                            <label for="dates">Dates</label>
+                            <input type="text" id="dates" placeholder="Add dates" class="search-input">
+                        </div>
+                        <div class="search-divider"></div>
+                        <div class="search-input-group">
+                            <label for="guests">Guests</label>
+                            <input type="text" id="guests" placeholder="Add guests" class="search-input">
+                        </div>
+                        <button type="button" class="search-btn">
+                            <i class="fas fa-search"></i>
+                            <span>Search Worldwide</span>
+                        </button>
+                    </form>
+                </div>
+
                 <div class="scroll-down">
                     <span data-lang="scrollDown">Scroll Down</span>
                     <div class="scroll-icon">

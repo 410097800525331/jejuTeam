@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 7. Initialize Wishlist Buttons
     initWishlistButtons();
+
+    // 8. Initialize Mobile Menu
+    initMobileMenu();
 });
 
 // Trigger Animation when everything is loaded (Images, Fonts)
@@ -223,4 +226,19 @@ function initWishlistButtons() {
             }
         });
     });
+}
+
+function initMobileMenu() {
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    if (menuBtn && mobileNav) {
+        menuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+    }
 }

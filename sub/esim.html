@@ -4,280 +4,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEJU Stay - eSIM Store</title>
-    <meta name="description" content="전 세계 어디서나 끊김 없는 데이터, 제주스테이 eSIM과 함께하세요.">
+    <title>eSIM | 제주스테이</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../css/hotel.css">
     <link rel="stylesheet" href="../css/esim.css">
 </head>
 
 <body>
-    <!-- Header (Copied consistent structure) -->
-    <header class="header" id="header">
-        <div class="header-container">
-            <a href="jejuhotel.html" class="logo">
-                <img src="../images/logo_jejuhotel.png" alt="JEJU STAY" class="logo-img">
-            </a>
-
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="jejuhotel.html" class="nav-link">
-                            <i data-lucide="building-2" class="nav-icon"></i>
-                            <span>숙소 예약</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="jejustay_life.html" class="nav-link">
-                            <i data-lucide="calendar-days" class="nav-icon"></i>
-                            <span>전 세계 한 달 살기</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="activities.html" class="nav-link">
-                            <i data-lucide="ticket" class="nav-icon"></i>
-                            <span>즐길 거리</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="deals.html" class="nav-link">
-                            <i data-lucide="percent" class="nav-icon"></i>
-                            <span>할인 쿠폰 & 특가</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="esim.html" class="nav-link active">
-                            <i data-lucide="smartphone" class="nav-icon"></i>
-                            <span>eSIM</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i data-lucide="book-open" class="nav-icon"></i>
-                            <span>여행 가이드</span>
-                        </a>
-                    </li>
-                </ul>
+    <!-- Header -->
+    <header class="esim-header">
+        <div class="container header-inner">
+            <a href="../index.html" class="logo">JEJU STAY</a>
+            <nav class="header-nav">
+                <a href="#" class="nav-link">요금제</a>
+                <a href="#" class="nav-link">설치 방법</a>
+                <a href="#" class="nav-link">고객 지원</a>
+                <button class="lang-selector">
+                    <i class="fas fa-globe"></i>
+                    <span>KO</span>
+                </button>
             </nav>
-
-            <div class="header-utils">
-                <a href="sub/reservation_check.html" class="util-link">
-                    <i data-lucide="clipboard-list" class="util-icon"></i>
-                    <span>예약 확인</span>
-                </a>
-                <a href="../sub/login.html" class="util-link login-btn">
-                    <i data-lucide="user" class="util-icon"></i>
-                    <span>로그인</span>
-                </a>
-                <a href="sub/customer_center.html" class="util-link">
-                    <i data-lucide="headphones" class="util-icon"></i>
-                    <span>고객센터</span>
-                </a>
-            </div>
-
-            <!-- 모바일 메뉴 버튼 -->
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
-                <i data-lucide="menu"></i>
-            </button>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="esim-hero">
-            <div class="esim-hero-bg">
-                <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc2ab429?q=80&w=2500&auto=format&fit=crop"
-                    alt="Connecting World" class="hero-image">
-                <div class="hero-overlay"></div>
-            </div>
-            <div class="esim-hero-content">
-                <h1 class="esim-title">전 세계 어디서나<br>자유로운 데이터 여행</h1>
-                <p class="esim-subtitle">유심 교체 없이, 로밍보다 저렴하게<br>제주스테이 eSIM으로 스마트한 여행을 시작하세요.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">언제 어디서나,<br>자유롭게 연결되세요.</h1>
 
-                <div class="esim-search-box">
-                    <div class="search-icon">
-                        <i data-lucide="search"></i>
-                    </div>
-                    <input type="text" placeholder="어디로 떠나시나요? (국가명 검색)" class="esim-search-input">
-                    <button class="esim-search-btn">검색</button>
-                </div>
+            <!-- Search Box -->
+            <div class="search-box">
+                <button class="search-btn">
+                    <i data-lucide="search"></i>
+                </button>
+                <input type="text" class="search-input" placeholder="어디로 떠나시나요?">
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Popular Countries -->
-        <section class="section container">
+    <!-- Country Grid Section -->
+    <section class="section">
+        <div class="container">
             <div class="section-header">
-                <h2 class="section-title">인기 여행지 BEST</h2>
-                <p class="section-subtitle">한국인이 가장 많이 찾는 여행지 데이터 상품</p>
+                <h2 class="section-title">인기 있는 여행지</h2>
             </div>
 
             <div class="country-grid">
                 <!-- Japan -->
                 <a href="#" class="country-card">
-                    <div class="flag-icon">🇯🇵</div>
-                    <h3 class="country-name">일본</h3>
-                    <p class="data-price">매일 1GB / 3일</p>
-                    <div class="price-tag">
-                        <span class="currency">₩</span>
-                        <span class="amount">4,500~</span>
+                    <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="Japan">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇯🇵</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">일본</span>
+                                <span class="capsule-price">시작 가격 ₩4,500</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
                     </div>
                 </a>
+
                 <!-- Vietnam -->
                 <a href="#" class="country-card">
-                    <div class="flag-icon">🇻🇳</div>
-                    <h3 class="country-name">베트남</h3>
-                    <p class="data-price">매일 2GB / 5일</p>
-                    <div class="price-tag">
-                        <span class="currency">₩</span>
-                        <span class="amount">6,900~</span>
+                    <img src="https://images.unsplash.com/photo-1528127269322-53995cb06651?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="Vietnam">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇻🇳</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">베트남</span>
+                                <span class="capsule-price">시작 가격 ₩6,900</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
                     </div>
                 </a>
+
                 <!-- Thailand -->
                 <a href="#" class="country-card">
-                    <div class="flag-icon">🇹🇭</div>
-                    <h3 class="country-name">태국</h3>
-                    <p class="data-price">무제한 / 7일</p>
-                    <div class="price-tag">
-                        <span class="currency">₩</span>
-                        <span class="amount">9,900~</span>
+                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="Thailand">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇹🇭</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">태국</span>
+                                <span class="capsule-price">시작 가격 ₩9,900</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
                     </div>
                 </a>
+
                 <!-- USA -->
                 <a href="#" class="country-card">
-                    <div class="flag-icon">🇺🇸</div>
-                    <h3 class="country-name">미국</h3>
-                    <p class="data-price">매일 3GB / 10일</p>
-                    <div class="price-tag">
-                        <span class="currency">₩</span>
-                        <span class="amount">18,500~</span>
+                    <img src="https://images.unsplash.com/photo-1550850839-8dc894ed385a?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="USA">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇺🇸</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">미국</span>
+                                <span class="capsule-price">시작 가격 ₩18,500</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
                     </div>
                 </a>
+
                 <!-- Europe -->
                 <a href="#" class="country-card">
-                    <div class="flag-icon">🇪🇺</div>
-                    <h3 class="country-name">유럽 33개국</h3>
-                    <p class="data-price">매일 2GB / 15일</p>
-                    <div class="price-tag">
-                        <span class="currency">₩</span>
-                        <span class="amount">24,000~</span>
+                    <img src="https://images.unsplash.com/photo-1467269204594-9661b133dd2b?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="Europe">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇪🇺</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">유럽</span>
+                                <span class="capsule-price">시작 가격 ₩24,000</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
                     </div>
                 </a>
+
                 <!-- Taiwan -->
                 <a href="#" class="country-card">
-                    <div class="flag-icon">🇹🇼</div>
-                    <h3 class="country-name">대만</h3>
-                    <p class="data-price">매일 2GB / 5일</p>
-                    <div class="price-tag">
-                        <span class="currency">₩</span>
-                        <span class="amount">5,500~</span>
+                    <img src="https://images.unsplash.com/photo-1552993873-0dd1110e025f?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="Taiwan">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇹🇼</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">대만</span>
+                                <span class="capsule-price">시작 가격 ₩5,500</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- China -->
+                <a href="#" class="country-card">
+                    <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="China">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇨🇳</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">중국</span>
+                                <span class="capsule-price">시작 가격 ₩8,900</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Singapore -->
+                <a href="#" class="country-card">
+                    <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=600&auto=format&fit=crop"
+                        class="card-bg-image" alt="Singapore">
+                    <div class="card-capsule">
+                        <div class="capsule-left">
+                            <span class="capsule-flag">🇸🇬</span>
+                            <div class="capsule-info">
+                                <span class="capsule-country">싱가포르</span>
+                                <span class="capsule-price">시작 가격 ₩7,500</span>
+                            </div>
+                        </div>
+                        <div class="capsule-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
                     </div>
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Benefits -->
-        <section class="section benefits-section">
-            <div class="container">
-                <div class="section-header text-center">
-                    <h2 class="section-title">왜 제주스테이 eSIM인가요?</h2>
+    <!-- Marketing Features Section -->
+    <section class="section marketing-features">
+        <div class="container">
+            <div class="marketing-header">
+                <h2 class="marketing-title">제주스테이의 Jeju Global eSIM –<br>모든 여정을 위한 완벽한 연결</h2>
+                <p class="marketing-desc">
+                    공식 eSIM 여행 동반자인 제주스테이와 함께 제공하는 Jeju Global eSIM으로 최고의 여행 자유를 경험하세요.
+                    새로운 도시를 탐험하든, 실시간으로 추억을 공유하든, 비즈니스를 위해 연결하든,
+                    Jeju Global eSIM은 제주스테이와 협력하여 전 세계 190여 개국에서 안정적이고 안전하며 원활한 데이터 경험을 보장합니다.
+                </p>
+            </div>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon"><i data-lucide="globe"></i></div>
+                    <div class="feature-content">
+                        <h3>어디를 가든 연결 상태를 유지하세요</h3>
+                        <p>제주스테이에서 제공하는 Jeju Global eSIM을 사용하면 해외에서도 간편하게 인터넷 연결을 유지할 수 있습니다. 로밍 요금이나 해외 SIM 카드 교체의
+                            번거로움에서 벗어나세요. Jeju Global eSIM을 사용하면 고속 모바일 데이터에 즉시 접속할 수 있어 목적지에 도착하는 순간부터 끊김 없는 인터넷 연결을 즐길
+                            수 있습니다.</p>
+                    </div>
                 </div>
-                <div class="benefits-grid">
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i data-lucide="zap"></i>
-                        </div>
-                        <h3>즉시 개통</h3>
-                        <p>구매 후 QR코드로 바로 연결.<br>택배 기다릴 필요 없어요.</p>
+
+                <div class="feature-item">
+                    <div class="feature-icon"><i data-lucide="smartphone"></i></div>
+                    <div class="feature-content">
+                        <h3>제주스테이의 Jeju Global eSIM을 선택해야 하는 이유는 무엇인가요?</h3>
+                        <p>제주스테이의 공식 eSIM 파트너인 Jeju Global은 안정성, 편의성, 그리고 친환경 여행 솔루션에 대한 공동의 노력을 결합하여 원활한 모바일 데이터 경험을
+                            제공합니다. Jeju Global eSIM을 사용하면 최고를 중시하는 여행객을 위해 설계된 신뢰할 수 있는 솔루션을 사용하고 있다는 확신을 가질 수 있습니다.</p>
                     </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i data-lucide="smartphone-nfc"></i>
-                        </div>
-                        <h3>유심 교체 NO</h3>
-                        <p>기존 번호 그대로 전화/문자 수신 가능.<br>번거로운 유심 교체는 이제 그만.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon"><i data-lucide="leaf"></i></div>
+                    <div class="feature-content">
+                        <h3>Jeju Global eSIM: 오늘날의 여행자를 위한 지속 가능한 선택</h3>
+                        <p>Jeju Global eSIM은 유연성과 편의성을 제공할 뿐만 아니라 기존 SIM 카드에 비해 친환경적인 대안을 제공합니다. Jeju Global eSIM을 통해
+                            디지털 결제를 통해 일회용 플라스틱 사용을 줄이고 지속 가능한 여행 방식을 실천할 수 있습니다.</p>
                     </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i data-lucide="piggy-bank"></i>
-                        </div>
-                        <h3>합리적인 가격</h3>
-                        <p>통신사 로밍 대비 최대 80% 저렴.<br>현지 통신망으로 빠르고 안정적.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon"><i data-lucide="compass"></i></div>
+                    <div class="feature-content">
+                        <h3>더 많이 탐험하고, 덜 걱정하세요</h3>
+                        <p>제주스테이의 Jeju Global eSIM으로 모든 여정을 최대한 만끽하세요. 연결 걱정은 이제 그만! 유명 랜드마크를 탐험하든 숨겨진 보석 같은 곳을 탐험하든,
+                            Jeju Global eSIM은 소중한 경험을 더욱 풍성하게 해줍니다. 지금 바로 시작해서 안심하고 편리하게, 그리고 안정적으로 새로운 여행을 경험해 보세요.</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- How it Works -->
-        <section class="section container">
+    <!-- Device Support Section -->
+    <section class="section info-section">
+        <div class="container">
+            <div class="device-grid-layout">
+                <div class="device-content">
+                    <h2 class="device-title">제 휴대폰이<br><span>eSIM을 지원하나요?</span></h2>
+                    <p class="device-desc">기기 모델을 검색하여 eSIM 호환 여부를 확인하세요.</p>
+
+                    <div class="search-box" style="margin-top: 32px; max-width: 480px; margin-left: 0;">
+                        <input type="text" class="search-input" placeholder="모델 입력 (예: iPhone 14)">
+                        <button class="search-btn">
+                            <i data-lucide="search"></i>
+                        </button>
+                    </div>
+
+                    <div style="margin-top: 24px;">
+                        <a href="#" style="color: var(--primary); text-decoration: underline;">모든 지원되는 기기 전체 목록을
+                            확인하세요</a>
+                    </div>
+                </div>
+
+                <div class="device-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1596742578443-7682af5251be?q=80&w=800&auto=format&fit=crop"
+                        alt="eSIM Compatible Phone" class="device-phone-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketing & How It Works -->
+    <section class="section how-it-works">
+        <div class="container" style="display: flex; gap: 40px; align-items: center; justify-content: space-between;">
+            <div class="how-it-works-content">
+                <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 40px;">해외에서의 웹 서핑<br><span
+                        style="color: var(--primary);">손쉽게 즐기세요</span></h2>
+
+                <div class="vertical-steps">
+                    <div class="v-step">
+                        <div class="v-step-num">1</div>
+                        <div class="v-step-text">요금제를 선택하세요</div>
+                    </div>
+                    <div class="v-step">
+                        <div class="v-step-num">2</div>
+                        <div class="v-step-text">eSIM을 설치하세요</div>
+                    </div>
+                    <div class="v-step">
+                        <div class="v-step-num">3</div>
+                        <div class="v-step-text">활성화하고 여행을 즐기세요</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <a href="#" class="btn btn-primary">더 많은 목적지 탐색하기</a>
+                </div>
+            </div>
+
+            <div class="how-it-works-image" style="width: 40%;">
+                <!-- Placeholder for illustration -->
+                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ce7d94?q=80&w=800&auto=format&fit=crop"
+                    alt="App Illustration" style="width: 100%; border-radius: 20px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section benefits">
+        <div class="container">
             <div class="section-header">
-                <h2 class="section-title">이용 방법은 간단해요</h2>
+                <h2 class="section-title">제주스테이 eSIM을 선택해야 하는 이유</h2>
+                <p class="section-subtitle">안심하고 여행을 즐기세요</p>
             </div>
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3>상품 구매</h3>
-                    <p>여행할 국가와 데이터 용량을 선택하고 결제하세요.</p>
-                </div>
-                <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3>QR 스캔</h3>
-                    <p>이메일/앱으로 전송된 QR코드를 휴대폰으로 스캔하세요.</p>
-                </div>
-                <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3>사용 시작</h3>
-                    <p>현지에 도착하면 데이터 로밍을 켜고 바로 사용하세요.</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- App Banner -->
-        <section class="app-banner-section">
-            <div class="container app-banner-content">
-                <div class="app-text">
-                    <h2>제주스테이 앱에서<br>eSIM을 더 편하게 관리하세요</h2>
-                    <p>남은 데이터 확인부터 추가 충전까지 한번에!</p>
-                    <div class="app-buttons">
-                        <button class="store-btn"><i class="fab fa-apple"></i> App Store</button>
-                        <button class="store-btn"><i class="fab fa-google-play"></i> Google Play</button>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3 class="benefit-title">100% 개통 보장</h3>
+                    <p class="benefit-desc">연결 실패 시 전액 환불해드립니다.<br>안심하고 구매하세요.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i data-lucide="badge-percent"></i>
+                    </div>
+                    <h3 class="benefit-title">최저가 보상제</h3>
+                    <p class="benefit-desc">더 저렴한 곳을 찾으면<br>차액의 2배를 보상합니다.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i data-lucide="headphones"></i>
+                    </div>
+                    <h3 class="benefit-title">24시간 한국어 지원</h3>
+                    <p class="benefit-desc">언제 어디서든 한국어로<br>빠르게 도움받으세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">자주 묻는 질문</h2>
+                <p class="section-subtitle">eSIM에 대해 궁금한 점을 확인하세요</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>eSIM이란 무엇인가요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>eSIM(embedded SIM)은 물리적인 SIM 카드 없이 디지털로 통신사에 연결하는 기술입니다. QR코드를 스캔하면 바로 활성화되어, 유심 교체 없이 해외에서
+                            데이터를 사용할 수 있습니다.</p>
                     </div>
                 </div>
-                <div class="app-image">
-                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&auto=format&fit=crop"
-                        alt="App Preview">
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>제 휴대폰이 eSIM을 지원하는지 어떻게 알 수 있나요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>iPhone XS 이상, Galaxy S20 이상의 대부분의 최신 스마트폰은 eSIM을 지원합니다. 설정 > 셀룰러 > eSIM 추가 옵션이 있으면 사용 가능합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>언제 eSIM을 설치해야 하나요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>출발 3일 전부터 여유롭게 설치하시는 것을 권장합니다. 설치 후에는 데이터 요금이 바로 시작되지 않으며, 해당 국가에 도착해서 데이터를 켜면 사용이 시작됩니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>기존 전화번호는 어떻게 되나요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>기존 전화번호는 그대로 유지됩니다. eSIM은 데이터 전용으로 추가되며, 카카오톡 등 메신저는 정상적으로 사용 가능합니다. 전화/문자는 기존 유심으로 수신됩니다.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <!-- Footer -->
+    <footer class="esim-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-brand">JEJU STAY</div>
+                    <p class="footer-description">제주스테이는 항공권, 숙박, eSIM까지<br>여행의 모든 것을 한 곳에서 제공합니다.</p>
+                </div>
 
-    <footer class="footer section">
-        <div class="footer-content">
-            <div class="footer-info">
-                <p><strong>(주)제주 그룹</strong></p>
-                <p>제주특별자치도 제주시 신대로 64</p>
-                <p>고객센터: 1599-1500</p>
+                <div class="footer-col">
+                    <h4 class="footer-title">서비스</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">eSIM 상품</a></li>
+                        <li><a href="#">이용 가이드</a></li>
+                        <li><a href="#">호환 기기</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title">고객 지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">1:1 문의</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title">정책</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                        <li><a href="#">환불 정책</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-copyright">
-                <p>Copyright ⓒ Jeju Group. All Rights Reserved.</p>
+
+            <div class="footer-bottom">
+                <p>© 2026 JEJU STAY. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
+        // Initialize Lucide icons
         lucide.createIcons();
+
+        // Search Input Dropdown
+        const searchInput = document.getElementById('searchInput');
+        const searchDropdown = document.getElementById('searchDropdown');
+
+        searchInput.addEventListener('focus', () => {
+            searchDropdown.classList.add('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-box')) {
+                searchDropdown.classList.remove('active');
+            }
+        });
+
+        // Destination item click
+        document.querySelectorAll('.destination-item').forEach(item => {
+            item.addEventListener('click', () => {
+                searchInput.value = item.dataset.country;
+                searchDropdown.classList.remove('active');
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                item.classList.toggle('active');
+            });
+        });
     </script>
 </body>
 

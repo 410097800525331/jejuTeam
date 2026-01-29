@@ -390,8 +390,18 @@ function generateMonthDaysHTML(dateObj) {
             classes.push('DayPicker-Day--selected', 'DayPicker-Day--checkOut');
             classes.push('DayPicker-Day--hasRange'); // 끝점 표시
         }
+        
+        // Confirmed Range
         if (checkIn && checkOut && currentTs > checkIn && currentTs < checkOut) {
             classes.push('DayPicker-Day--inRange');
+        }
+
+        // Hover Range Logic
+        // 시작일만 선택되어 있고, 종료일은 아직 미선택 상태일 때
+        if (checkIn && !checkOut && hoverDate) {
+            if (currentTs > checkIn && currentTs <= hoverDate) {
+                classes.push('DayPicker-Day--hoverRange');
+            }
         }
 
         html += `
@@ -407,12 +417,59 @@ function generateMonthDaysHTML(dateObj) {
 
 function attachDayListeners() {
     const days = document.querySelectorAll('.DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)');
+    
     days.forEach(day => {
+        // Click
         day.addEventListener('click', (e) => {
             e.stopPropagation();
             const ts = parseInt(day.dataset.timestamp);
             handleDateClick(ts);
         });
+
+        // Hover (MouseEnter)
+        day.addEventListener('mouseenter', (e) => {
+            const ts = parseInt(day.dataset.timestamp);
+            const { tempCheckIn, tempCheckOut } = calendarState;
+
+            // 시작 날짜만 선택된 상태일 때만 호버 효과 적용
+            if (tempCheckIn && !tempCheckOut) {
+                if (ts > tempCheckIn) {
+                    hoverDate = ts;
+                    updateHoverEffect(); // 리렌더링 대신 클래스만 토글
+                }
+            }
+        });
+    });
+
+    // Calendar Container Leave (MouseLeave)
+    const calendarContainer = document.getElementById('dayPickerContainer');
+    if (calendarContainer) {
+        calendarContainer.onmouseleave = () => {
+            if (hoverDate) {
+                hoverDate = null;
+                updateHoverEffect(); // Class update only
+            }
+        };
+    }
+}
+
+// [Optimization] Re-render 없이 클래스만 토글하여 호버 효과 처리
+function updateHoverEffect() {
+    const { tempCheckIn, tempCheckOut } = calendarState;
+    const days = document.querySelectorAll('.DayPicker-Day');
+
+    days.forEach(day => {
+        const ts = parseInt(day.dataset.timestamp);
+        
+        // Reset hover class
+        day.classList.remove('DayPicker-Day--hoverRange');
+
+        // Apply new hover class if valid
+        if (tempCheckIn && !tempCheckOut && hoverDate) {
+            if (ts > tempCheckIn && ts <= hoverDate) {
+                day.classList.add('DayPicker-Day--hoverRange');
+            }
+        }
     });
 }
 
@@ -423,19 +480,21 @@ function handleDateClick(timestamp) {
     if (!tempCheckIn || (tempCheckIn && tempCheckOut)) {
         calendarState.tempCheckIn = timestamp;
         calendarState.tempCheckOut = null;
+        hoverDate = null; // 초기화
     } 
     // Case 2: 시작일만 선택된 상태 (종료일 선택 시도)
     else {
         if (timestamp < tempCheckIn) {
             // 시작일보다 이전 날짜 클릭 -> 시작일 변경
             calendarState.tempCheckIn = timestamp;
+            hoverDate = null;
         } else if (timestamp === tempCheckIn) {
             // 시작일과 같은 날짜 -> 무시 (혹은 취소 로직)
             return; 
         } else {
             // 종료일 설정
             calendarState.tempCheckOut = timestamp;
-            // [UX] 종료일 선택 즉시 팝업을 닫지 않고, 확인 버튼을 유도하거나 자동 닫기 (여기선 확인 버튼 유지)
+            hoverDate = null; // 호버 효과 종료
         }
     }
     

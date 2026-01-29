@@ -604,18 +604,20 @@ input {
     left: 20px;
     border-radius: 24px;
     box-shadow: 0 16px 48px rgba(0,0,0,0.12);
-    width: 400px !important; /* Force expansion */
+    width: 650px !important; /* Increased width */
     white-space: nowrap;
     background: #fff; /* Fix transparency */
     z-index: 2000; /* Ensure on top */
     padding: 24px; /* Add breathing room */
     overflow: hidden; /* Prevent outer scrollbars */
+    position: absolute;
 }
 
 .Popup.RangePicker {
+    position: absolute; /* Ensure absolute positioning */
     top: calc(100% + 12px); /* Dynamic positioning */
-    left: 50%;
-    transform: translateX(-50%) translateY(10px); /* Center align */
+    left: 0; /* Align left */
+    transform: none; /* Remove centering transform */
     display: none; /* Changed from visibility/opacity */
     margin-left: 0; /* Reset */
     box-shadow: 0 16px 48px rgba(0,0,0,0.12);
@@ -627,7 +629,7 @@ input {
     border-radius: 24px;
 }
 .Popup.RangePicker.active {
-    transform: translateX(-50%) translateY(0);
+    transform: none;
     display: block !important; /* Force show */
 }
 /* Beak/Arrow for popup is optional, skipping for cleaner look */
@@ -667,8 +669,14 @@ input {
     padding-left: 8px;
 }
 .destination-list {
-    max-height: 300px;
+    max-height: 450px; /* Increased height */
     overflow-y: auto;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+.destination-list::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 .destination-item-text {
     padding: 10px 12px;
@@ -849,7 +857,7 @@ input {
 
 /* [Fix] Range Highlight Logic */
 .DayPicker-Day--inRange {
-    background: rgba(255, 80, 0, 0.1) !important;
+    background: rgba(255, 80, 0, 0.15) !important;
     color: var(--text-title);
     border-radius: 0;
 }
@@ -868,7 +876,7 @@ input {
     right: 0;
     width: 50%;
     height: 100%;
-    background: rgba(255, 80, 0, 0.1);
+    background: rgba(255, 80, 0, 0.15);
     z-index: -1;
 }
 
@@ -887,7 +895,7 @@ input {
     left: 0;
     width: 50%;
     height: 100%;
-    background: rgba(255, 80, 0, 0.1);
+    background: rgba(255, 80, 0, 0.15);
     z-index: -1;
 }
 /* Calendar Header & Navigation */
@@ -948,7 +956,7 @@ input {
     right: 0;
     width: 50%;
     height: 100%;
-    background: rgba(255, 80, 0, 0.1);
+    background: rgba(255, 80, 0, 0.15);
     z-index: -1;
 }
 
@@ -962,7 +970,7 @@ input {
     left: 0;
     width: 50%;
     height: 100%;
-    background: rgba(255, 80, 0, 0.1);
+    background: rgba(255, 80, 0, 0.15);
     z-index: -1;
 }
 
@@ -2667,4 +2675,10 @@ input {
     .nav-list {
         gap: 20px; /* Reduce gap */
     }
+}
+
+/* Calendar Hover Effect */
+.DayPicker-Day--hoverRange {
+    background-color: rgba(255, 80, 0, 0.15) !important; /* Light Orange */
+    color: var(--primary);
 }

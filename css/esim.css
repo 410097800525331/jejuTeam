@@ -36,6 +36,121 @@
     --space-md: 16px;
 }
 
+/* ========== Horizontal Mega Menu Styles ========== */
+.header {
+    position: fixed;
+}
+
+.nav-item {
+    position: static !important;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #FF5000;
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover .nav-link::after {
+    width: 100%;
+}
+
+.nav-item:hover .nav-link {
+    color: #FF5000;
+}
+
+.mega-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition: all 0.2s ease-out;
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item:hover .mega-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mega-dropdown-inner {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mega-menu-list-horizontal {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    padding: 0;
+    margin: 0;
+}
+
+.mega-menu-list-horizontal li {
+    display: flex;
+    align-items: center;
+}
+
+.mega-menu-link {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.mega-menu-link:hover {
+    color: #FF5000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.badge-new {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #FF5000;
+    background: rgba(255, 80, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.header .mega-menu-link {
+    color: #333 !important;
+}
+.header .mega-menu-link:hover {
+    color: #FF5000 !important;
+}
+
 /* ========== Base Styles ========== */
 * {
     margin: 0;

@@ -50,11 +50,10 @@ body {
 /* ========== Hero Section ========== */
 .guide-hero {
     position: relative;
-    height: 480px; /* Increased height for search bar */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: var(--header-height);
+    /* height: 480px; Removed for consistency */
+    display: block; /* Changed from flex */
+    padding: 160px 0 240px; /* Matches esim.html padding */
+    /* margin-top: var(--header-height); Removed */
     background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
@@ -75,6 +74,7 @@ body {
     width: 100%;
     max-width: 800px;
     padding: 0 20px;
+    margin: 0 auto; /* Added for centering */
     /* Entry Animation */
     animation: fadeInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }

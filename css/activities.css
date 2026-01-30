@@ -18,11 +18,11 @@ body.activities-page {
 /* Hero Section */
 .activity-hero {
     position: relative;
-    height: 400px; /* Compact Hero */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: var(--header-height);
+    /* height: 400px; Removed for dynamic padding consistency */
+    display: block; /* Changed from flex to block to match esim */
+    /* align-items: center; Removed */
+    /* justify-content: center; Removed */
+    padding: 160px 0 240px; /* Matches esim.html padding */
     margin-bottom: var(--space-xl);
 }
 
@@ -57,6 +57,7 @@ body.activities-page {
     width: 100%;
     max-width: 800px;
     z-index: 1;
+    margin: 0 auto; /* Added for centering */
 }
 
 .hero-title {

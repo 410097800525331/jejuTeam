@@ -164,7 +164,132 @@ input {
     display: none !important;
 }
 
-/* ========== Header ========== */
+/* ========== Horizontal Mega Menu Styles ========== */
+
+/* Ensure the header is the positioning context for full-width dropdowns */
+.header {
+    position: fixed;
+    /* other existing styles preserve */
+}
+
+/* Make nav items static so absolute children relate to the header */
+.nav-item {
+    position: static !important;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Nav Link Hover Effect (Orange Underline) */
+.nav-link {
+    position: relative;
+    /* existing styles */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Adjust depending on header height/padding */
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #FF5000; /* Jeju Air Orange */
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover .nav-link::after {
+    width: 100%;
+}
+
+.nav-item:hover .nav-link {
+    color: #FF5000; /* Optional: change text color too */
+}
+
+/* The Drawer Container */
+.mega-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition: all 0.2s ease-out;
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+}
+
+/* Show on Hover */
+.nav-item:hover .mega-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Inner Layout */
+.mega-dropdown-inner {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the list horizontally */
+}
+
+/* Horizontal List */
+.mega-menu-list-horizontal {
+    list-style: none;
+    display: flex;
+    flex-direction: row; /* Horizontal Layout */
+    gap: 60px; /* ample space between items */
+    padding: 0;
+    margin: 0;
+}
+
+.mega-menu-list-horizontal li {
+    display: flex;
+    align-items: center;
+}
+
+.mega-menu-link {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.mega-menu-link:hover {
+    color: #FF5000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.badge-new {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #FF5000;
+    background: rgba(255, 80, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* Text color fix for Transparent Header situations */
+.header .mega-menu-link {
+    color: #333 !important;
+}
+.header .mega-menu-link:hover {
+    color: #FF5000 !important;
+}
+
 /* ========== Header ========== */
 .header {
     position: fixed;
@@ -172,23 +297,32 @@ input {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: var(--surface); /* Solid White */
-    border-bottom: 1px solid var(--border-light);
-    color: var(--text-title); /* Dark Text Default */
-    transition: all var(--transition-normal);
+    background: rgba(255, 255, 255, 0.02); /* Subtle Glass Initially */
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #FFFFFF; /* White Text Initially */
+    transition: all 0.3s ease;
 }
 
 .header.scrolled {
-    /* Background stays white, just add shadow */
+    background: rgba(255, 255, 255, 0.6); /* More transparent */
+    backdrop-filter: blur(20px); /* Stronger blur */
     box-shadow: var(--shadow-md);
-    border-bottom: none; /* Remove border when shadow appears */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Glass Edge */
+    color: var(--text-title);
+}
+
+.header.scrolled .nav-link,
+.header.scrolled .util-link,
+.header.scrolled .mobile-menu-btn {
+    color: var(--text-title);
 }
 
 .header.scrolled .nav-link:hover,
-.header.scrolled .nav-link.active {
+.header.scrolled .nav-link.active,
+.header.scrolled .util-link:hover {
     color: var(--primary);
 }
-/* Removed old .header.scrolled color overrides since default is now dark */
 
 
 
@@ -210,15 +344,25 @@ input {
     align-items: center;
     width: 240px; /* Zone 1: Fixed Width */
     flex-shrink: 0;
-    border-right: 1px solid rgba(0, 0, 0, 0.08); /* Divider */
     padding-right: 40px;
     margin-right: 40px;
+    transition: all 0.3s ease;
+}
+
+.header.scrolled .logo {
+    border-right: none;
 }
 
 .logo-img {
     height: 48px; /* Adjusted height for visibility */
     width: auto;
     object-fit: contain;
+    filter: brightness(0) invert(1); /* Force white */
+    transition: filter 0.3s ease;
+}
+
+.header.scrolled .logo-img {
+    filter: none; /* Original color on scroll */
 }
 
 /* Fallback Color for Text Logo (if image fails or is removed) */
@@ -248,15 +392,23 @@ input {
     gap: 6px;
     font-size: 0.875rem;
     font-weight: var(--font-weight-medium);
-    color: var(--text-title); /* Dark Text */
+    color: #FFFFFF; /* White Text */
     padding: var(--space-sm) 0;
-    transition: color var(--transition-fast);
+    transition: color 0.3s ease;
     white-space: nowrap;
 }
 
 .nav-link:hover,
 .nav-link.active {
     color: var(--primary);
+}
+
+/* Transparent State Overrides */
+.header:not(.scrolled) .nav-link:hover,
+.header:not(.scrolled) .nav-link.active,
+.header:not(.scrolled) .util-link:hover {
+    color: #FFFFFF;
+    opacity: 0.7;
 }
 
 .nav-icon {
@@ -272,9 +424,13 @@ input {
     gap: 24px;
     width: 240px; /* Zone 3: Fixed Width */
     flex-shrink: 0;
-    border-left: 1px solid rgba(0, 0, 0, 0.08); /* Divider */
     padding-left: 40px;
     margin-left: 40px;
+    transition: all 0.3s ease;
+}
+
+.header.scrolled .header-utils {
+    border-left: none;
 }
 
 .util-link {
@@ -283,8 +439,8 @@ input {
     gap: 6px;
     font-size: 0.875rem;
     font-weight: var(--font-weight-medium);
-    color: var(--text-title); /* Dark Text */
-    transition: color var(--transition-fast);
+    color: #FFFFFF; /* White Text */
+    transition: color 0.3s ease;
     white-space: nowrap; /* Prevent wrapping */
 }
 
@@ -306,7 +462,8 @@ input {
     justify-content: center;
     width: 40px;
     height: 40px;
-    color: var(--text-title); /* Dark Icon */
+    color: #FFFFFF; /* White Icon */
+    transition: color 0.3s ease;
 }
 
 .header.scrolled .mobile-menu-btn {
@@ -379,11 +536,12 @@ input {
     left: 0;
     right: 0;
     bottom: 0;
-    /* Deep Navy/Purple Gradient for Magic Hour feel */
+    /* Deep Navy/Purple Gradient for Magic Hour feel + Top Shadow for legibility */
     background: linear-gradient(
         to bottom,
-        rgba(10, 25, 47, 0.6) 0%,
-        rgba(10, 25, 47, 0.3) 50%,
+        rgba(0, 0, 0, 0.5) 0%, /* Top Shadow for Transparent Header Text */
+        rgba(10, 25, 47, 0.4) 30%,
+        rgba(10, 25, 47, 0.2) 60%,
         rgba(10, 25, 47, 0.8) 100%
     );
 }

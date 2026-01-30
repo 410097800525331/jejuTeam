@@ -45,18 +45,38 @@ body.deals-page .header {
 
 
 /* ========== Hero Section (Glassmorphism) ========== */
+/* ========== Hero Section (Glassmorphism) ========== */
 .hero-glass {
     position: relative;
-    height: 480px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /* height: 480px; Removed for consistency */
+    display: block; /* Changed from flex */
+    padding: 160px 0 240px; /* Matches esim.html padding */
+    /* align-items: center; */
+    /* justify-content: center; */
     overflow: hidden;
-    margin-top: var(--header-height);
-    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    /* margin-top: var(--header-height); Removed to allow header overlay */
+    z-index: 0; /* Create stacking context */
 }
 
+/* Background Image via Pseudo-element for Blur */
+.hero-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/deals_hero.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px); /* Add Blur */
+    transform: scale(1.05); /* Prevent blurred edges */
+    z-index: -1;
+}
+
+/* Hide shapes as we now use a photo */
 .hero-bg-shapes {
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -101,13 +121,15 @@ body.deals-page .header {
     position: relative;
     z-index: 1;
     background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 24px;
     padding: 60px 100px;
     text-align: center;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Added for centering */
+    max-width: 800px; /* Ensure it doesn't span full width */
 }
 
 .hero-badge {

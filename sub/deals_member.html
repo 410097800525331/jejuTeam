@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 전용 혜택 | JEJU STAY</title>
+    <meta name="description" content="JEJU STAY 회원만을 위한 특별한 혜택. 등급별 포인트 적립부터 회원 전용 특가까지 만나보세요.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/hotel.css">
+    <link rel="stylesheet" href="../css/deals.css">
+    <link rel="stylesheet" href="../css/FAB.css">
+    <link rel="stylesheet" href="../css/chatbot-style.css">
+
+    <style>
+        /* Member Specific Styles */
+        .member-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 120, 0, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .tier-section {
+            padding: 80px 0;
+            background: #f9fafb;
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, min-min(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .tier-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tier-icon {
+            width: 50px;
+            height: 50px;
+            background: #f3f4f6;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .tier-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tier-benefits li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4b5563;
+        }
+
+        .tier-benefits i {
+            color: #ff7800;
+        }
+
+        /* Gold Tier */
+        .tier-card.gold {
+            border: 2px solid #ffd700;
+        }
+
+        .tier-card.gold .tier-icon {
+            background: #fff9db;
+            color: #f59f00;
+        }
+
+        /* Diamond Tier */
+        .tier-card.diamond {
+            background: linear-gradient(to bottom, #fff, #f8faff);
+            border: 2px solid #70a1ff;
+        }
+
+        .tier-card.diamond .tier-icon {
+            background: #e7f5ff;
+            color: #339af0;
+        }
+
+        .exclusive-deals {
+            padding: 80px 0;
+        }
+
+        .benefit-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .benefit-image {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .benefit-row:hover .benefit-image img {
+            transform: scale(1.05);
+        }
+
+        .benefit-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .benefit-content p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: #ff7800;
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(255, 120, 0, 0.2);
+        }
+
+        .cta-btn:hover {
+            background: #e66a00;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .benefit-row {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .benefit-row:nth-child(even) .benefit-image {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+
+<body class="deals-member-page">
+    <!-- ========== Header ========== -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <!-- 로고 -->
+            <a href="jejuhotel.html" class="logo">
+                <img src="../images/logo_jejuhotel.png" alt="JEJU STAY" class="logo-img">
+            </a>
+
+            <!-- 메인 네비게이션 -->
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <!-- 1. Accommodations -->
+                    <li class="nav-item">
+                        <a href="jejuhotel.html" class="nav-link">
+                            <i data-lucide="building-2" class="nav-icon"></i>
+                            <span data-lang="navAccommodations">숙소 예약</span>
+                        </a>
+                        <div class="mega-dropdown">
+                            <div class="mega-dropdown-inner">
+                                <ul class="mega-menu-list-horizontal">
+                                    <li><a href="jejuhotel.html" class="mega-menu-link">호텔 & 리조트</a></li>
+                                    <li><a href="jejustay_life.html" class="mega-menu-link">전 세계 한 달 살기 </a></li>
+                                    <li><a href="private_stay.html" class="mega-menu-link">프라이빗 감성 숙소</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 2. Travel -->
+                    <li class="nav-item">
+                        <a href="activities.html" class="nav-link">
+                            <i data-lucide="plane" class="nav-icon"></i>
+                            <span data-lang="navTravel">여행 상품</span>
+                        </a>
+                        <div class="mega-dropdown">
+                            <div class="mega-dropdown-inner">
+                                <ul class="mega-menu-list-horizontal">
+                                    <li><a href="activities.html" class="mega-menu-link">즐길 거리 (액티비티)</a></li>
+                                    <li><a href="esim.html" class="mega-menu-link">eSIM / 유심</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 3. Deals -->
+                    <li class="nav-item">
+                        <a href="deals.html" class="nav-link">
+                            <i data-lucide="percent" class="nav-icon"></i>
+                            <span data-lang="navDeals">특가 & 혜택</span>
+                        </a>
+                        <div class="mega-dropdown">
+                            <div class="mega-dropdown-inner">
+                                <ul class="mega-menu-list-horizontal">
+                                    <li><a href="deals.html" class="mega-menu-link">이달의 특가 프로모션</a></li>
+                                    <li><a href="deals_member.html" class="mega-menu-link">회원 전용 혜택</a></li>
+                                    <li><a href="deals_partner.html" class="mega-menu-link">제휴 카드 할인</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 4. Guide -->
+                    <li class="nav-item">
+                        <a href="travel_guide.html" class="nav-link">
+                            <i data-lucide="book-open" class="nav-icon"></i>
+                            <span data-lang="navGuide">여행 정보</span>
+                        </a>
+                        <div class="mega-dropdown">
+                            <div class="mega-dropdown-inner">
+                                <ul class="mega-menu-list-horizontal">
+                                    <li><a href="travel_guide.html" class="mega-menu-link">여행 가이드북</a></li>
+                                    <li><a href="travel_tips.html" class="mega-menu-link">국가별 여행 팁</a></li>
+                                    <li><a href="travel_checklist.html" class="mega-menu-link">여행 준비 체크리스트</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- 우측 유틸리티 -->
+            <div class="header-utils">
+                <a href="reservation_check.html" class="util-link">
+                    <i data-lucide="clipboard-list" class="util-icon"></i>
+                    <span data-lang="navResCheck">예약 확인</span>
+                </a>
+                <a href="../sub/login.html" class="util-link login-btn">
+                    <i data-lucide="user" class="util-icon"></i>
+                    <span data-lang="navLogin">로그인</span>
+                </a>
+                <a href="customer_center.html" class="util-link">
+                    <i data-lucide="headphones" class="util-icon"></i>
+                    <span data-lang="navCs">고객센터</span>
+                </a>
+            </div>
+
+            <!-- 모바일 메뉴 버튼 -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="member-hero">
+            <div class="container hero-content">
+                <h1 style="font-size: 3.5rem; margin-bottom: 20px; font-weight: 800;">JEJU UNIVERSE</h1>
+                <p style="font-size: 1.5rem; opacity: 0.9;">끊임없는 혜택의 우주, 오직 회원님만을 위해 준비했습니다.</p>
+            </div>
+        </section>
+
+        <!-- Tier Section -->
+        <section class="tier-section">
+            <div class="container text-center">
+                <h2 class="section-title">회원 등급별 특별 혜택</h2>
+                <p class="section-subtitle">여행을 즐길수록 커지는 무한한 혜택을 확인하세요.</p>
+
+                <div class="tier-grid">
+                    <!-- Silver -->
+                    <div class="tier-card">
+                        <div class="tier-header">
+                            <div class="tier-icon"><i data-lucide="award"></i></div>
+                            <span class="tier-name">SILVER</span>
+                        </div>
+                        <ul class="tier-benefits">
+                            <li><i data-lucide="check-circle"></i> 숙소 예약 시 포인트 1% 적립</li>
+                            <li><i data-lucide="check-circle"></i> 회원 전용 특가 상품 구매 권한</li>
+                            <li><i data-lucide="check-circle"></i> 신규 가입 시 5,000원 쿠폰팩</li>
+                        </ul>
+                    </div>
+
+                    <!-- Gold -->
+                    <div class="tier-card gold">
+                        <div class="tier-header">
+                            <div class="tier-icon"><i data-lucide="award"></i></div>
+                            <span class="tier-name">GOLD</span>
+                        </div>
+                        <ul class="tier-benefits">
+                            <li><i data-lucide="check-circle"></i> 숙소 예약 시 포인트 3% 적립</li>
+                            <li><i data-lucide="check-circle"></i> 인기 호텔 무료 조식 혜택 (일부)</li>
+                            <li><i data-lucide="check-circle"></i> 레이트 체크아웃 1시간 (가능 시)</li>
+                            <li><i data-lucide="check-circle"></i> 매달 10% 추가 할인 쿠폰 제공</li>
+                        </ul>
+                    </div>
+
+                    <!-- Diamond -->
+                    <div class="tier-card diamond">
+                        <div class="tier-header">
+                            <div class="tier-icon"><i data-lucide="gem"></i></div>
+                            <span class="tier-name">DIAMOND</span>
+                        </div>
+                        <ul class="tier-benefits">
+                            <li><i data-lucide="check-circle"></i> 숙소 예약 시 포인트 5% 적립</li>
+                            <li><i data-lucide="check-circle"></i> 무료 객실 업그레이드 (가능 시)</li>
+                            <li><i data-lucide="check-circle"></i> 24시간 전담 상담 센터 연결</li>
+                            <li><i data-lucide="check-circle"></i> 공항 라운지 무료 이용권 (연 2회)</li>
+                            <li><i data-lucide="check-circle"></i> 전 세계 어트랙션 우선 입장</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exclusive Benefits -->
+        <section class="exclusive-deals">
+            <div class="container">
+                <div class="benefit-row">
+                    <div class="benefit-image">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80"
+                            alt="Private Sale">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Private Member Sale</h3>
+                        <p>일반인에게는 공개되지 않는 특별한 가격. 전 세계 인기 호텔과 리조트를 최대 70% 할인된 가격으로 만나보세요. 오직 로그인한 회원님께만 보입니다.</p>
+                        <a href="deals.html" class="cta-btn">특가 확인하기</a>
+                    </div>
+                </div>
+
+                <div class="benefit-row">
+                    <div class="benefit-content" style="text-align: right;">
+                        <h3>Cashback & Points</h3>
+                        <p>숙박 완료 후 현금처럼 사용 가능한 리프레시 포인트가 적립됩니다. 다음 여행에서 바로 사용하거나, 제주항공 항공권 구매 시에도 활용할 수 있습니다.</p>
+                        <a href="#" class="cta-btn">포인트 확인하기</a>
+                    </div>
+                    <div class="benefit-image">
+                        <img src="https://images.unsplash.com/photo-1601597111158-2fcee29e42d6?w=800&q=80"
+                            alt="Point Benefit">
+                    </div>
+                </div>
+
+                <div class="benefit-row">
+                    <div class="benefit-image">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80"
+                            alt="VIP Experience">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>VIP Experience</h3>
+                        <p>단순한 숙박을 넘어선 특별한 경험. 등급에 따라 제공되는 공항 픽업 서비, 스파 이용권, 그리고 현지 어트랙션 우선 입장 혜택으로 더욱 완벽한 여행을 완성하세요.
+                        </p>
+                        <a href="travel_guide.html" class="cta-btn">여행 가이드 보기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer section" id="section-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p><strong data-lang="footerCompany">(주)제주 그룹</strong></p>
+                <p data-lang="footerCEO">대표이사: 김이배</p>
+                <p data-lang="footerBizNum">사업자등록번호: 616-81-50527</p>
+                <p data-lang="footerSaleNum">통신판매업신고: 제주 2006-125호</p>
+                <p data-lang="footerHosting">호스팅 사업자: AWS</p>
+                <br>
+                <p data-lang="footerAddr">주소: 제주특별자치도 제주시 신대로 64 (연동, 건설공제회관 3층)</p>
+                <p data-lang="footerCs">고객센터: 1599-1500 (09:00 ~ 19:00)</p>
+                <p data-lang="footerCsEmail">고객 문의: jejugroup.help@jejugroup.net</p>
+                <p data-lang="footerPartnerEmail">제휴 문의: partnership@jejugroup.net</p>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p data-lang="footerCopyright">Copyright ⓒ Jeju Group. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/lang_data.js"></script>
+    <script src="../js/header-controller.js"></script>
+    <script src="../js/FAB.js"></script>
+    <script src="../js/chatbot.js"></script>
+    <script src="../js/stagger_nav.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

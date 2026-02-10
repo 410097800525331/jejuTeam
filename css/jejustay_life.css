@@ -144,6 +144,29 @@ body.long-stay-page {
     line-height: 1.5;
 }
 
+/* ========== 글로벌 네비게이션 헤더 디테일 ========== */
+.header {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 100%);
+    transition: background 0.3s ease;
+}
+.header.scrolled {
+    background: var(--mega-bg);
+}
+
+/* SEARCH BAR V2 REFINEMENT */
+.item-label-v2 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--v2-orange);
+    margin-bottom: 2px;
+    display: block;
+}
+
+.item-input-v2 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 /* Crazy Raccoon Style Stagger */
 .stagger-wrapper { position: relative; display: inline-block; overflow: hidden; vertical-align: bottom; }
 .stagger-char { display: inline-block; transition: transform 0s linear; }
@@ -154,12 +177,19 @@ body.long-stay-page {
 .nav-link.is-animating .stagger-original .stagger-char { transform: translateY(-100%); }
 .nav-link.is-animating .stagger-clone .stagger-char { transform: translateY(0); }
 .stagger-clone { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-.stagger-clone .stagger-char { transform: translateY(100%); }
+.stagger-clone .stagger-char { transform: translateY(100%); color: var(--v2-orange); }
 
-/* ========== 리뉴얼된 메가 메뉴 (Glassmorphism) ========== */
+/* Hover Color Consistency */
+.nav-link:hover .stagger-original .stagger-char,
+.nav-link:hover .nav-icon {
+    color: var(--v2-orange);
+}
+
+/* ========== 리뉴얼된 메가 메뉴 제거 (hotel.css에서 표준 처리됨) ========== */
+/*
 .mega-dropdown {
     position: absolute;
-    top: 100%; /* base header height */
+    top: 100%;
     left: 0;
     width: 100%;
     background: var(--mega-bg);
@@ -173,6 +203,7 @@ body.long-stay-page {
     transform: translateY(10px);
     transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+*/
 
 .mega-dropdown.active { 
     display: block; 
@@ -1907,7 +1938,6 @@ body.long-stay-page {
 .DayPicker-Body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    row-gap: 4px;
 }
 .DayPicker-Day {
     height: 44px;
@@ -1918,7 +1948,7 @@ body.long-stay-page {
     font-size: 0.95rem;
     color: var(--text-title);
     position: relative;
-    border-radius: 4px;
+    border-radius: 0; /* 필(Pill) 디자인을 위해 반경 제거 */
 }
 .DayPicker-Day:hover:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected) {
     background-color: #f5f5f5;

@@ -295,18 +295,13 @@ function updateGuestSummary() {
     const adults = parseInt(document.getElementById('adultsCountLarge').textContent || 1);
     const children = parseInt(document.getElementById('childrenCountLarge').textContent || 0);
     
-    // 1. 게스트 요약 (성인 + 아동)
+    // 1. 게스트 요약 (성인 + 아동, 객실) -> Hotel 페이지 포맷과 일관성 유지
     const guestSummaryEl = document.getElementById('guestSummary');
     if (guestSummaryEl) {
         let guestText = `성인 ${adults}명`;
         if (children > 0) guestText += `, 아동 ${children}명`;
+        guestText += `, 객실 ${rooms}개`;
         guestSummaryEl.textContent = guestText;
-    }
-
-    // 2. 객실 요약 (서브 텍스트)
-    const roomSummaryEl = document.getElementById('roomSummary');
-    if (roomSummaryEl) {
-        roomSummaryEl.textContent = `객실 ${rooms}개`;
     }
 }
 

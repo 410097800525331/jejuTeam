@@ -18,91 +18,165 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/hotel.css">
+    <link rel="stylesheet" href="../css/mega-menu.css"> <!-- 신규 추가 -->
     <link rel="stylesheet" href="../css/FAB.css">
     <link rel="stylesheet" href="../css/chatbot-style.css">
+    <!-- Tailwind CSS CDN (Optional Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
     <!-- ========== 섹션 1: 글로벌 헤더 (GNB) ========== -->
-    <header class="header" id="header">
-        <div class="header-container">
+    <header class="header fixed w-full top-0 left-0 bg-transparent" id="header">
+        <div class="header-container flex justify-between items-center px-8 py-4">
             <!-- 로고 -->
             <a href="jejuhotel.html" class="logo">
-                <img src="../images/logo_jejuhotel.png" alt="JEJU STAY" class="logo-img">
+                <img src="../images/logo_jejuhotel.png" alt="JEJU STAY" class="logo-img h-10 w-auto">
             </a>
 
-            <!-- 메인 네비게이션 -->
+            <!-- 메인 네비게이션 (고급화된 메가 메뉴 구조) -->
             <nav class="main-nav">
-                <ul class="nav-list">
+                <ul class="nav-list flex space-x-12">
                     <!-- 1. Accommodations -->
-                    <li class="nav-item">
-                        <a href="jejuhotel.html" class="nav-link active">
-                            <i data-lucide="building-2" class="nav-icon"></i>
-                            <span data-lang="navAccommodations">숙소 예약</span>
+                    <li class="nav-item relative group">
+                        <a href="jejuhotel.html" class="nav-link flex items-center space-x-2 py-4">
+                            <i data-lucide="building-2" class="nav-icon w-5 h-5"></i>
+                            <span data-lang="navAccommodations" class="font-semibold text-lg">숙소 예약</span>
+                            <i data-lucide="chevron-down"
+                                class="w-4 h-4 transition-transform group-hover:rotate-180"></i>
                         </a>
-                        <!-- Mega Dropdown: Accommodations -->
+
+                        <!-- Premium Mega Menu Panel -->
                         <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="jejuhotel.html" class="mega-menu-link">호텔 & 리조트</a></li>
-                                    <li><a href="jejustay_life.html" class="mega-menu-link">전 세계 한 달 살기 <span
-                                                class="badge-new">NEW</span></a></li>
-                                    <li><a href="private_stay.html" class="mega-menu-link">프라이빗 감성 숙소</a></li>
-                                </ul>
+                            <!-- Left: Menu List -->
+                            <div class="mega-menu-list-container">
+                                <div class="mega-menu-item" data-preview="preview-hotel">
+                                    <i data-lucide="hotel" class="mega-menu-icon"></i>
+                                    <span>호텔 & 리조트</span>
+                                </div>
+                                <div class="mega-menu-item" data-preview="preview-month">
+                                    <i data-lucide="calendar" class="mega-menu-icon"></i>
+                                    <span>전 세계 한 달 살기</span>
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-red-500 text-white text-[10px] rounded-full">NEW</span>
+                                </div>
+                                <div class="mega-menu-item" data-preview="preview-private">
+                                    <i data-lucide="home" class="mega-menu-icon"></i>
+                                    <span>프라이빗 감성 숙소</span>
+                                </div>
+                            </div>
+
+                            <!-- Right: Preview Area -->
+                            <div class="mega-menu-preview">
+                                <div class="preview-loader"><i class="fas fa-spinner fa-spin"></i></div>
+                                <img id="preview-hotel"
+                                    src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80"
+                                    alt="Hotels" class="preview-image">
+                                <img id="preview-month"
+                                    src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80"
+                                    alt="Month Stay" class="preview-image">
+                                <img id="preview-private"
+                                    src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=600&q=80"
+                                    alt="Private stay" class="preview-image">
                             </div>
                         </div>
                     </li>
 
                     <!-- 2. Travel -->
-                    <li class="nav-item">
-                        <a href="activities.html" class="nav-link">
-                            <i data-lucide="plane" class="nav-icon"></i>
-                            <span data-lang="navTravel">여행 상품</span>
+                    <li class="nav-item relative group">
+                        <a href="activities.html" class="nav-link flex items-center space-x-2 py-4">
+                            <i data-lucide="plane" class="nav-icon w-5 h-5"></i>
+                            <span data-lang="navTravel" class="font-semibold text-lg">여행 상품</span>
                         </a>
-                        <!-- Mega Dropdown: Travel -->
                         <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="activities.html" class="mega-menu-link">즐길 거리 (액티비티)</a></li>
-                                    <li><a href="esim.html" class="mega-menu-link">eSIM / 유심</a></li>
-                                    <li><a href="#" class="mega-menu-link">렌터카 예약</a></li>
-                                </ul>
+                            <div class="mega-menu-list-container">
+                                <div class="mega-menu-item" data-preview="preview-activity">
+                                    <i data-lucide="compass" class="mega-menu-icon"></i>
+                                    <span>즐길 거리 (액티비티)</span>
+                                </div>
+                                <div class="mega-menu-item" data-preview="preview-esim">
+                                    <i data-lucide="smartphone" class="mega-menu-icon"></i>
+                                    <span>eSIM / 유심</span>
+                                </div>
+                            </div>
+                            <div class="mega-menu-preview">
+                                <img id="preview-activity"
+                                    src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=80"
+                                    alt="Activity" class="preview-image">
+                                <img id="preview-esim"
+                                    src="https://images.unsplash.com/photo-1556656793-062ff987b483?w=600&q=80"
+                                    alt="eSIM" class="preview-image">
                             </div>
                         </div>
                     </li>
 
                     <!-- 3. Deals -->
-                    <li class="nav-item">
-                        <a href="deals.html" class="nav-link">
-                            <i data-lucide="percent" class="nav-icon"></i>
-                            <span data-lang="navDeals">특가 & 혜택</span>
+                    <li class="nav-item relative group">
+                        <a href="deals.html" class="nav-link flex items-center space-x-2 py-4">
+                            <i data-lucide="percent" class="nav-icon w-5 h-5"></i>
+                            <span data-lang="navDeals" class="font-semibold text-lg">특가 & 혜택</span>
                         </a>
-                        <!-- Mega Dropdown: Deals -->
                         <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="deals.html" class="mega-menu-link">이달의 특가 프로모션</a></li>
-                                    <li><a href="#" class="mega-menu-link">회원 전용 혜택</a></li>
-                                    <li><a href="#" class="mega-menu-link">제휴 카드 할인</a></li>
-                                </ul>
+                            <div class="mega-menu-list-container">
+                                <div class="mega-menu-item" data-preview="preview-promo">
+                                    <i data-lucide="gift" class="mega-menu-icon"></i>
+                                    <span>이달의 특가 프로모션</span>
+                                </div>
+                                <div class="mega-menu-item" data-preview="preview-member">
+                                    <i data-lucide="users" class="mega-menu-icon"></i>
+                                    <span>회원 전용 혜택</span>
+                                </div>
+                                <div class="mega-menu-item" data-preview="preview-partner">
+                                    <i data-lucide="credit-card" class="mega-menu-icon"></i>
+                                    <span>제휴 카드 할인</span>
+                                </div>
+                            </div>
+                            <div class="mega-menu-preview">
+                                <img id="preview-promo"
+                                    src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80"
+                                    alt="Promo" class="preview-image">
+                                <img id="preview-member"
+                                    src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=600&q=80"
+                                    alt="Member" class="preview-image">
+                                <img id="preview-partner"
+                                    src="https://images.unsplash.com/photo-1556741533-6e6a62bd8b7c?w=600&q=80"
+                                    alt="Partner" class="preview-image">
                             </div>
                         </div>
                     </li>
 
                     <!-- 4. Guide -->
-                    <li class="nav-item">
-                        <a href="travel_guide.html" class="nav-link">
-                            <i data-lucide="book-open" class="nav-icon"></i>
-                            <span data-lang="navGuide">여행 정보</span>
+                    <li class="nav-item relative group">
+                        <a href="travel_guide.html" class="nav-link flex items-center space-x-2 py-4">
+                            <i data-lucide="book-open" class="nav-icon w-5 h-5"></i>
+                            <span data-lang="navGuide" class="font-semibold text-lg">여행 정보</span>
                         </a>
                         <!-- Mega Dropdown: Guide -->
                         <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="travel_guide.html" class="mega-menu-link">여행 가이드북</a></li>
-                                    <li><a href="#" class="mega-menu-link">국가별 여행 팁</a></li>
-                                    <li><a href="#" class="mega-menu-link">여행 준비 체크리스트</a></li>
-                                </ul>
+                            <div class="mega-menu-list-container">
+                                <div class="mega-menu-item" data-preview="preview-guide">
+                                    <i data-lucide="map" class="mega-menu-icon"></i>
+                                    <span>여행 가이드북</span>
+                                </div>
+                                <div class="mega-menu-item" data-preview="preview-tips">
+                                    <i data-lucide="lightbulb" class="mega-menu-icon"></i>
+                                    <span>국가별 여행 팁</span>
+                                </div>
+                                <div class="mega-menu-item" data-preview="preview-checklist">
+                                    <i data-lucide="check-circle" class="mega-menu-icon"></i>
+                                    <span>여행 준비 체크리스트</span>
+                                </div>
+                            </div>
+                            <div class="mega-menu-preview">
+                                <img id="preview-guide"
+                                    src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80"
+                                    alt="Guide" class="preview-image">
+                                <img id="preview-tips"
+                                    src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80"
+                                    alt="Tips" class="preview-image">
+                                <img id="preview-checklist"
+                                    src="https://images.unsplash.com/photo-1517685322906-7347ad7f5891?w=600&q=80"
+                                    alt="Checklist" class="preview-image">
                             </div>
                         </div>
                     </li>
@@ -110,19 +184,18 @@
             </nav>
 
             <!-- 우측 유틸리티 -->
-            <div class="header-utils">
-
-                <a href="reservation_check.html" class="util-link">
-                    <i data-lucide="clipboard-list" class="util-icon"></i>
+            <div class="header-utils flex items-center space-x-6">
+                <a href="reservation_check.html" class="util-link flex items-center space-x-1">
+                    <i data-lucide="clipboard-list" class="util-icon w-5 h-5"></i>
                     <span data-lang="navResCheck">예약 확인</span>
                 </a>
-                <a href="../sub/login.html" class="util-link login-btn">
-                    <i data-lucide="user" class="util-icon"></i>
+                <a href="../sub/login.html"
+                    class="util-link login-btn flex items-center space-x-1 px-4 py-2 bg-white text-gray-900 rounded-full font-medium">
+                    <i data-lucide="user" class="util-icon w-5 h-5"></i>
                     <span data-lang="navLogin">로그인</span>
                 </a>
                 <a href="customer_center.html" class="util-link">
-                    <i data-lucide="headphones" class="util-icon"></i>
-                    <span data-lang="navCs">고객센터</span>
+                    <i data-lucide="headphones" class="util-icon w-5 h-5"></i>
                 </a>
             </div>
 
@@ -131,6 +204,7 @@
                 <i data-lucide="menu"></i>
             </button>
         </div>
+
 
         <!-- 모바일 네비게이션 -->
         <div class="mobile-nav" id="mobileNav">
@@ -151,8 +225,8 @@
         <!-- ========== 섹션 2: 히어로 & 검색 위젯 ========== -->
         <section class="hero">
             <div class="hero-background">
-                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2500&auto=format&fit=crop"
-                    alt="Global Landmark Night View" class="hero-image">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=100&w=3840&auto=format&fit=crop"
+                    alt="Luxury Global Hotel 4K View" class="hero-image">
                 <div class="hero-overlay"></div>
             </div>
 
@@ -860,6 +934,7 @@
     <script src="../js/FAB.js"></script>
     <script src="../js/chatbot.js"></script>
     <script src="../js/stagger_nav.js"></script>
+    <script src="../js/mega-menu.js"></script> <!-- 신규 추가 -->
 </body>
 
 </html>

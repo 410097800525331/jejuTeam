@@ -88,10 +88,10 @@ h1, h2, h3, .serif-font {
 }
 
 .global-search-container {
-    background: #fff;
+    background: transparent;
     border-radius: var(--search-radius);
-    padding: 8px;
-    box-shadow: var(--search-shadow);
+    padding: 0;
+    box-shadow: none;
     border: none;
 }
 

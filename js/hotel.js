@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', (e) => {
         closeAllPopups(); 
     });
+
+    // [전용] 프리미엄 애니메이션 (GSAP가 로드된 경우만 실행)
+    initPremiumAnimations();
 });
 
 /* ========== [유지] 공통 기능 ========== */
@@ -588,5 +591,62 @@ function updateGuestSummary() {
         let text = `성인 ${adults}명, 객실 ${rooms}개`;
         if (children > 0) text += `, 아동 ${children}명`;
         summaryEl.textContent = text;
+    }
+}
+
+/* ========== [추가] GSAP Premium Animations (Private Stay) ========== */
+function initPremiumAnimations() {
+    // GSAP 라이브러리가 로드되었는지 확인
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Text Parallax & Fade
+        const heroSubtitle = document.querySelector('.hero-subtitle-top');
+        if (heroSubtitle) {
+            gsap.from(heroSubtitle, {
+                y: 30, opacity: 0, duration: 1.2, ease: "power3.out", delay: 0.2
+            });
+        }
+
+        const searchWidget = document.querySelector('.search-widget-large');
+        if (searchWidget) {
+            gsap.from(searchWidget, {
+                y: 30, opacity: 0, duration: 1.2, ease: "power3.out", delay: 0.5
+            });
+        }
+
+        // Destinations Stagger (존재 시)
+        const destinationCards = document.querySelectorAll('.destinations-grid .destination-card');
+        if (destinationCards.length > 0) {
+            gsap.utils.toArray(destinationCards).forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: '.destinations-grid',
+                        start: 'top 85%'
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    delay: i * 0.15
+                });
+            });
+        }
+
+        // Promo Cards Stagger (존재 시)
+        const promoCards = document.querySelectorAll('.promo-card');
+        if (promoCards.length > 0) {
+            gsap.from(promoCards, {
+                scrollTrigger: {
+                    trigger: '.promo-section',
+                    start: 'top 85%'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "back.out(1.7)"
+            });
+        }
     }
 }

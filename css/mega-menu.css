@@ -3,7 +3,7 @@
 :root {
     --mega-menu-bg: rgba(255, 255, 255, 0.75);
     --mega-menu-border: rgba(255, 255, 255, 0.3);
-    --mega-menu-accent: #ff5a5f; /* 제주 스테이 포인트 컬러 */
+    --mega-menu-accent: #ff7a22; /* 제주 오렌지 포인트 컬러 */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -147,4 +147,36 @@
     .mega-menu-preview {
         display: none; /* 모바일에서는 미리보기 생략 */
     }
+}
+
+/* NEW Badge Styles */
+.badge-new {
+    background: linear-gradient(135deg, #ff7a22 0%, #ff9d42 100%);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(255, 122, 34, 0.3);
+    animation: pulse-badge 2s infinite;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-1px);
+    position: relative;
+    left: 9px;
+}
+
+@keyframes pulse-badge {
+    0% { transform: translateY(-1px) scale(1); }
+    50% { transform: translateY(-1px) scale(1.1); }
+    100% { transform: translateY(-1px) scale(1); }
+}
+
+/* Layered Outline on Hover */
+.mega-menu-item:hover .badge-new {
+    border: 1.5px solid #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    background: linear-gradient(135deg, #ff8c42 0%, #ffb372 100%); /* Slightly brighter on hover */
 }

@@ -15,130 +15,15 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="../css/hotel.css">
     <link rel="stylesheet" href="../css/esim.css">
+    <link rel="stylesheet" href="../css/hotel_header.css">
+    <link rel="stylesheet" href="../css/hotel_footer.css">
 </head>
 
 <body>
-    <!-- Header -->
-    <!-- ========== Header (Synced with Hotel) ========== -->
-    <header class="header" id="header">
-        <div class="header-container">
-            <!-- Logo -->
-            <a href="jejuhotel.html" class="logo">
-                <img src="../images/logo_jejuhotel.png" alt="JEJU STAY" class="logo-img">
-            </a>
-
-            <!-- Main Navigation -->
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <!-- 1. Accommodations -->
-                    <li class="nav-item">
-                        <a href="jejuhotel.html" class="nav-link">
-                            <i data-lucide="building-2" class="nav-icon"></i>
-                            <span data-lang="navAccommodations">숙소 예약</span>
-                        </a>
-                        <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="jejuhotel.html" class="mega-menu-link">호텔 & 리조트</a></li>
-                                    <li><a href="jejustay_life.html" class="mega-menu-link">전 세계 한 달 살기 <span
-                                                class="badge-new">NEW</span></a></li>
-                                    <li><a href="private_stay.html" class="mega-menu-link">프라이빗 감성 숙소</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- 2. Travel -->
-                    <li class="nav-item">
-                        <a href="activities.html" class="nav-link">
-                            <i data-lucide="plane" class="nav-icon"></i>
-                            <span data-lang="navTravel">여행 상품</span>
-                        </a>
-                        <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="activities.html" class="mega-menu-link">즐길 거리 (액티비티)</a></li>
-                                    <li><a href="esim.html" class="mega-menu-link">eSIM / 유심</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- 3. Deals -->
-                    <li class="nav-item">
-                        <a href="deals.html" class="nav-link">
-                            <i data-lucide="percent" class="nav-icon"></i>
-                            <span data-lang="navDeals">특가 & 혜택</span>
-                            <!-- No dropdown for Deals as requested -->
-                        </a>
-                        <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="deals.html" class="mega-menu-link">이달의 특가 프로모션</a></li>
-                                    <li><a href="deals_member.html" class="mega-menu-link">회원 전용 혜택</a></li>
-                                    <li><a href="deals_partner.html" class="mega-menu-link">제휴 카드 할인</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- 4. Guide -->
-                    <li class="nav-item">
-                        <a href="travel_guide.html" class="nav-link">
-                            <i data-lucide="book-open" class="nav-icon"></i>
-                            <span data-lang="navGuide">여행 정보</span>
-                        </a>
-                        <div class="mega-dropdown">
-                            <div class="mega-dropdown-inner">
-                                <ul class="mega-menu-list-horizontal">
-                                    <li><a href="travel_guide.html" class="mega-menu-link">여행 가이드북</a></li>
-                                    <li><a href="travel_tips.html" class="mega-menu-link">국가별 여행 팁</a></li>
-                                    <li><a href="travel_checklist.html" class="mega-menu-link">여행 준비 체크리스트</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- Utils -->
-            <div class="header-utils">
-                <a href="reservation_check.html" class="util-link">
-                    <i data-lucide="clipboard-list" class="util-icon"></i>
-                    <span data-lang="navResCheck">예약 확인</span>
-                </a>
-                <a href="../sub/login.html" class="util-link login-btn">
-                    <i data-lucide="user" class="util-icon"></i>
-                    <span data-lang="navLogin">로그인</span>
-                </a>
-                <a href="customer_center.html" class="util-link">
-                    <i data-lucide="headphones" class="util-icon"></i>
-                    <span data-lang="navCs">고객센터</span>
-                </a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
-                <i data-lucide="menu"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div class="mobile-nav" id="mobileNav">
-            <ul class="mobile-nav-list">
-                <li><a href="jejuhotel.html" class="mobile-nav-link" data-lang="mobileNavHotel">숙소 예약</a></li>
-                <li><a href="jejustay_life.html" class="mobile-nav-link" data-lang="mobileNavLife">한 달 살기</a></li>
-                <li><a href="activities.html" class="mobile-nav-link" data-lang="mobileNavActivity">즐길 거리</a></li>
-                <li><a href="deals.html" class="mobile-nav-link" data-lang="mobileNavDeals">할인 쿠폰 & 특가</a></li>
-                <li><a href="esim.html" class="mobile-nav-link" data-lang="mobileNavEsim">eSIM</a></li>
-                <li><a href="travel_guide.html" class="mobile-nav-link" data-lang="mobileNavGuide">여행 가이드</a></li>
-                <li><a href="#" class="mobile-nav-link" data-lang="mobileNavTips">여행 일정 팁</a></li>
-                <li><a href="reservation_check.html" class="mobile-nav-link" data-lang="navResCheck">예약 확인</a></li>
-                <li><a href="../sub/login.html" class="mobile-nav-link" data-lang="navLogin">로그인</a></li>
-            </ul>
-        </div>
-    </header>
+    <!-- ========== Header Placeholder ========== -->
+    <div id="hotel-header-placeholder"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -519,50 +404,11 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="esim-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <div class="footer-brand">JEJU STAY</div>
-                    <p class="footer-description">제주스테이는 항공권, 숙박, eSIM까지<br>여행의 모든 것을 한 곳에서 제공합니다.</p>
-                </div>
-
-                <div class="footer-col">
-                    <h4 class="footer-title">서비스</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">eSIM 상품</a></li>
-                        <li><a href="#">이용 가이드</a></li>
-                        <li><a href="#">호환 기기</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4 class="footer-title">고객 지원</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">고객센터</a></li>
-                        <li><a href="#">자주 묻는 질문</a></li>
-                        <li><a href="#">1:1 문의</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4 class="footer-title">정책</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">이용약관</a></li>
-                        <li><a href="#">개인정보처리방침</a></li>
-                        <li><a href="#">환불 정책</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2026 JEJU STAY. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- ========== Footer Placeholder ========== -->
+    <div id="hotel-footer-placeholder"></div>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // ============================================
@@ -607,21 +453,6 @@
                 });
             });
 
-            // Mobile Menu Toggle
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileNav = document.getElementById('mobileNav');
-
-            if (mobileMenuBtn && mobileNav) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    mobileNav.classList.toggle('active');
-                    if (mobileNav.classList.contains('active')) {
-                        document.body.style.overflow = 'hidden';
-                    } else {
-                        document.body.style.overflow = '';
-                    }
-                });
-            }
-
             // Search Input Dropdown
             const searchInput = document.getElementById('searchInput');
             const searchDropdown = document.getElementById('searchDropdown');
@@ -657,6 +488,7 @@
         });
     </script>
     <script src="../js/stagger_nav.js"></script>
+    <script src="../js/hotel_component_loader.js"></script>
 </body>
 
 </html>

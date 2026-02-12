@@ -12,6 +12,9 @@ function initStaggerNav() {
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
+        // [Fix] Prevent duplicate injection
+        if (link.querySelector('.stagger-wrapper')) return;
+
         // Find the text span (usually has data-lang)
         const textSpan = link.querySelector('span[data-lang]');
         if (!textSpan) return;

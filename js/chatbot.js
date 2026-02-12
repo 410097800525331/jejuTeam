@@ -261,16 +261,15 @@ class HotelChatbot {
         });
         
         try {
-            // Call Backend Endpoint
-            const response = await fetch('/api/generate-gemini-response', {
+            // RayPersona: Secure Call to Netlify Function
+            const response = await fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    system: { parts: [{ text: this.systemPrompt }] },
-                    contents: this.conversationHistory.map(msg => ({
-                        role: msg.role === 'user' ? 'user' : 'model',
-                        parts: [{ text: msg.content }]
-                    }))
+                    messages: [
+                        { role: 'system', content: this.systemPrompt },
+                        ...this.conversationHistory
+                    ]
                 })
             });
 
@@ -278,13 +277,17 @@ class HotelChatbot {
 
             const data = await response.json();
             
-            // Validate response structure (assuming Gemini-like structure proxied back)
-            if (!data.candidates?.[0]?.content) throw new Error('Invalid API response from Backend');
+            // Validate OpenAI format response
+            if (!data.choices?.[0]?.message?.content) throw new Error('Invalid API response from Backend');
 
-            const aiResponse = data.candidates[0].content.parts[0].text;
+            const aiResponse = data.choices[0].message.content;
 
             this.conversationHistory.push({ role: 'assistant', content: aiResponse });
-            if (this.conversationHistory.length > 20) this.conversationHistory = this.conversationHistory.slice(-20);
+            
+            // Limit history to prevent token limit issues
+            if (this.conversationHistory.length > 10) {
+                this.conversationHistory = this.conversationHistory.slice(-10);
+            }
 
             return aiResponse;
 

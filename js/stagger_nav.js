@@ -40,28 +40,37 @@ function initStaggerNav() {
         // 2. Event Logic
         // State to prevent re-triggering while running
         let isAnimating = false;
+        let isMouseOver = false;
         const CHAR_DELAY = 30; // ms per char
         const DURATION = 300;  // ms active transition
         const BUFFER = 50;     // extra buffer for safety
 
         link.addEventListener('mouseenter', () => {
+            isMouseOver = true;
             if (isAnimating) return; // Ignore if already running
+            
             isAnimating = true;
-
-            // Activate Animation
             link.classList.add('is-animating');
 
             // Calculate total run time
-            // Last char delay + duration
             const totalTime = (originalText.length * CHAR_DELAY) + DURATION + BUFFER;
 
             // Auto Reset Timer
             setTimeout(() => {
-                // Remove class to Snap Back
-                // Because CSS inactive transition is 0s, this happens instantly/invisibly
-                link.classList.remove('is-animating');
                 isAnimating = false;
+                // Only snap back if the mouse has already left
+                if (!isMouseOver) {
+                    link.classList.remove('is-animating');
+                }
             }, totalTime);
+        });
+
+        link.addEventListener('mouseleave', () => {
+            isMouseOver = false;
+            // If animation cycle is already done, snap back immediately
+            if (!isAnimating) {
+                link.classList.remove('is-animating');
+            }
         });
     });
 }

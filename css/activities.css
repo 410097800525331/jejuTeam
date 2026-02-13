@@ -1,5 +1,5 @@
 /* ========== Activities Page Styling ========== */
-@import url('./hotel.css');
+@import url('/css/hotel.css');
 
 /* True Seamless Background */
 body.activities-page {
@@ -251,6 +251,9 @@ body.activities-page {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     margin-top: var(--space-lg);
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Responsive Grid */

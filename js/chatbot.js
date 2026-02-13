@@ -239,9 +239,10 @@ class HotelChatbot {
             console.error('Chatbot error:', error);
             this.removeTypingIndicator();
 
+            const errorText = error.message;
             const errorMsg = {
                 type: 'bot',
-                content: `죄송합니다. 서버 에러가 발생했습니다. (${error.message})`,
+                content: `죄송합니다. 서버 에러가 발생했습니다. (${errorText}) - 네트워트 탭이나 넷리파이 로그를 확인해줘.`,
                 timestamp: new Date()
             };
             this.messages.push(errorMsg);

@@ -120,15 +120,15 @@
     top: 0;
     left: 0;
     opacity: 0;
-    transition: opacity 0.6s ease-in-out;
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
 }
 
 .preview-image.active {
     opacity: 1;
 }
 
-/* 유심(eSIM) 이미지 120% 크롭 및 위치 최종 조정 (20px, 20px) */
-#preview-esim.active {
+/* 유심(eSIM) 이미지 120% 크롭 및 위치 최종 조정 (20px, 20px) - Flicker 방지를 위해 상시 적용 */
+#preview-esim {
     transform: scale(1.2) translateX(20px) translateY(20px);
 }
 

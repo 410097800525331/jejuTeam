@@ -179,7 +179,7 @@ function initFAB() {
 
     // 5. Card Actions
     document.getElementById('fabHome').addEventListener('click', () => {
-        window.location.href = '../index.html'; // Assuming we are in sub/
+        window.location.href = '/index.html'; // Assuming we are in sub/
     });
     
     document.getElementById('fabTop').addEventListener('click', () => {

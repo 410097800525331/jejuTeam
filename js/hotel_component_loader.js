@@ -23,9 +23,12 @@ async function loadComponent(elementId, path, callback) {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Determine the root path prefix based on depth if needed
-    // Assuming this is called from /sub/ pages
-    const headerPath = '../components/hotel_header.html';
-    const footerPath = '../components/hotel_footer.html';
+    // Simple heuristic: if we are in 'sub', go up one level
+    const isSub = window.location.pathname.includes('/sub/');
+    const prefix = isSub ? '..' : '';
+    
+    const headerPath = `${prefix}/components/hotel_header.html`;
+    const footerPath = `${prefix}/components/hotel_footer.html`;
 
     loadComponent('hotel-header-placeholder', headerPath, () => {
         console.log('Header loaded');

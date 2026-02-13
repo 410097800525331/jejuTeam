@@ -312,17 +312,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hotelLinks.length > 0 && videoOverlay && transitionVideo) {
         hotelLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault(); // 기본 이동 동작 방지
+                e.preventDefault(); 
 
-                // 오버레이 표시
+                // 오버레이 표시 및 비디오 초기화
+                videoOverlay.style.display = 'flex';
+                videoOverlay.offsetHeight; // Force reflow
                 videoOverlay.classList.add('active');
                 
-                // 비디오 속성 설정 (자동 재생 정책 대응)
+                // 비디오 속성 세팅 및 명시적 로드
+                transitionVideo.src = '/assets/takeoff.mp4';
+                transitionVideo.load();
                 transitionVideo.muted = true;
                 transitionVideo.playsInline = true;
                 transitionVideo.currentTime = 0;
-
-                // 비디오 재생 시도
+                
+                console.log("비디오 로딩 및 재생 시도...");
                 const playPromise = transitionVideo.play();
 
                 let navigationTriggered = false;

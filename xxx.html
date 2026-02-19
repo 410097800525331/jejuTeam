@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제주그룹 - 통합 마이페이지</title>
+    <link rel="stylesheet" href="style-group.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      /* ===== 제주그룹 통합 마이페이지 - 세 서비스 동등 통합 ===== */
+
+:root {
+    /* 제주항공 색상 */
+    --air-primary: #ff6b35;
+    --air-light: #ff8c5a;
+    
+    /* 제주스테이 색상 */
+    --stay-primary: #0066cc;
+    --stay-light: #3385dd;
+    
+    /* 제주렌트카 색상 */
+    --rent-primary: #ff0000;
+    --rent-light: #ff3333;
+    
+    /* 기본 색상 */
+    --bg-light: #fafafa;
+    --bg-white: #ffffff;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --border-light: #e8e8e8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Noto Sans KR', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* ===== 헤더 ===== */
+.top-header {
+    background: linear-gradient(135deg, #333 0%, #555 100%);
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.tagline {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user-level {
+    font-size: 11px;
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.logout-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== 메인 래퍼 ===== */
+.main-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ===== 환영 영역 ===== */
+.welcome-section {
+    margin-bottom: 40px;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.welcome-card h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.welcome-card p {
+    font-size: 16px;
+    opacity: 0.95;
+}
+
+/* ===== 대시보드 ===== */
+.dashboard-section {
+    margin-bottom: 40px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.service-dashboard {
+    background-color: var(--bg-white);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid;
+}
+
+.service-dashboard.air {
+    border-top-color: var(--air-primary);
+}
+
+.service-dashboard.stay {
+    border-top-color: var(--stay-primary);
+}
+
+.service-dashboard.rent {
+    border-top-color: var(--rent-primary);
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.service-icon {
+    font-size: 28px;
+}
+
+.service-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.dashboard-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* 통합 정보 */
+.integrated-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    background-color: var(--bg-white);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid;
+}
+
+.info-card.points {
+    border-left-color: var(--air-primary);
+}
+
+.info-card.membership {
+    border-left-color: var(--stay-primary);
+}
+
+.info-card.coupons {
+    border-left-color: var(--rent-primary);
+}
+
+.info-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.info-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.info-desc {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* ===== 마이페이지 탭 ===== */
+.mypage-section {
+    margin-bottom: 40px;
+}
+
+.tabs-navigation {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.tab-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background-color: var(--bg-white);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-nav-btn:hover {
+    border-color: #999;
+    color: var(--text-dark);
+}
+
+.tab-nav-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+}
+
+/* ===== 탭 콘텐츠 ===== */
+.tabs-content {
+    background-color: var(--bg-white);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ===== 서비스 탭 ===== */
+.service-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.service-tab-btn {
+    padding: 12px 20px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.service-tab-btn.active {
+    color: var(--text-dark);
+    border-bottom-color: #667eea;
+}
+
+/* ===== 예약 ===== */
+.reservations-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.reservation-group {
+    display: none;
+}
+
+.reservation-group.active {
+    display: block;
+}
+
+.reservation-group h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.booking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.booking-card {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    background-color: var(--bg-light);
+    transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #999;
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.booking-title h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.booking-date {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-badge.confirmed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.booking-details {
+    margin-bottom: 15px;
+}
+
+.booking-details p {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.booking-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-detail, .btn-cancel {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-detail {
+    background-color: #667eea;
+    color: white;
+}
+
+.btn-detail:hover {
+    background-color: #5568d3;
+}
+
+.btn-cancel {
+    background-color: #f8f9fa;
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+}
+
+.btn-cancel:hover {
+    background-color: #e8e8e8;
+}
+
+/* ===== 멤버십 ===== */
+.membership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.membership-card {
+    border-radius: 12px;
+    padding: 25px;
+    background-color: var(--bg-light);
+    border-left: 4px solid;
+}
+
+.membership-card.air {
+    border-left-color: var(--air-primary);
+}
+
+.membership-card.stay {
+    border-left-color: var(--stay-primary);
+}
+
+.membership-card.rent {
+    border-left-color: var(--rent-primary);
+}
+
+.membership-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.membership-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.membership-header.air h3 {
+    color: var(--air-primary);
+}
+
+.membership-header.stay h3 {
+    color: var(--stay-primary);
+}
+
+.membership-header.rent h3 {
+    color: var(--rent-primary);
+}
+
+.membership-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-row .label {
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.info-row .value {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* ===== 쿠폰 ===== */
+.coupons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.coupon-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.coupon-tab-btn {
+    padding: 12px 20px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.coupon-tab-btn.active {
+    color: var(--text-dark);
+    border-bottom-color: #667eea;
+}
+
+.coupon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.coupon-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    border-left: 6px solid;
+}
+
+.coupon-item.air {
+    border-left-color: var(--air-primary);
+}
+
+.coupon-item.stay {
+    border-left-color: var(--stay-primary);
+}
+
+.coupon-item.rent {
+    border-left-color: var(--rent-primary);
+}
+
+.coupon-left {
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coupon-discount {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.coupon-item.air .coupon-discount {
+    color: var(--air-primary);
+}
+
+.coupon-item.stay .coupon-discount {
+    color: var(--stay-primary);
+}
+
+.coupon-item.rent .coupon-discount {
+    color: var(--rent-primary);
+}
+
+.coupon-middle {
+    flex: 1;
+}
+
+.coupon-middle h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.coupon-middle p {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.coupon-date {
+    font-size: 11px;
+    color: #d32f2f;
+}
+
+.coupon-right {
+    display: flex;
+    align-items: center;
+}
+
+.btn-use-coupon {
+    padding: 10px 20px;
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-use-coupon:hover {
+    background-color: #5568d3;
+}
+
+/* ===== 이용 내역 ===== */
+.history-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.history-item {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    background-color: var(--bg-light);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.history-date {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.history-status {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.history-status.completed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.history-services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.history-service {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: var(--bg-white);
+    border-left: 3px solid;
+}
+
+.history-service.air {
+    border-left-color: var(--air-primary);
+}
+
+.history-service.stay {
+    border-left-color: var(--stay-primary);
+}
+
+.history-service.rent {
+    border-left-color: var(--rent-primary);
+}
+
+.history-service span {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.history-service p {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.history-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-review, .btn-rebook {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-review {
+    background-color: #667eea;
+    color: white;
+}
+
+.btn-review:hover {
+    background-color: #5568d3;
+}
+
+.btn-rebook {
+    background-color: #f8f9fa;
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+}
+
+.btn-rebook:hover {
+    background-color: #e8e8e8;
+}
+
+/* ===== 위시리스트 ===== */
+.wishlist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.wishlist-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.wishlist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wishlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+}
+
+.wishlist-item p {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.btn-remove {
+    padding: 6px 12px;
+    background-color: #f8f9fa;
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-remove:hover {
+    background-color: #e8e8e8;
+}
+
+/* ===== 고객센터 ===== */
+.support-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.support-card {
+    padding: 25px;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.support-card:hover {
+    border-color: #999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.support-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.support-card p {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.btn-support {
+    padding: 10px 20px;
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-support:hover {
+    background-color: #5568d3;
+}
+
+/* ===== 설정 ===== */
+.settings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.settings-card {
+    padding: 25px;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+}
+
+.settings-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.notification-settings {
+    margin-bottom: 20px;
+}
+
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--bg-white);
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    gap: 15px;
+}
+
+.notification-item p {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.notification-item:last-child {
+    margin-bottom: 0;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 26px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #667eea;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+}
+
+.btn-save {
+    padding: 12px;
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-save:hover {
+    background-color: #5568d3;
+}
+
+.btn-danger {
+    padding: 10px 20px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #b71c1c;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #e8e8e8;
+}
+
+/* 계정 관리 */
+.account-management {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.account-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--bg-white);
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+}
+
+.account-info {
+    flex: 1;
+}
+
+.account-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.account-desc {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* 약관 및 정책 */
+.terms-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.terms-link {
+    font-size: 13px;
+    color: #667eea;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.terms-link:hover {
+    background-color: #667eea;
+    color: white;
+}
+
+/* 알림 설정 상세 */
+.notification-text {
+    flex: 1;
+}
+
+.notification-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.notification-desc {
+    font-size: 11px;
+    color: var(--text-light);
+}
+
+/* ===== 모달 ===== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--bg-white);
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    color: var(--text-dark);
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .integrated-info {
+        grid-template-columns: 1fr;
+    }
+
+    .tabs-navigation {
+        flex-wrap: wrap;
+    }
+
+    .tab-nav-btn {
+        flex: 1 1 calc(50% - 5px);
+        min-width: 100px;
+    }
+
+    .membership-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-wrapper {
+        padding: 20px 15px;
+    }
+
+    .welcome-card {
+        padding: 20px;
+    }
+
+    .welcome-card h2 {
+        font-size: 20px;
+    }
+
+    .tabs-navigation {
+        gap: 5px;
+    }
+
+    .tab-nav-btn {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .tab-label {
+        display: none;
+    }
+
+    .tab-icon {
+        font-size: 16px;
+    }
+
+    .tabs-content {
+        padding: 20px;
+    }
+
+    .booking-card {
+        padding: 15px;
+    }
+
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header class="top-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1>🌴 제주그룹</h1>
+                <p class="tagline">항공 · 숙소 · 렌터카 통합 관리</p>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span class="user-name">김철수님</span>
+                    <span class="user-level">VIP 회원</span>
+                </div>
+                <button class="logout-btn">로그아웃</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨테이너 -->
+    <div class="main-wrapper">
+        <!-- 환영 영역 -->
+        <section class="welcome-section">
+            <div class="welcome-card">
+                <h2>안녕하세요, 김철수님! 👋</h2>
+                <p>제주 여행의 모든 것을 한곳에서 관리하세요</p>
+            </div>
+        </section>
+
+        <!-- 통합 대시보드 -->
+        <section class="dashboard-section">
+            <div class="dashboard-grid">
+                <!-- 항공 대시보드 -->
+                <div class="service-dashboard air">
+                    <div class="service-header">
+                        <span class="service-icon">✈️</span>
+                        <h3>제주항공</h3>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat">
+                            <span class="stat-label">예약</span>
+                            <span class="stat-value">2건</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">포인트</span>
+                            <span class="stat-value">5,000P</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">쿠폰</span>
+                            <span class="stat-value">2개</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 숙소 대시보드 -->
+                <div class="service-dashboard stay">
+                    <div class="service-header">
+                        <span class="service-icon">🏨</span>
+                        <h3>제주스테이</h3>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat">
+                            <span class="stat-label">예약</span>
+                            <span class="stat-value">1건</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">포인트</span>
+                            <span class="stat-value">3,500P</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">쿠폰</span>
+                            <span class="stat-value">1개</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 렌터카 대시보드 -->
+                <div class="service-dashboard rent">
+                    <div class="service-header">
+                        <span class="service-icon">🚗</span>
+                        <h3>제주렌트카</h3>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat">
+                            <span class="stat-label">예약</span>
+                            <span class="stat-value">1건</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">포인트</span>
+                            <span class="stat-value">4,000P</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">쿠폰</span>
+                            <span class="stat-value">2개</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 통합 포인트 및 멤버십 -->
+            <div class="integrated-info">
+                <div class="info-card points">
+                    <h4>🎯 통합 포인트</h4>
+                    <div class="info-value">12,500P</div>
+                    <p class="info-desc">3개 서비스 포인트 합계</p>
+                </div>
+                <div class="info-card membership">
+                    <h4>⭐ 멤버십 등급</h4>
+                    <div class="info-value">VIP</div>
+                    <p class="info-desc">모든 서비스에서 VIP 혜택 적용</p>
+                </div>
+                <div class="info-card coupons">
+                    <h4>🎟️ 보유 쿠폰</h4>
+                    <div class="info-value">5개</div>
+                    <p class="info-desc">사용 가능한 쿠폰</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 마이페이지 탭 네비게이션 -->
+        <section class="mypage-section">
+            <div class="tabs-navigation">
+                <button class="tab-nav-btn active" data-tab="reservations">
+                    <span class="tab-icon">📋</span>
+                    <span class="tab-label">나의 예약</span>
+                </button>
+                <button class="tab-nav-btn" data-tab="membership">
+                    <span class="tab-icon">⭐</span>
+                    <span class="tab-label">멤버십</span>
+                </button>
+                <button class="tab-nav-btn" data-tab="coupons">
+                    <span class="tab-icon">🎟️</span>
+                    <span class="tab-label">쿠폰</span>
+                </button>
+                <button class="tab-nav-btn" data-tab="history">
+                    <span class="tab-icon">📜</span>
+                    <span class="tab-label">이용 내역</span>
+                </button>
+                <button class="tab-nav-btn" data-tab="wishlist">
+                    <span class="tab-icon">❤️</span>
+                    <span class="tab-label">위시리스트</span>
+                </button>
+                <button class="tab-nav-btn" data-tab="support">
+                    <span class="tab-icon">💬</span>
+                    <span class="tab-label">고객센터</span>
+                </button>
+                <button class="tab-nav-btn" data-tab="settings">
+                    <span class="tab-icon">👤</span>
+                    <span class="tab-label">회원정보관리</span>
+                </button>
+            </div>
+
+            <!-- 탭 콘텐츠 -->
+            <div class="tabs-content">
+                <!-- 1. 나의 예약 -->
+                <div class="tab-pane active" id="reservations">
+                    <div class="service-tabs">
+                        <button class="service-tab-btn active" data-service="all">
+                            <span>📋 전체</span>
+                        </button>
+                        <button class="service-tab-btn" data-service="air">
+                            <span>✈️ 항공</span>
+                        </button>
+                        <button class="service-tab-btn" data-service="stay">
+                            <span>🏨 숙소</span>
+                        </button>
+                        <button class="service-tab-btn" data-service="rent">
+                            <span>🚗 렌트카</span>
+                        </button>
+                    </div>
+
+                    <div class="reservations-container">
+                        <!-- 항공 예약 -->
+                        <div class="reservation-group air" data-service="air">
+                            <h3>✈️ 제주항공 예약</h3>
+                            <div class="booking-list">
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <div class="booking-title">
+                                            <h4>서울(ICN) → 제주(CJU)</h4>
+                                            <span class="booking-date">2024년 3월 15일 06:00</span>
+                                        </div>
+                                        <span class="status-badge confirmed">확정</span>
+                                    </div>
+                                    <div class="booking-details">
+                                        <p><strong>예약번호:</strong> JJ-FLT-001</p>
+                                        <p><strong>항공사:</strong> 제주항공</p>
+                                        <p><strong>좌석:</strong> 12A</p>
+                                        <p><strong>가격:</strong> 89,000원</p>
+                                    </div>
+                                    <div class="booking-actions">
+                                        <button class="btn-detail">상세보기</button>
+                                        <button class="btn-cancel">취소</button>
+                                    </div>
+                                </div>
+
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <div class="booking-title">
+                                            <h4>제주(CJU) → 서울(ICN)</h4>
+                                            <span class="booking-date">2024년 3월 22일 18:00</span>
+                                        </div>
+                                        <span class="status-badge confirmed">확정</span>
+                                    </div>
+                                    <div class="booking-details">
+                                        <p><strong>예약번호:</strong> JJ-FLT-002</p>
+                                        <p><strong>항공사:</strong> 제주항공</p>
+                                        <p><strong>좌석:</strong> 12B</p>
+                                        <p><strong>가격:</strong> 89,000원</p>
+                                    </div>
+                                    <div class="booking-actions">
+                                        <button class="btn-detail">상세보기</button>
+                                        <button class="btn-cancel">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 숙소 예약 -->
+                        <div class="reservation-group stay" data-service="stay">
+                            <h3>🏨 제주스테이 예약</h3>
+                            <div class="booking-list">
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <div class="booking-title">
+                                            <h4>라마다 제주 호텔</h4>
+                                            <span class="booking-date">2024년 3월 15일 - 22일 (7박)</span>
+                                        </div>
+                                        <span class="status-badge confirmed">확정</span>
+                                    </div>
+                                    <div class="booking-details">
+                                        <p><strong>예약번호:</strong> JJ-HTL-001</p>
+                                        <p><strong>객실:</strong> 디럭스 더블룸</p>
+                                        <p><strong>체크인:</strong> 15:00 / 체크아웃: 11:00</p>
+                                        <p><strong>가격:</strong> 1,260,000원</p>
+                                    </div>
+                                    <div class="booking-actions">
+                                        <button class="btn-detail">상세보기</button>
+                                        <button class="btn-cancel">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 렌터카 예약 -->
+                        <div class="reservation-group rent" data-service="rent">
+                            <h3>🚗 제주렌트카 예약</h3>
+                            <div class="booking-list">
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <div class="booking-title">
+                                            <h4>현대 쏘나타 (자동)</h4>
+                                            <span class="booking-date">2024년 3월 15일 - 22일 (7일)</span>
+                                        </div>
+                                        <span class="status-badge confirmed">확정</span>
+                                    </div>
+                                    <div class="booking-details">
+                                        <p><strong>예약번호:</strong> JJ-RNT-001</p>
+                                        <p><strong>픽업:</strong> 제주공항 10:00</p>
+                                        <p><strong>반납:</strong> 제주공항 10:00</p>
+                                        <p><strong>가격:</strong> 455,000원</p>
+                                    </div>
+                                    <div class="booking-actions">
+                                        <button class="btn-detail">상세보기</button>
+                                        <button class="btn-cancel">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. 멤버십 -->
+                <div class="tab-pane" id="membership">
+                    <div class="membership-grid">
+                        <!-- 제주항공 멤버십 -->
+                        <div class="membership-card air">
+                            <div class="membership-header air">
+                                <h3>✈️ 제주항공</h3>
+                            </div>
+                            <div class="membership-info">
+                                <div class="info-row">
+                                    <span class="label">포인트</span>
+                                    <span class="value">5,000P</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">등급</span>
+                                    <span class="value">VIP</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">혜택</span>
+                                    <span class="value">15% 할인</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 제주스테이 멤버십 -->
+                        <div class="membership-card stay">
+                            <div class="membership-header stay">
+                                <h3>🏨 제주스테이</h3>
+                            </div>
+                            <div class="membership-info">
+                                <div class="info-row">
+                                    <span class="label">포인트</span>
+                                    <span class="value">3,500P</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">등급</span>
+                                    <span class="value">VIP</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">혜택</span>
+                                    <span class="value">10% 할인</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 제주렌트카 멤버십 -->
+                        <div class="membership-card rent">
+                            <div class="membership-header rent">
+                                <h3>🚗 제주렌트카</h3>
+                            </div>
+                            <div class="membership-info">
+                                <div class="info-row">
+                                    <span class="label">포인트</span>
+                                    <span class="value">4,000P</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">등급</span>
+                                    <span class="value">VIP</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">혜택</span>
+                                    <span class="value">12% 할인</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 쿠폰 -->
+                <div class="tab-pane" id="coupons">
+                    <div class="coupons-container">
+                        <div class="coupon-tabs">
+                            <button class="coupon-tab-btn active" data-coupon-tab="all">
+                                전체 (5)
+                            </button>
+                            <button class="coupon-tab-btn" data-coupon-tab="air">
+                                항공 (2)
+                            </button>
+                            <button class="coupon-tab-btn" data-coupon-tab="stay">
+                                숙소 (1)
+                            </button>
+                            <button class="coupon-tab-btn" data-coupon-tab="rent">
+                                렌트카 (2)
+                            </button>
+                        </div>
+
+                        <div class="coupon-list">
+                            <!-- 항공 쿠폰 -->
+                            <div class="coupon-item air">
+                                <div class="coupon-left">
+                                    <div class="coupon-discount">15%</div>
+                                </div>
+                                <div class="coupon-middle">
+                                    <h4>✈️ 항공권 할인</h4>
+                                    <p>모든 항공권에 사용 가능</p>
+                                    <p class="coupon-date">~2024.04.30</p>
+                                </div>
+                                <div class="coupon-right">
+                                    <button class="btn-use-coupon">사용</button>
+                                </div>
+                            </div>
+
+                            <!-- 숙소 쿠폰 -->
+                            <div class="coupon-item stay">
+                                <div class="coupon-left">
+                                    <div class="coupon-discount">10,000원</div>
+                                </div>
+                                <div class="coupon-middle">
+                                    <h4>🏨 숙박 할인</h4>
+                                    <p>50,000원 이상 예약 시</p>
+                                    <p class="coupon-date">~2024.03.31</p>
+                                </div>
+                                <div class="coupon-right">
+                                    <button class="btn-use-coupon">사용</button>
+                                </div>
+                            </div>
+
+                            <!-- 렌트카 쿠폰 -->
+                            <div class="coupon-item rent">
+                                <div class="coupon-left">
+                                    <div class="coupon-discount">20%</div>
+                                </div>
+                                <div class="coupon-middle">
+                                    <h4>🚗 렌터카 할인</h4>
+                                    <p>모든 차량에 사용 가능</p>
+                                    <p class="coupon-date">~2024.05.15</p>
+                                </div>
+                                <div class="coupon-right">
+                                    <button class="btn-use-coupon">사용</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 이용 내역 -->
+                <div class="tab-pane" id="history">
+                    <div class="history-container">
+                        <div class="history-item">
+                            <div class="history-header">
+                                <span class="history-date">2024년 2월 10-15일</span>
+                                <span class="history-status completed">완료</span>
+                            </div>
+                            <div class="history-services">
+                                <div class="history-service air">
+                                    <span>✈️ 제주항공</span>
+                                    <p>서울 → 제주</p>
+                                </div>
+                                <div class="history-service stay">
+                                    <span>🏨 제주스테이</span>
+                                    <p>신라스테이 제주</p>
+                                </div>
+                                <div class="history-service rent">
+                                    <span>🚗 제주렌트카</span>
+                                    <p>현대 K5</p>
+                                </div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-review">리뷰</button>
+                                <button class="btn-rebook">다시 예약</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. 위시리스트 -->
+                <div class="tab-pane" id="wishlist">
+                    <div class="wishlist-container">
+                        <div class="wishlist-section">
+                            <h3>✈️ 항공 위시리스트</h3>
+                            <div class="wishlist-items">
+                                <div class="wishlist-item">
+                                    <p>서울 → 부산 (제주항공)</p>
+                                    <button class="btn-remove">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wishlist-section">
+                            <h3>🏨 숙소 위시리스트</h3>
+                            <div class="wishlist-items">
+                                <div class="wishlist-item">
+                                    <p>그랜드 하얏트 제주</p>
+                                    <button class="btn-remove">삭제</button>
+                                </div>
+                                <div class="wishlist-item">
+                                    <p>신라스테이 제주</p>
+                                    <button class="btn-remove">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wishlist-section">
+                            <h3>🚗 렌트카 위시리스트</h3>
+                            <div class="wishlist-items">
+                                <div class="wishlist-item">
+                                    <p>현대 쏘나타 (자동)</p>
+                                    <button class="btn-remove">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. 고객센터 -->
+                <div class="tab-pane" id="support">
+                    <div class="support-container">
+                        <div class="support-grid">
+                            <div class="support-card">
+                                <h4>📞 1:1 상담</h4>
+                                <p>전문가와 상담하세요</p>
+                                <button class="btn-support">신청</button>
+                            </div>
+                            <div class="support-card">
+                                <h4>❓ FAQ</h4>
+                                <p>자주 묻는 질문</p>
+                                <button class="btn-support">보기</button>
+                            </div>
+                            <div class="support-card">
+                                <h4>📋 문의 내역</h4>
+                                <p>이전 문의 확인</p>
+                                <button class="btn-support">조회</button>
+                            </div>
+                            <div class="support-card">
+                                <h4>📢 공지사항</h4>
+                                <p>최신 소식</p>
+                                <button class="btn-support">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. 회원정보관리 -->
+                <div class="tab-pane" id="settings">
+                    <div class="settings-container">
+                        <!-- 기본 정보 -->
+                        <div class="settings-card">
+                            <h3>👤 기본 정보</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>이름</label>
+                                    <input type="text" value="김철수" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>이메일</label>
+                                    <input type="email" value="kim.chulsu@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>휴대폰</label>
+                                    <input type="tel" value="010-1234-5678">
+                                </div>
+                                <div class="form-group">
+                                    <label>생년월일</label>
+                                    <input type="date" value="1990-05-15">
+                                </div>
+                                <button type="button" class="btn-save">저장</button>
+                            </form>
+                        </div>
+
+                        <!-- 비밀번호 변경 -->
+                        <div class="settings-card">
+                            <h3>🔐 비밀번호 변경</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>현재 비밀번호</label>
+                                    <input type="password" placeholder="현재 비밀번호를 입력하세요">
+                                </div>
+                                <div class="form-group">
+                                    <label>새 비밀번호</label>
+                                    <input type="password" placeholder="새 비밀번호를 입력하세요">
+                                </div>
+                                <div class="form-group">
+                                    <label>비밀번호 확인</label>
+                                    <input type="password" placeholder="새 비밀번호를 다시 입력하세요">
+                                </div>
+                                <button type="button" class="btn-save">변경</button>
+                            </form>
+                        </div>
+
+                        <!-- 알림 설정 -->
+                        <div class="settings-card">
+                            <h3>🔔 알림 설정</h3>
+                            <div class="notification-settings">
+                                <div class="notification-item">
+                                    <div class="notification-text">
+                                        <p class="notification-title">이메일 알림</p>
+                                        <p class="notification-desc">예약 확정, 변경 소식 등</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-text">
+                                        <p class="notification-title">SMS 알림</p>
+                                        <p class="notification-desc">중요 예약 정보</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-text">
+                                        <p class="notification-title">마케팅 정보</p>
+                                        <p class="notification-desc">할인, 이벤트 소식</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-save">저장</button>
+                        </div>
+
+                        <!-- 계정 관리 -->
+                        <div class="settings-card">
+                            <h3>⚙️ 계정 관리</h3>
+                            <div class="account-management">
+                                <div class="account-item">
+                                    <div class="account-info">
+                                        <p class="account-title">계정 탈퇴</p>
+                                        <p class="account-desc">계정을 영구적으로 삭제합니다</p>
+                                    </div>
+                                    <button type="button" class="btn-danger">탈퇴</button>
+                                </div>
+                                <div class="account-item">
+                                    <div class="account-info">
+                                        <p class="account-title">개인정보 다운로드</p>
+                                        <p class="account-desc">내 정보를 파일로 다운로드</p>
+                                    </div>
+                                    <button type="button" class="btn-secondary">다운로드</button>
+                                </div>
+                                <div class="account-item">
+                                    <div class="account-info">
+                                        <p class="account-title">로그인 기록</p>
+                                        <p class="account-desc">최근 로그인 활동 확인</p>
+                                    </div>
+                                    <button type="button" class="btn-secondary">조회</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 약관 및 정책 -->
+                        <div class="settings-card">
+                            <h3>📋 약관 및 정책</h3>
+                            <div class="terms-links">
+                                <a href="#" class="terms-link">이용약관</a>
+                                <a href="#" class="terms-link">개인정보처리방침</a>
+                                <a href="#" class="terms-link">마케팅 수신 동의</a>
+                                <a href="#" class="terms-link">위치기반서비스 약관</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 모달 -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+<script>
+  // ===== 제주그룹 통합 마이페이지 - 세 서비스 동등 통합 ===== 
+
+$(document).ready(function() {
+    // ===== 1. 메인 탭 전환 =====
+    $('.tab-nav-btn').on('click', function() {
+        const tabId = $(this).data('tab');
+        
+        $('.tab-nav-btn').removeClass('active');
+        $('.tab-pane').removeClass('active');
+        
+        $(this).addClass('active');
+        $('#' + tabId).addClass('active');
+    });
+
+    // ===== 2. 서비스 탭 전환 (예약) =====
+    $('.service-tab-btn').on('click', function() {
+        const service = $(this).data('service');
+        
+        $('.service-tab-btn').removeClass('active');
+        $('.reservation-group').removeClass('active');
+        
+        $(this).addClass('active');
+        
+        if (service === 'all') {
+            $('.reservation-group').addClass('active');
+        } else {
+            $('.reservation-group[data-service="' + service + '"]').addClass('active');
+        }
+    });
+
+    // ===== 3. 쿠폰 탭 전환 =====
+    $('.coupon-tab-btn').on('click', function() {
+        const couponTab = $(this).data('coupon-tab');
+        
+        $('.coupon-tab-btn').removeClass('active');
+        $(this).addClass('active');
+        
+        if (couponTab === 'all') {
+            $('.coupon-item').show();
+        } else {
+            $('.coupon-item').hide();
+            $('.coupon-item.' + couponTab).show();
+        }
+    });
+
+    // ===== 4. 상세보기 모달 =====
+    const modal = $('#detailModal');
+    const closeBtn = $('.modal-close');
+
+    $(document).on('click', '.btn-detail', function() {
+        const $bookingCard = $(this).closest('.booking-card');
+        const title = $bookingCard.find('.booking-title h4').text();
+        const details = $bookingCard.find('.booking-details').html();
+        
+        let modalContent = `
+            <h3>${title}</h3>
+            <hr style="margin: 15px 0; border: none; border-top: 1px solid #e8e8e8;">
+            <div style="margin: 20px 0;">
+                ${details}
+            </div>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e8e8e8; display: flex; gap: 10px;">
+                <button class="btn-detail" style="flex: 1;">수정</button>
+                <button class="btn-cancel" style="flex: 1;">취소</button>
+            </div>
+        `;
+        
+        $('#modalBody').html(modalContent);
+        modal.fadeIn(300);
+    });
+
+    closeBtn.on('click', function() {
+        modal.fadeOut(300);
+    });
+
+    $(window).on('click', function(event) {
+        if (event.target === modal[0]) {
+            modal.fadeOut(300);
+        }
+    });
+
+    // ===== 5. 예약 취소 =====
+    $(document).on('click', '.btn-cancel', function() {
+        const $bookingCard = $(this).closest('.booking-card');
+        const title = $bookingCard.find('.booking-title h4').text();
+        
+        if (confirm(`"${title}" 예약을 취소하시겠습니까?`)) {
+            $bookingCard.fadeOut(300, function() {
+                $(this).remove();
+                showNotification('예약이 취소되었습니다.', 'success');
+            });
+        }
+    });
+
+    // ===== 6. 쿠폰 사용 =====
+    $(document).on('click', '.btn-use-coupon', function() {
+        const couponName = $(this).closest('.coupon-item').find('h4').text();
+        showNotification(`"${couponName}"을(를) 사용했습니다.`, 'success');
+    });
+
+    // ===== 7. 리뷰 작성 =====
+    $(document).on('click', '.btn-review', function() {
+        showNotification('리뷰 작성 페이지로 이동합니다.', 'info');
+    });
+
+    // ===== 8. 다시 예약 =====
+    $(document).on('click', '.btn-rebook', function() {
+        showNotification('예약 페이지로 이동합니다.', 'info');
+    });
+
+    // ===== 9. 위시리스트 삭제 =====
+    $(document).on('click', '.btn-remove', function() {
+        const itemName = $(this).closest('.wishlist-item').find('p').text();
+        if (confirm(`"${itemName}"을(를) 위시리스트에서 제거하시겠습니까?`)) {
+            $(this).closest('.wishlist-item').fadeOut(300, function() {
+                $(this).remove();
+                showNotification('위시리스트에서 제거되었습니다.', 'success');
+            });
+        }
+    });
+
+    // ===== 10. 고객센터 버튼 =====
+    $('.btn-support').on('click', function() {
+        const supportType = $(this).closest('.support-card').find('h4').text();
+        showNotification(`${supportType} 페이지로 이동합니다.`, 'info');
+    });
+
+    // ===== 11. 기본 정보 저장 =====
+    $('.settings-card').eq(0).find('.btn-save').on('click', function() {
+        const email = $('.settings-card').eq(0).find('input:eq(1)').val();
+        const phone = $('.settings-card').eq(0).find('input:eq(2)').val();
+        const birthDate = $('.settings-card').eq(0).find('input:eq(3)').val();
+        
+        if (!email || !phone || !birthDate) {
+            showNotification('모든 필드를 입력해주세요.', 'error');
+            return;
+        }
+        
+        if (!isValidEmail(email)) {
+            showNotification('유효한 이메일을 입력해주세요.', 'error');
+            return;
+        }
+        
+        if (!isValidPhone(phone)) {
+            showNotification('유효한 휴대폰 번호를 입력해주세요.', 'error');
+            return;
+        }
+        
+        saveUserProfile({ email, phone, birthDate });
+        showNotification('기본 정보가 저장되었습니다.', 'success');
+    });
+
+    // ===== 12. 비밀번호 변경 =====
+    $('.settings-card').eq(1).find('.btn-save').on('click', function() {
+        const currentPassword = $('.settings-card').eq(1).find('input:eq(0)').val();
+        const newPassword = $('.settings-card').eq(1).find('input:eq(1)').val();
+        const confirmPassword = $('.settings-card').eq(1).find('input:eq(2)').val();
+        
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            showNotification('모든 필드를 입력해주세요.', 'error');
+            return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+            showNotification('새 비밀번호가 일치하지 않습니다.', 'error');
+            return;
+        }
+        
+        if (newPassword.length < 8) {
+            showNotification('비밀번호는 최소 8자 이상이어야 합니다.', 'error');
+            return;
+        }
+        
+        showNotification('비밀번호가 변경되었습니다.', 'success');
+        $('.settings-card').eq(1).find('input').val('');
+    });
+
+    // ===== 13. 알림 설정 저장 =====
+    $('.settings-card').eq(2).find('.btn-save').on('click', function() {
+        const emailNotif = $('.toggle-switch input:eq(0)').is(':checked');
+        const smsNotif = $('.toggle-switch input:eq(1)').is(':checked');
+        const marketingNotif = $('.toggle-switch input:eq(2)').is(':checked');
+        
+        saveNotificationSettings({
+            email: emailNotif,
+            sms: smsNotif,
+            marketing: marketingNotif
+        });
+        
+        showNotification('알림 설정이 저장되었습니다.', 'success');
+    });
+
+    // ===== 14. 계정 탈퇴 =====
+    $(document).on('click', '.btn-danger', function() {
+        if (confirm('정말로 계정을 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+            if (confirm('계정 탈퇴를 한번 더 확인합니다. 계속 진행하시겠습니까?')) {
+                showNotification('계정이 탈퇴되었습니다.', 'success');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            }
+        }
+    });
+
+    // ===== 15. 개인정보 다운로드 및 로그인 기록 =====
+    $(document).on('click', '.btn-secondary', function() {
+        const buttonText = $(this).text();
+        if (buttonText === '다운로드') {
+            showNotification('개인정보가 다운로드되었습니다.', 'success');
+        } else if (buttonText === '조회') {
+            showNotification('로그인 기록 페이지로 이동합니다.', 'info');
+        }
+    });
+
+    // ===== 16. 약관 링크 =====
+    $(document).on('click', '.terms-link', function(e) {
+        e.preventDefault();
+        const linkText = $(this).text();
+        showNotification(`"${linkText}" 페이지로 이동합니다.`, 'info');
+    });
+
+    // ===== 17. 로그아웃 =====
+    $('.logout-btn').on('click', function() {
+        if (confirm('로그아웃 하시겠습니까?')) {
+            showNotification('로그아웃 되었습니다.', 'success');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1500);
+        }
+    });
+
+    // 페이지 로드 시 초기화
+    initializePage();
+});
+
+// ===== 유틸리티 함수 =====
+
+/**
+ * 알림 표시 함수
+ */
+function showNotification(message, type = 'info') {
+    const bgColor = type === 'success' ? '#2d8659' : type === 'error' ? '#d32f2f' : '#667eea';
+    
+    const notification = $(`
+        <div style="
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            background-color: ${bgColor};
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            max-width: 400px;
+        ">
+            ${message}
+        </div>
+        <style>
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        </style>
+    `);
+    
+    $('body').append(notification);
+    
+    setTimeout(() => {
+        notification.fadeOut(300, function() {
+            $(this).remove();
+        });
+    }, 3000);
+}
+
+/**
+ * 이메일 유효성 검사
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+/**
+ * 휴대폰 번호 유효성 검사
+ */
+function isValidPhone(phone) {
+    const phoneRegex = /^01[0-9]-\d{3,4}-\d{4}$/;
+    return phoneRegex.test(phone);
+}
+
+/**
+ * 사용자 프로필 저장
+ */
+function saveUserProfile(profile) {
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+}
+
+/**
+ * 사용자 프로필 불러오기
+ */
+function getUserProfile() {
+    const profile = localStorage.getItem('userProfile');
+    return profile ? JSON.parse(profile) : null;
+}
+
+/**
+ * 알림 설정 저장
+ */
+function saveNotificationSettings(settings) {
+    localStorage.setItem('notificationSettings', JSON.stringify(settings));
+}
+
+/**
+ * 알림 설정 불러오기
+ */
+function getNotificationSettings() {
+    const settings = localStorage.getItem('notificationSettings');
+    return settings ? JSON.parse(settings) : null;
+}
+
+/**
+ * 페이지 로드 시 초기화
+ */
+function initializePage() {
+    // 사용자 정보 로드
+    const userProfile = getUserProfile();
+    if (userProfile) {
+        $('.settings-card').eq(0).find('input:eq(1)').val(userProfile.email || '');
+        $('.settings-card').eq(0).find('input:eq(2)').val(userProfile.phone || '');
+        $('.settings-card').eq(0).find('input:eq(3)').val(userProfile.birthDate || '');
+    }
+    
+    // 알림 설정 로드
+    const notificationSettings = getNotificationSettings();
+    if (notificationSettings) {
+        $('.toggle-switch input:eq(0)').prop('checked', notificationSettings.email);
+        $('.toggle-switch input:eq(1)').prop('checked', notificationSettings.sms);
+        $('.toggle-switch input:eq(2)').prop('checked', notificationSettings.marketing);
+    }
+
+    // 첫 번째 탭 활성화
+    $('.tab-nav-btn').first().addClass('active');
+    $('.tab-pane').first().addClass('active');
+    
+    // 예약 탭 초기화
+    $('.service-tab-btn').first().addClass('active');
+    $('.reservation-group').addClass('active');
+}
+
+/**
+ * 날짜 포맷팅
+ */
+function formatDate(date) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(date).toLocaleDateString('ko-KR', options);
+}
+
+/**
+ * 가격 포맷팅
+ */
+function formatPrice(price) {
+    return new Intl.NumberFormat('ko-KR', {
+        style: 'currency',
+        currency: 'KRW'
+    }).format(price);
+}
+</script>
+    <script src="script-group.js"></script>
+</body>
+</html>

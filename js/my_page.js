@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   // ===== 1. 메인 탭 전환 =====
   $('.tab-nav-btn').on('click', function () {
@@ -236,7 +237,7 @@ $(document).ready(function () {
  * 알림 표시 함수
  */
 function showNotification(message, type = 'info') {
-  const bgColor = type === 'success' ? '#2d8659' : type === 'error' ? '#d32f2f' : '#667eea';
+  const bgColor = type === 'success' ? '#ff5000' : type === 'error' ? '#d32f2f' : '#667eea';
 
   const notification = $(`
         <div style="

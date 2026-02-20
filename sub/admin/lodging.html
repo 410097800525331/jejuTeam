@@ -56,6 +56,25 @@
                                 <button class="theme-btn" data-theme="light" title="라이트 모드">☀️</button>
                             </div>
                         </div>
+                        <div class="dropdown-section">
+                            <span class="dropdown-section-title">언어 설정</span>
+                            <div class="admin-lang-toggle">
+                                <button class="lang-btn active" data-lang-val="ko">KOR</button>
+                                <button class="lang-btn" data-lang-val="en">ENG</button>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="dropdown-menu-list">
+                            <li><a href="#" class="dropdown-item"><span
+                                        style="font-size:1.1rem; width:20px; display:inline-block; text-align:center;">👥</span><span>관리자
+                                        명단 보기</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span
+                                        style="font-size:1.1rem; width:20px; display:inline-block; text-align:center;">⚙️</span><span>내
+                                        프로필 설정</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span
+                                        style="font-size:1.1rem; width:20px; display:inline-block; text-align:center;">🔒</span><span>보안
+                                        로그 (Audit)</span></a></li>
+                        </ul>
                         <div class="dropdown-divider"></div>
                         <button class="dropdown-item danger-item" id="admin-logout-btn">
                             <span
@@ -112,10 +131,9 @@
             </div>
 
             <div style="display:flex; justify-content:center; margin-top:20px; gap:8px;">
-                <button class="admin-btn admin-btn-outline" disabled>
-                    << /button>
-                        <button class="admin-btn admin-btn-primary">1</button>
-                        <button class="admin-btn admin-btn-outline">></button>
+                <button class="admin-btn admin-btn-outline" disabled>&lt;</button>
+                <button class="admin-btn admin-btn-primary">1</button>
+                <button class="admin-btn admin-btn-outline">&gt;</button>
             </div>
         </main>
     </div>

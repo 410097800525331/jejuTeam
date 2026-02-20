@@ -805,7 +805,8 @@ html, body {
   font-size: 13px;
 }
 
-.btn-support {
+.btn-support,
+.inquiry-btn {
   padding: 10px 20px;
   background-color: var(--primary-color);
   color: white;

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제주 통합 결제</title>
+
+<style>
+:root{
+  --main:#ff6b00;
+  --sub:#3aa0ff;
+  --bg:#f6f8fb;
+  --line:#e6e8ec;
+  --text:#222;
+  --muted:#777;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Pretendard,sans-serif;}
+body{background:var(--bg);color:var(--text);}
+
+.container{
+  max-width:1280px;
+  margin:40px auto;
+  padding:0 24px;
+  display:flex;
+  gap:40px;
+}
+
+.left{flex:1;}
+.right{width:380px;}
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  margin-bottom:28px;
+  overflow:hidden;
+}
+
+.card_header{
+  padding:22px 26px;
+  font-weight:600;
+  font-size:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  border-bottom:1px solid var(--line);
+}
+
+.card_body{
+  padding:26px;
+  display:block;
+}
+
+.card_body.hidden{
+  display:none;
+}
+
+.detail_row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:14px;
+  font-size:14px;
+}
+
+.detail_label{color:var(--muted);}
+.detail_price{font-weight:600;}
+
+.section_title{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:14px;
+}
+
+.input_group{
+  margin-bottom:16px;
+}
+
+.input_group label{
+  font-size:13px;
+  margin-bottom:6px;
+  display:block;
+}
+
+.input_group input, .input_group select{
+  width:100%;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:8px;
+}
+
+.option_row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.summary{
+  position:sticky;
+  top:40px;
+  padding:30px;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+}
+
+.summary_row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+  font-size:14px;
+}
+
+.summary_total{
+  font-size:20px;
+  font-weight:700;
+  margin-top:20px;
+}
+
+.pay_btn{
+  width:100%;
+  margin-top:20px;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:var(--main);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.pay_btn:hover{opacity:0.92;}
+
+.checkbox_row{
+  display:flex;
+  gap:8px;
+  margin-bottom:10px;
+  font-size:14px;
+}
+
+.mobile_bar{
+  display:none;
+}
+
+@media(max-width:1024px){
+  .container{flex-direction:column;}
+  .right{width:100%;}
+  .summary{position:static;}
+  .mobile_bar{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#fff;
+    padding:14px 20px;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 -4px 16px rgba(0,0,0,0.08);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="left">
+
+<!-- 항공 -->
+<div class="card">
+  <div class="card_header" onclick="toggleSection(this)">
+    ✈ 제주항공 예약정보
+    <span>▼</span>
+  </div>
+  <div class="card_body">
+    <div class="detail_row">
+      <span class="detail_label">노선</span>
+      <span>김포 → 제주</span>
+    </div>
+    <div class="detail_row">
+      <span class="detail_label">탑승일</span>
+      <span>2026.03.15</span>
+    </div>
+    <div class="detail_row">
+      <span class="detail_label">성인 2명</span>
+      <span class="detail_price" data-price="240000">240,000원</span>
+    </div>
+  </div>
+</div>
+
+<!-- 숙소 -->
+<div class="card">
+  <div class="card_header" onclick="toggleSection(this)">
+    🏨 제주스테이 예약정보
+    <span>▼</span>
+  </div>
+  <div class="card_body">
+    <div class="detail_row">
+      <span>오션뷰 더블룸</span>
+      <span>2박</span>
+    </div>
+    <div class="detail_row">
+      <span>객실요금</span>
+      <span class="detail_price" data-price="300000">300,000원</span>
+    </div>
+  </div>
+</div>
+
+<!-- 렌터카 -->
+<div class="card">
+  <div class="card_header" onclick="toggleSection(this)">
+    🚗 제주렌터카 예약정보
+    <span>▼</span>
+  </div>
+  <div class="card_body">
+    <div class="option_row">
+      <span>차량: K5</span>
+      <span>48시간</span>
+    </div>
+    <div class="option_row">
+      <span>완전자차 보험</span>
+      <input type="checkbox" id="insurance" data-price="30000">
+    </div>
+    <div class="detail_row">
+      <span>기본요금</span>
+      <span class="detail_price" data-price="100000">100,000원</span>
+    </div>
+  </div>
+</div>
+
+<!-- 예약자 정보 -->
+<div class="card">
+  <div class="card_body">
+    <div class="section_title">예약자 정보</div>
+
+    <div class="input_group">
+      <label>이름</label>
+      <input type="text" id="name">
+    </div>
+
+    <div class="input_group">
+      <label>휴대폰</label>
+      <input type="text">
+    </div>
+
+    <div class="input_group">
+      <label>이메일</label>
+      <input type="email">
+    </div>
+  </div>
+</div>
+
+<!-- 할인 -->
+<div class="card">
+  <div class="card_body">
+    <div class="section_title">할인 / 포인트</div>
+
+    <div class="input_group">
+      <label>포인트 사용</label>
+      <input type="number" id="point" value="0">
+    </div>
+
+    <div class="checkbox_row">
+      <input type="checkbox" id="agree1">
+      <label>취소 및 환불 규정 동의</label>
+    </div>
+
+    <div class="checkbox_row">
+      <input type="checkbox" id="agree2">
+      <label>개인정보 수집 동의</label>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- 결제 요약 -->
+<div class="right">
+  <div class="summary">
+    <div class="summary_row">
+      <span>상품 금액</span>
+      <span id="sumPrice"></span>
+    </div>
+
+    <div class="summary_row">
+      <span>포인트 할인</span>
+      <span id="discount"></span>
+    </div>
+
+    <div class="summary_row summary_total">
+      <span>최종 결제 금액</span>
+      <span id="finalPrice"></span>
+    </div>
+
+    <button class="pay_btn" onclick="pay()">결제하기</button>
+  </div>
+</div>
+
+</div>
+
+<div class="mobile_bar">
+  <div>
+    <div style="font-size:12px;color:#777;">최종 결제 금액</div>
+    <div id="mobilePrice" style="font-weight:700;"></div>
+  </div>
+  <button class="pay_btn" onclick="pay()">결제</button>
+</div>
+
+<script>
+function format(n){return n.toLocaleString()+"원";}
+
+function calculate(){
+  let total = 0;
+
+  document.querySelectorAll("[data-price]").forEach(el=>{
+    if(el.type==="checkbox"){
+      if(el.checked) total += parseInt(el.dataset.price);
+    }else{
+      total += parseInt(el.dataset.price);
+    }
+  });
+
+  let point = parseInt(document.getElementById("point").value)||0;
+  let final = total - point;
+
+  document.getElementById("sumPrice").innerText=format(total);
+  document.getElementById("discount").innerText="-"+format(point);
+  document.getElementById("finalPrice").innerText=format(final);
+  document.getElementById("mobilePrice").innerText=format(final);
+}
+
+document.querySelectorAll("input").forEach(el=>{
+  el.addEventListener("input",calculate);
+});
+
+function toggleSection(header){
+  const body = header.nextElementSibling;
+  body.classList.toggle("hidden");
+}
+
+function pay(){
+  if(!document.getElementById("agree1").checked ||
+     !document.getElementById("agree2").checked){
+     alert("필수 약관에 동의해주세요.");
+     return;
+  }
+
+  alert("통합 결제가 완료되었습니다 ✈🏨🚗");
+}
+
+calculate();
+</script>
+
+</body>
+</html>

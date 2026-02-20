@@ -7,6 +7,7 @@
   <title data-lang="pageTitle">제주 그룹 - 모든 여행을 제주그룹 하나로</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/chatbot-style.css">
   <link rel="stylesheet" href="/css/my_page.css">
 </head>
 
@@ -509,7 +510,7 @@
               <div class="support-card">
                 <h4>1:1 상담</h4>
                 <p>전문가와 상담하세요</p>
-                <button class="btn-support">신청</button>
+                <button class="inquiry-btn" id="openChatbotBtn" data-lang="inquiryBtn">문의</button>
               </div>
               <div class="support-card">
                 <h4>FAQ</h4>
@@ -642,17 +643,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 약관 및 정책 -->
-            <div class="settings-card">
-              <h3>약관 및 정책</h3>
-              <div class="terms-links">
-                <a href="#" class="terms-link">이용약관</a>
-                <a href="#" class="terms-link">개인정보처리방침</a>
-                <a href="#" class="terms-link">마케팅 수신 동의</a>
-                <a href="#" class="terms-link">위치기반서비스 약관</a>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -700,10 +690,7 @@
   </button>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <!-- <script src="/js/lang_data.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/city_data.js"></script>
-  <script src="/js/weather.js"></script> -->
+  <script src="/js/chatbot.js"></script>
   <script src="/js/my_page.js"></script>
 </body>
 

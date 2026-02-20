@@ -55,3 +55,29 @@ function initHeader() {
 
 // Export if using modules, but here we'll just keep it global for simplicity in static site
 window.initHeader = initHeader;
+
+// Security Protocol: Dynamic GNB Rendering
+document.addEventListener('DOMContentLoaded', () => {
+    // Slight delay to ensure header component is loaded if injected dynamically
+    setTimeout(() => {
+        const adminBtn = document.getElementById('headerAdminBtn');
+        if (!adminBtn) return;
+
+        try {
+            const rawSession = localStorage.getItem('userSession');
+            const sessionData = rawSession ? JSON.parse(rawSession) : null;
+            
+            if (sessionData && sessionData.role && sessionData.role.includes('ADMIN')) {
+                adminBtn.style.display = 'flex'; // Expose premium admin feature
+                
+                // Re-initialize lucide icons if needed for the newly exposed button
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }
+        } catch (e) {
+            // Immutable/Silent fail on parse error
+            console.error('Session parsing error');
+        }
+    }, 100);
+});

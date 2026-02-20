@@ -55,9 +55,8 @@
 
       <form class="login-form">
         <div class="input-group">
-          <label for="email" data-lang="emailLabel">이메일</label>
-          <input type="email" id="email" placeholder="example@jejugroup.com" data-lang-placeholder="emailPlaceholder"
-            required>
+          <label for="email" data-lang="emailLabel">이메일/아이디</label>
+          <input type="text" id="email" placeholder="아이디 또는 이메일 입력" data-lang-placeholder="emailPlaceholder" required>
         </div>
 
         <div class="input-group">
@@ -112,6 +111,34 @@
 
   <script src="/js/lang_data.js"></script>
   <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.querySelector('.login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = document.getElementById('email').value.trim();
+          const password = document.getElementById('password').value.trim();
+
+          // Mockup Admin Login (Security Protocol dictates proper API validation in production)
+          if (email === 'admin' && password === '1234') {
+            const sessionData = {
+              role: 'SUPER_ADMIN',
+              name: '총괄본부장'
+            };
+            // Immutability: spreading into new object to save
+            localStorage.setItem('userSession', JSON.stringify({ ...sessionData }));
+
+            // Redirect to admin dashboard
+            window.location.replace('/sub/admin/dashboard.html');
+          } else {
+            // Simulated validation failure
+            alert('이메일(아이디) 또는 비밀번호가 일치하지 않습니다.');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

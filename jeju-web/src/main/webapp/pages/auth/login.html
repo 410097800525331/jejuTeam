@@ -16,55 +16,60 @@
 </head>
 
 <body class="login-page">
-  <div id="main-header-placeholder"></div>
+  <div id="mypage-shell-header"></div>
 
   <section class="user_wrap">
-    <div class="user_box inner2 login-card">
-      <div class="login-header">
-        <h1 class="login-title" data-lang="loginTitle">로그인</h1>
-        <p class="login-desc" data-lang="loginDesc">포인트 적립에서 운임할인까지 회원전용 혜택을 받아보세요.</p>
-      </div>
-
-      <form id="user_form" class="login-form">
-        <div class="input_group">
-          <label data-lang="emailLabel">이메일/아이디</label>
-          <input type="text" id="id" placeholder="아이디 또는 이메일 입력" required>
-        </div>
-        <div class="input_group">
-          <label data-lang="passwordLabel">비밀번호</label>
-          <input type="password" id="pw" placeholder="비밀번호 입력" required>
+    <div id="jeju-login-app">
+      <div class="user_box inner2 login-card">
+        <div class="login-header">
+          <h1 class="login-title" data-lang="loginTitle">로그인</h1>
+          <p class="login-desc" data-lang="loginDesc">포인트 적립에서 운임할인까지 회원전용 혜택을 받아보세요.</p>
         </div>
 
-        <div id="login-error-wrapper" class="error-wrapper" style="display: none;">
-          <p class="error-msg" data-lang="loginError">등록되지 않은 아이디이거나 아이디, 비밀번호가 일치하지 않습니다.</p>
-        </div>
-
-        <div class="login_options">
-          <label><input type="checkbox"> 아이디 저장</label>
-          <div class="nav-links">
-            <a href="#" data-lang="findIdPw">아이디/비밀번호 찾기</a>
-            <span class="divider">|</span>
-            <a href="#" class="route-link" data-route="AUTH.SIGNUP" data-lang="signup">회원가입</a>
+        <form id="user_form" class="login-form">
+          <div class="input_group">
+            <label data-lang="emailLabel">이메일/아이디</label>
+            <input type="text" id="id" placeholder="아이디 또는 이메일 입력" required>
           </div>
+          <div class="input_group">
+            <label data-lang="passwordLabel">비밀번호</label>
+            <input type="password" id="pw" placeholder="비밀번호 입력" required>
+          </div>
+
+          <div id="login-error-wrapper" class="error-wrapper" style="display: none;">
+            <p class="error-msg" data-lang="loginError">등록되지 않은 아이디이거나 아이디, 비밀번호가 일치하지 않습니다.</p>
+          </div>
+
+          <div class="login_options">
+            <label class="remember-me">
+              <input type="checkbox" id="saveId">
+              <span data-lang="saveId">아이디 저장</span>
+            </label>
+            <div class="nav-links">
+              <a href="#" data-lang="findIdPw">아이디/비밀번호 찾기</a>
+              <span class="divider">|</span>
+              <a href="#" class="route-link" data-route="AUTH.SIGNUP" data-lang="signup">회원가입</a>
+            </div>
+          </div>
+
+          <button type="submit" class="login-btn btn" data-lang="loginButton">로그인</button>
+        </form>
+
+        <div class="quick_login">3초 만에 빠른 로그인</div>
+        <div class="sns_login">
+          <button class="sns_btn kakao">카카오</button>
+          <button class="sns_btn naver">네이버</button>
+
         </div>
 
-        <button type="submit" class="login-btn btn" data-lang="loginButton">로그인</button>
-      </form>
-
-      <div class="quick_login">3초 만에 빠른 로그인</div>
-      <div class="sns_login">
-        <button class="sns_btn kakao">카카오</button>
-        <button class="sns_btn naver">네이버</button>
-        <button class="sns_btn apple">Apple</button>
-      </div>
-
-      <div class="simple_login">
-        <button class="simple_login-btn" type="button">휴대폰 간편 로그인</button>
+        <div class="simple_login">
+          <button class="simple_login-btn" type="button">휴대폰 간편 로그인</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <div id="main-footer-placeholder"></div>
+  <div id="mypage-shell-footer"></div>
 
   <button class="top-btn" id="topBtn">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -75,12 +80,14 @@
   <script src="../../core/constants/lang_data.js"></script>
   <script src="../../jejustay/pages/hotel/main.js"></script>
 
-  <!-- Component Scripts (Must load before component_loader.js) -->
-  <script src="../../components/layout/header/header.js"></script>
-  <script src="../../components/layout/mega_menu/mega-menu.js"></script>
-  <script src="../../components/layout/footer/footer.js"></script>
+  <!-- Reuse existing MyPage Shell Logic -->
+  <script type="module">
+    import { mountMyPageShell } from '../mypage/dashboard_shell.js';
+    document.addEventListener('DOMContentLoaded', () => {
+      mountMyPageShell();
+    });
+  </script>
 
-  <script src="../../components/layout/component_loader.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const loginForm = document.querySelector('.login-form');

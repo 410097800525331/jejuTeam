@@ -49,18 +49,18 @@ html {
   height: auto;
 }
 
-#main-header-placeholder {
+#mypage-shell-header {
   position: relative;
-  z-index: 100; /* ?ㅻ뜑瑜?臾댁“嫄?理쒖긽?⑥쑝濡?*/
+  z-index: 100;
 }
 
-.signup-wrapper, #main-footer-placeholder {
+#jeju-signup-app, #mypage-shell-footer {
   position: relative;
   z-index: 1;
 }
 
 /* 2. Header / Footer Sync (Login Style) */
-.signup-page .header {
+.signup-page:not([data-mypage-shell="air"]) .header {
   background: #ffffff !important;
   box-shadow: none !important;
   border-bottom: 1px solid #eeeeee !important;
@@ -85,7 +85,7 @@ html {
   color: #333333 !important;
 }
 
-.signup-page .footer {
+.signup-page:not([data-mypage-shell="air"]) .footer {
   background-color: #EEEEEE !important;
   padding: 60px 40px !important;
   display: block !important;
@@ -96,22 +96,23 @@ html {
 }
 
 /* Page Layout Wrapper */
-.signup-wrapper {
+#jeju-signup-app {
   width: 100%;
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 60px 20px 80px 20px;
+  align-items: center; /* Center for balance */
+  padding: 100px 20px 60px; /* Increased top padding for fixed headers */
+  background-color: #ffffff !important;
 }
 
-#main-footer-placeholder {
+#mypage-shell-footer {
   width: 100%;
   flex-shrink: 0;
 }
 
 /* 3. Signup Container - Match Login Card Size */
-.signup-container {
+#jeju-signup-app .signup-container {
   background: transparent;
   width: 100%;
   max-width: 480px;
@@ -129,14 +130,14 @@ html {
 }
 
 /* Header */
-.step-header {
+#jeju-signup-app .step-header {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   padding-bottom: 20px;
-  margin-bottom: 0; /* Changed from 40px */
-  border-bottom: 2px solid #222; /* 타이트한 언더라인 바 */
+  margin-bottom: 0;
+  border-bottom: 2px solid #222;
   gap: 20px;
 }
 
@@ -157,12 +158,12 @@ html {
   margin-top: 15px; /* Reduced from 30px */
 }
 
-.input_group {
+#jeju-signup-app .input_group {
   margin-bottom: 20px;
   position: relative;
 }
 
-.input_group label {
+#jeju-signup-app .input_group label {
   display: block;
   text-align: left;
   margin: 16px 6px 6px;
@@ -171,7 +172,7 @@ html {
   color: #444;
 }
 
-.input_group input {
+#jeju-signup-app .input_group input {
   width: 100%;
   height: 48px;
   padding: 0 16px;
@@ -219,15 +220,15 @@ html {
   will-change: transform;
 }
 
-.btn-primary {
+#jeju-signup-app .btn-primary {
   width: 100%;
   margin-top: 10px;
   padding: 16px 0;
   border-radius: 14px;
-  background: linear-gradient(135deg, #FF5000 0%, #FF8C00 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #FF5000 0%, #FF8C00 100%) !important;
+  color: #fff !important;
   font-size: 16px;
-  box-shadow: 0 4px 15px rgba(255, 80, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 80, 0, 0.3) !important;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -291,7 +292,7 @@ html {
 }
 
 /* Terms Checkbox */
-.agree_box {
+#jeju-signup-app .agree_box {
   background: rgba(255, 255, 255, 0.5);
   padding: 1.5rem;
   border-radius: 16px;
@@ -764,3 +765,44 @@ html {
 .strength-strong #meterBar2,
 .strength-strong #meterBar3 { background-color: #52c41a; }
 .strength-strong #strengthText { color: #52c41a; }
+
+/* ==================== Shell Specific Overrides ==================== */
+
+/* Stay Shell Overrides */
+[data-mypage-shell="stay"],
+[data-mypage-shell="stay"] html {
+  overflow: auto !important;
+  height: auto !important;
+}
+
+[data-mypage-shell="stay"] body {
+  background: #ffffff !important;
+  overflow: auto !important;
+}
+
+#jeju-signup-app h1, 
+#jeju-signup-app p, 
+#jeju-signup-app input {
+  margin: initial;
+  padding: initial;
+  border: initial;
+  background: initial;
+  font-family: 'FlightSans', sans-serif !important;
+}
+
+#jeju-signup-app button {
+  margin: initial;
+  padding: initial;
+  font-family: 'FlightSans', sans-serif !important;
+}
+
+#jeju-signup-app .input_group input {
+  border: 2px solid #ddd !important;
+  background-color: #ffffff !important;
+  display: block !important;
+}
+
+#jeju-signup-app .btn-primary {
+  background: linear-gradient(135deg, #FF5000 0%, #FF8C00 100%) !important;
+  color: #fff !important;
+}

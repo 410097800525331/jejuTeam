@@ -9,8 +9,8 @@ $(document).ready(function () {
         <a href="pages/cs/notic.html">공지사항</a>
       </div>
       <div class="top_bar_right">
-        <a href="pages/auth/login.html">로그인</a>
-        <a href="pages/auth/join.html">회원가입</a>
+        <a href="../pages/auth/login.html?shell=air">로그인</a>
+        <a href="../pages/auth/signup.html?shell=air">회원가입</a>
         <div class="language_selector">
           <a href="#">한국어</a>
         </div>
@@ -20,7 +20,7 @@ $(document).ready(function () {
     <!-- gnb -->
     <nav class="main_nav">
       <div class="main_nav_container">
-        <h1 class="logo"><a href="../index.html"><img src="assets/img/logo.png" alt="제주항공 로고"></a></h1>
+        <h1 class="logo"><a href="index.html"><img src="assets/img/logo.png" alt="제주항공 로고"></a></h1>
         <button class="hamburger_btn" aria-label="menu">
           <span></span>
           <span></span>
@@ -119,8 +119,8 @@ $(document).ready(function () {
       <button class="mobile_close_btn">✕</button>
     </div>
     <div class="mobile_user_area">
-      <a href="pages/auth/login.html">로그인</a>
-      <a href="pages/auth/join.html">회원가입</a>
+      <a href="../pages/auth/login.html?shell=air">로그인</a>
+      <a href="../pages/auth/signup.html?shell=air">회원가입</a>
       <a href="../pages/mypage/dashboard.html?shell=air">마이페이지</a>
     </div>
     <div class="mobile_search">

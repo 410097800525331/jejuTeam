@@ -49,15 +49,16 @@ body.login-page {
 }
 
 /* ==================== Header/Footer Layout Overrides ==================== */
-.login-page #main-header-placeholder,
-.login-page #main-footer-placeholder {
+.login-page #mypage-shell-header,
+.login-page #mypage-shell-footer {
   width: 100%;
   flex-shrink: 0;
 }
 
 /* Auth Footer Overrides - Restore from Transparent Hack in Hotel.css */
-.login-page .footer {
-  background-color: #f7f9fa; /* Standard Light Footer Background */
+/* Default Footer Style (Main/Stay) */
+.login-page:not([data-mypage-shell="air"]) .footer {
+  background-color: #f7f9fa;
   border-top: 1px solid #eeeeee;
   padding: 40px 60px;
   display: block;
@@ -87,7 +88,8 @@ body.login-page {
 }
 
 /* Auth Header Overrides - Ensure Default Colors */
-.login-page .header {
+/* Default Header Style (Main/Stay) */
+.login-page:not([data-mypage-shell="air"]) .header {
   background: #ffffff;
   box-shadow: none;
   border-bottom: 1px solid #eeeeee;
@@ -111,23 +113,26 @@ body.login-page {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align closer to top like the screenshot */
-  padding: 120px 20px 80px 20px; /* Top padding spacing below fixed header */
-  background-color: #ffffff;
+  align-items: center;
+  padding: 100px 20px 60px; /* Increased top padding for fixed headers */
+  background-color: #ffffff !important;
 }
 
-.login-card {
+#jeju-login-app {
   width: 100%;
-  max-width: 480px;
-  background: #ffffff;
-  /* Flat Design: Minimal shadow or no shadow depending on user preference. The screenshot looks very flat. */
+  max-width: 460px; /* 기존 560px에서 축소 */
+}
+
+#jeju-login-app .login-card {
+  width: 100%;
+  background: #ffffff !important;
   border: none;
   border-radius: 0;
   padding: 0;
 }
 
 /* ==================== Title & Headers ==================== */
-.login-header {
+#jeju-login-app .login-header {
   text-align: left;
   margin-bottom: 40px;
 }
@@ -137,14 +142,14 @@ body.login-page {
   display: none; /* Hide the image logo in the box, use text instead */
 }
 
-.login-title {
+#jeju-login-app .login-title {
   font-size: 28px;
   font-weight: 700;
-  color: #FF5000;
+  color: #FF5000 !important; /* Force Orange color against common.css h1 rules */
   margin: 0 0 16px 0;
 }
 
-.login-desc {
+#jeju-login-app .login-desc {
   font-size: 14px;
   color: #666;
   margin: 0;
@@ -156,11 +161,11 @@ body.login-page {
   width: 100%;
 }
 
-.input_group {
+#jeju-login-app .input_group {
   margin-bottom: 24px;
 }
 
-.input_group label {
+#jeju-login-app .input_group label {
   display: block;
   font-size: 14px;
   color: #333;
@@ -168,17 +173,17 @@ body.login-page {
   font-weight: 700;
 }
 
-.input_group input {
+#jeju-login-app .input_group input {
   width: 100%;
-  height: 48px;
-  padding: 0 16px;
+  height: 56px; /* 기존 48px에서 상향 */
+  padding: 0 20px;
   border: 1px solid #e5e5e5;
   background-color: #ffffff;
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 16px; /* 폰트 크기 소폭 상향 */
   font-family: 'FlightSans', sans-serif;
   color: #333;
-  transition: border-color 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .input_group input::placeholder {
@@ -213,27 +218,30 @@ body.login-page {
 }
 
 /* ==================== Options (Save ID, Find) ==================== */
-.login_options {
+#jeju-login-app .login_options {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
   color: #666;
   margin-bottom: 40px;
+  flex-wrap: wrap; /* 너비 부족 시 겹침 방지 */
+  gap: 12px;
 }
 
 .login_options label {
   display: flex;
   align-items: center;
+  gap: 12px; /* 간격 확장 */
   cursor: pointer;
 }
 
 .login_options input[type="checkbox"] {
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   accent-color: #FF5000;
-  border: 1px solid #ccc; /* Sometimes checkbox styling needs custom wrappers for exact match, relying on accent for now */
+  cursor: pointer;
+  margin: 0; /* gap으로 조절하므로 마진 제거 */
 }
 
 .login_options a {
@@ -250,7 +258,7 @@ body.login-page {
 .login_options .nav-links {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px; /* 간격 확장 */
 }
 
 .login_options .divider {
@@ -259,21 +267,21 @@ body.login-page {
 }
 
 /* ==================== Buttons ==================== */
-.login-btn {
+#jeju-login-app .login-btn {
   width: 100%;
-  height: 48px;
-  background-color: #FF5000; /* Flat Orange */
-  color: #ffffff;
-  font-size: 16px;
+  height: 56px; /* 기존 48px에서 상향 */
+  background-color: #FF5000 !important;
+  color: #ffffff !important;
+  font-size: 18px; /* 폰트 크기 상향 */
   font-weight: 700;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .login-btn:hover {
@@ -281,7 +289,7 @@ body.login-page {
 }
 
 /* ==================== Divider ==================== */
-.quick_login {
+#jeju-login-app .quick_login {
   position: relative;
   text-align: center;
   font-size: 13px;
@@ -305,24 +313,24 @@ body.login-page {
 .quick_login::after { right: 0; }
 
 /* ==================== Social Media Buttons ==================== */
-.sns_login {
+#jeju-login-app .sns_login {
   display: flex;
   gap: 10px;
   margin-bottom: 12px;
 }
 
-.sns_btn {
+#jeju-login-app .sns_btn {
   flex: 1;
-  height: 48px;
+  height: 52px; /* 살짝 높여 밸런스 조정 */
   border: none;
   border-radius: 12px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
 }
 
 .sns_btn:hover {
@@ -331,7 +339,6 @@ body.login-page {
 
 .sns_btn.kakao { background-color: #FEE500; color: #3C1E1E; }
 .sns_btn.naver { background-color: #03C75A; color: #FFFFFF; }
-.sns_btn.apple { background-color: #000000; color: #FFFFFF; }
 
 .simple_login {
   margin-bottom: 30px;
@@ -365,4 +372,47 @@ body.login-page {
 
 .login-page .footer-copyright {
   border-top: none;
+}
+
+/* ==================== Shell Specific Overrides ==================== */
+
+/* Stay Shell Overrides */
+[data-mypage-shell="stay"],
+[data-mypage-shell="stay"] html {
+  overflow: auto !important; /* Force scroll enabled */
+  height: auto !important;
+}
+
+[data-mypage-shell="stay"] body {
+  background: #ffffff !important; /* Kill Stay's gradient background */
+  overflow: auto !important;
+}
+
+/* Fix Stay's global input/tag resets */
+#jeju-login-app h1, 
+#jeju-login-app p, 
+#jeju-login-app input {
+  margin: initial;
+  padding: initial;
+  border: initial;
+  background: initial;
+  font-family: 'FlightSans', sans-serif !important;
+}
+
+#jeju-login-app button {
+  margin: initial;
+  padding: initial;
+  font-family: 'FlightSans', sans-serif !important;
+}
+
+/* Re-apply login specific styles with high priority */
+#jeju-login-app .login-title {
+  color: #FF5000 !important;
+  margin-bottom: 16px !important;
+}
+
+#jeju-login-app .input_group input {
+  border: 1px solid #e5e5e5 !important;
+  background-color: #ffffff !important;
+  display: block !important;
 }

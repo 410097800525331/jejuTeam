@@ -18,16 +18,14 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
 
     <!-- Social SDKs -->
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
-        integrity="sha384-lXV7Adt7da177WMCp88p5uqcue1NOXSTjE2u5GZQJ7W75E61GAs75fT9u9DMTBv8"
-        crossorigin="anonymous"></script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"></script>
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 </head>
 
 <body class="signup-page">
-    <div id="main-header-placeholder"></div>
+    <div id="mypage-shell-header"></div>
 
-    <main class="signup-wrapper">
+    <main class="signup-wrapper" id="jeju-signup-app">
         <section class="signup-container">
             <!-- Step Header & Progress -->
             <header class="step-header">
@@ -170,18 +168,19 @@
         </section>
     </main>
 
-    <div id="main-footer-placeholder"></div>
+    <div id="mypage-shell-footer"></div>
 
     <!-- Core Scripts (Zero Monolith Architecture) -->
     <script src="../../core/constants/lang_data.js"></script>
     <script src="../../jejustay/pages/hotel/main.js"></script>
 
-    <!-- Component Scripts (Must load before component_loader.js) -->
-    <script src="../../components/layout/header/header.js"></script>
-    <script src="../../components/layout/mega_menu/mega-menu.js"></script>
-    <script src="../../components/layout/footer/footer.js"></script>
-
-    <script src="../../components/layout/component_loader.js"></script>
+    <!-- Reuse existing MyPage Shell Logic -->
+    <script type="module">
+        import { mountMyPageShell } from '../mypage/dashboard_shell.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            mountMyPageShell();
+        });
+    </script>
 
     <script type="module">
         import { initSignupLogic } from './js/signup_main.js';

@@ -99,7 +99,7 @@ export const initUI = () => {
     }
 
     // -------------------------------------------------------------
-    // 3. Step 2: Kakao/Naver SDK Integration (Mocked for UI/UX)
+    // 3. Step 2: Kakao/Naver SDK Integration
     // -------------------------------------------------------------
     const btnKakao = document.getElementById('btnKakao');
     const btnNaver = document.getElementById('btnNaver');
@@ -111,18 +111,59 @@ export const initUI = () => {
     const userEmailInput = document.getElementById('userEmail');
     let verifiedProvider = '';
 
-    const handleSocialLogin = (provider) => {
-        console.log(`[SignUp] Initiating ${provider} Login...`);
-        // Fake SDK delay
-        setTimeout(() => {
-            console.log(`[SignUp] ${provider} SDK Callback Success! Auto-navigating to Complete.`);
-            // Skip Step 3, go directly to Step 4 (Complete)
-            goToStep(4);
-        }, 1500);
+    const applySocialProfile = (provider, profile) => {
+        if (!profile) {
+            return;
+        }
+
+        verifiedProvider = provider.toUpperCase();
+
+        if (verifiedNameInput && profile.name) {
+            verifiedNameInput.value = profile.name;
+            verifiedNameInput.setAttribute('readonly', true);
+            verifiedNameInput.classList.add('readonly-input');
+        }
+
+        if (verifiedPhoneInput && profile.phone) {
+            verifiedPhoneInput.value = profile.phone;
+            verifiedPhoneInput.setAttribute('readonly', true);
+            verifiedPhoneInput.classList.add('readonly-input');
+        }
+
+        if (verifiedGenderInput && profile.gender) {
+            verifiedGenderInput.value = profile.gender;
+        }
     };
 
-    if (btnKakao) btnKakao.addEventListener('click', () => handleSocialLogin('Kakao'));
-    if (btnNaver) btnNaver.addEventListener('click', () => handleSocialLogin('Naver'));
+    const handleSocialLogin = async (provider) => {
+        const providerLabel = provider === 'kakao' ? 'Kakao' : 'Naver';
+        console.log(`[SignUp] Initiating ${providerLabel} Login...`);
+
+        try {
+            const { triggerSocialAuth } = await import('./signup_api.js');
+            const result = await triggerSocialAuth(provider);
+
+            if (result?.success) {
+                applySocialProfile(provider, result.data);
+                console.log(`[SignUp] ${providerLabel} auth success. Moving to complete step.`);
+                goToStep(4);
+                return;
+            }
+
+            if (result?.pending) {
+                console.log(`[SignUp] ${providerLabel} auth is pending in popup.`);
+                return;
+            }
+
+            alert(`${providerLabel} 로그인 실패`);
+        } catch (error) {
+            console.error(`[SignUp] ${providerLabel} login failed`, error);
+            alert(`${providerLabel} 로그인 처리 중 오류 발생`);
+        }
+    };
+
+    if (btnKakao) btnKakao.addEventListener('click', () => handleSocialLogin('kakao'));
+    if (btnNaver) btnNaver.addEventListener('click', () => handleSocialLogin('naver'));
 
 
     // -------------------------------------------------------------

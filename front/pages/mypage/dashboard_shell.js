@@ -154,7 +154,7 @@ const initCommonBindings = async () => {
     event.preventDefault();
 
     try {
-      const { reservationDrawer } = await import('../../components/ui/reservation_drawer/drawer.js');
+      const { reservationDrawer } = await import('../../components/adapters/ui/reservation_drawer.js');
       reservationDrawer.open();
     } catch (error) {
       console.error('[MyPageShell] Drawer open failed:', error);
@@ -169,17 +169,17 @@ const dispatchShellEvents = () => {
 
 const renderMainShell = async () => {
   const [headerHtml, footerHtml] = await Promise.all([
-    loadText('components/layout/header/main_header.html'),
-    loadText('components/layout/footer/main_footer.html')
+    loadText('components/assets/layout/header/main_header.html'),
+    loadText('components/assets/layout/footer/main_footer.html')
   ]);
 
   headerHost.innerHTML = headerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
   footerHost.innerHTML = footerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
 
   await Promise.all([
-    loadScript('components/layout/header/header.js'),
-    loadScript('components/layout/mega_menu/mega-menu.js'),
-    loadScript('components/layout/footer/footer.js')
+    loadScript('components/adapters/layout/header.js'),
+    loadScript('components/adapters/layout/mega-menu.js'),
+    loadScript('components/adapters/layout/footer.js')
   ]);
 
   if (typeof window.initHeader === 'function') {
@@ -192,8 +192,8 @@ const renderMainShell = async () => {
 
 const renderStayShell = async () => {
   const [headerHtml, footerHtml] = await Promise.all([
-    loadText('components/layout/header/header.html'),
-    loadText('components/layout/footer/footer.html')
+    loadText('components/assets/layout/header/header.html'),
+    loadText('components/assets/layout/footer/footer.html')
   ]);
 
   headerHost.innerHTML = headerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
@@ -201,9 +201,9 @@ const renderStayShell = async () => {
 
   await Promise.all([
     loadScript(LUCIDE_CDN_URL),
-    loadScript('components/layout/header/header.js'),
-    loadScript('components/layout/mega_menu/mega-menu.js'),
-    loadScript('components/layout/footer/footer.js')
+    loadScript('components/adapters/layout/header.js'),
+    loadScript('components/adapters/layout/mega-menu.js'),
+    loadScript('components/adapters/layout/footer.js')
   ]);
 
   if (typeof window.initHeader === 'function') {

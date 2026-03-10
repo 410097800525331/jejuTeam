@@ -12,7 +12,7 @@ class ReservationDrawer {
       return;
     }
 
-    const cssHref = new URL("components/ui/reservation_drawer/drawer.css", resolveFromAppRoot("./")).href;
+    const cssHref = new URL("components/assets/ui/reservation_drawer/drawer.css", resolveFromAppRoot("./")).href;
     const styleExists = Array.from(document.querySelectorAll("link")).some((link) => link.href === cssHref);
     if (!styleExists) {
       const cssLink = document.createElement("link");
@@ -21,7 +21,7 @@ class ReservationDrawer {
       document.head.appendChild(cssLink);
     }
 
-    const htmlUrl = resolveFromAppRoot("components/ui/reservation_drawer/drawer.html");
+    const htmlUrl = resolveFromAppRoot("components/assets/ui/reservation_drawer/drawer.html");
     const response = await fetch(htmlUrl);
     const htmlText = await response.text();
 

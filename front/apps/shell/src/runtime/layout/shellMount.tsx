@@ -49,8 +49,8 @@ const ensureLucideIcons = () => {
 };
 
 export const mountMainShell = async () => {
-  const headerPath = resolveFromAppRoot("components/layout/header/main_header.html");
-  const footerPath = resolveFromAppRoot("components/layout/footer/main_footer.html");
+  const headerPath = resolveFromAppRoot("components/assets/layout/header/main_header.html");
+  const footerPath = resolveFromAppRoot("components/assets/layout/footer/main_footer.html");
 
   renderTemplate("main-header-placeholder", headerPath, async () => {
     initHeader();
@@ -66,8 +66,8 @@ export const mountMainShell = async () => {
 };
 
 export const mountHotelShell = async () => {
-  const headerPath = resolveFromAppRoot("components/layout/header/header.html");
-  const footerPath = resolveFromAppRoot("components/layout/footer/footer.html");
+  const headerPath = resolveFromAppRoot("components/assets/layout/header/header.html");
+  const footerPath = resolveFromAppRoot("components/assets/layout/footer/footer.html");
 
   renderTemplate("hotel-header-placeholder", headerPath, async () => {
     initHeader();

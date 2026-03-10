@@ -18,8 +18,8 @@ export const getAppRoot = (): string => {
     }
 
     if (
-      source.includes("components/layout/component_loader.js") ||
-      source.includes("components/layout/hotel_component_loader.js") ||
+      source.includes("components/adapters/layout/component_loader.js") ||
+      source.includes("components/adapters/layout/hotel_component_loader.js") ||
       source.includes("components/runtime/shell-runtime.js")
     ) {
       return new URL("../../", source).href;

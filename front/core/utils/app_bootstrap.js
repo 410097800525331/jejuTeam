@@ -134,12 +134,12 @@ const detectAndBootstrap = async () => {
   const hasHotelPlaceholder = Boolean(document.getElementById('hotel-header-placeholder'));
 
   if (hasMainPlaceholder) {
-    await ensureLegacyLoader(`${APP_ROOT_URL}components/layout/component_loader.js`, 'component_loader.js');
+    await ensureLegacyLoader(`${APP_ROOT_URL}components/adapters/layout/component_loader.js`, 'component_loader.js');
   }
 
   if (hasHotelPlaceholder) {
     await ensureLegacyLoader(
-      `${APP_ROOT_URL}components/layout/hotel_component_loader.js`,
+      `${APP_ROOT_URL}components/adapters/layout/hotel_component_loader.js`,
       'hotel_component_loader.js'
     );
   }

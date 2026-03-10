@@ -98,7 +98,7 @@ const nx = (_, l) => {
   const s = Array.from(document.getElementsByTagName("script"));
   for (const p of s) {
     const y = p.src || p.getAttribute("src");
-    if (y && (y.includes("components/layout/component_loader.js") || y.includes("components/layout/hotel_component_loader.js") || y.includes("components/runtime/shell-runtime.js")))
+    if (y && (y.includes("components/adapters/layout/component_loader.js") || y.includes("components/adapters/layout/hotel_component_loader.js") || y.includes("components/runtime/shell-runtime.js")))
       return new URL("../../", y).href;
   }
   return _;
@@ -21469,14 +21469,14 @@ const dN = async (_, l) => {
   const _ = window.lucide;
   _ != null && _.createIcons && _.createIcons();
 }, hN = async () => {
-  const _ = Yl("components/layout/header/main_header.html"), l = Yl("components/layout/footer/main_footer.html");
+  const _ = Yl("components/assets/layout/header/main_header.html"), l = Yl("components/assets/layout/footer/main_footer.html");
   jg("main-header-placeholder", _, async () => {
     Fv(), Bg(), Hg("mainHeaderLoaded");
   }), jg("main-footer-placeholder", l, async () => {
     Xg(), Bg(), Hg("mainFooterLoaded");
   });
 }, vN = async () => {
-  const _ = Yl("components/layout/header/header.html"), l = Yl("components/layout/footer/footer.html");
+  const _ = Yl("components/assets/layout/header/header.html"), l = Yl("components/assets/layout/footer/footer.html");
   jg("hotel-header-placeholder", _, async () => {
     Fv(), Bg(), Hg("mainHeaderLoaded");
   }), jg("hotel-footer-placeholder", l, async () => {
@@ -21494,12 +21494,12 @@ class mN {
   async ensureMarkup() {
     if (this.isInitialized)
       return;
-    const l = new URL("components/ui/reservation_drawer/drawer.css", Yl("./")).href;
+    const l = new URL("components/assets/ui/reservation_drawer/drawer.css", Yl("./")).href;
     if (!Array.from(document.querySelectorAll("link")).some((E) => E.href === l)) {
       const E = document.createElement("link");
       E.rel = "stylesheet", E.href = l, document.head.appendChild(E);
     }
-    const f = Yl("components/ui/reservation_drawer/drawer.html"), y = await (await fetch(f)).text();
+    const f = Yl("components/assets/ui/reservation_drawer/drawer.html"), y = await (await fetch(f)).text();
     if (!document.getElementById("reservation-drawer-container")) {
       const E = document.createElement("div");
       E.id = "reservation-drawer-container", E.innerHTML = y, document.body.appendChild(E);

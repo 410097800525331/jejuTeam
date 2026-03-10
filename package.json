@@ -1,8 +1,15 @@
 {
+  "private": true,
+  "workspaces": [
+    "front/apps/cs"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:cs": "npm run dev -w front/apps/cs",
+    "check:cs": "npm run check -w front/apps/cs",
+    "build:cs": "npm run build -w front/apps/cs",
     "sync": "node scripts/pipelines/sync-front.js",
-    "build": "npm run sync && node scripts/pipelines/build-war.js",
+    "build": "npm run build:cs && npm run sync && node scripts/pipelines/build-war.js",
     "deploy": "npm run build && node scripts/pipelines/deploy.js",
     "publish": "npm run deploy"
   },

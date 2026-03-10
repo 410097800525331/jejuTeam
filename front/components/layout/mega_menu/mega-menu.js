@@ -1,125 +1,22 @@
-/**
- * Jeju Stay Premium Mega Menu JS
- * @author Ray (Cynical Genius Developer)
- */
+(function () {
+  const currentScript = document.currentScript;
+  const scriptSrc = currentScript instanceof HTMLScriptElement ? currentScript.src : window.location.href;
+  const runtimeUrl = new URL("../../runtime/shell-runtime.js", scriptSrc).href;
 
-let isMegaScrollBound = false;
+  const run = async () => {
+    const runtime = await import(runtimeUrl);
+    runtime.ensureMegaMenuBehavior();
+  };
 
-const syncHeaderScrolledClass = () => {
-    const header = document.querySelector('.header');
-    if (!header) {
-        return;
-    }
-
-    if (window.scrollY > 20) {
-        header.classList.add('scrolled');
-        return;
-    }
-
-    header.classList.remove('scrolled');
-};
-
-const bindScrollEffect = () => {
-    if (isMegaScrollBound) {
-        return;
-    }
-
-    isMegaScrollBound = true;
-    window.addEventListener('scroll', syncHeaderScrolledClass);
-    syncHeaderScrolledClass();
-};
-
-const bindDropdownHover = () => {
-    const navItems = document.querySelectorAll('.nav-item');
-
-    navItems.forEach((item) => {
-        if (item.dataset.megaHoverBound === 'true') {
-            return;
-        }
-
-        const dropdown = item.querySelector('.mega-dropdown');
-        if (!dropdown) {
-            return;
-        }
-
-        item.dataset.megaHoverBound = 'true';
-
-        item.addEventListener('mouseenter', () => {
-            document.querySelectorAll('.mega-dropdown.active').forEach((activeDropdown) => {
-                if (activeDropdown !== dropdown) {
-                    activeDropdown.classList.remove('active');
-                }
-            });
-
-            dropdown.classList.add('active');
-        });
-
-        item.addEventListener('mouseleave', () => {
-            setTimeout(() => {
-                if (!item.matches(':hover')) {
-                    dropdown.classList.remove('active');
-                }
-            }, 200);
-        });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      run().catch((error) => {
+        console.error("[MegaMenu Adapter] failed", error);
+      });
     });
-};
-
-const bindPreviewHover = () => {
-    const megaMenuItems = document.querySelectorAll('.mega-menu-item');
-
-    megaMenuItems.forEach((menuItem) => {
-        if (menuItem.dataset.previewHoverBound === 'true') {
-            return;
-        }
-
-        menuItem.dataset.previewHoverBound = 'true';
-
-        menuItem.addEventListener('mouseenter', () => {
-            const dropdown = menuItem.closest('.mega-dropdown');
-            const targetId = menuItem.getAttribute('data-preview');
-            const targetImage = targetId ? document.getElementById(targetId) : null;
-
-            if (!dropdown || !targetImage) {
-                return;
-            }
-
-            dropdown.querySelectorAll('.preview-image').forEach((img) => {
-                img.classList.remove('active');
-            });
-
-            targetImage.classList.add('active');
-
-            const loader = dropdown.querySelector('.preview-loader');
-            if (loader) {
-                loader.style.display = 'none';
-            }
-        });
+  } else {
+    run().catch((error) => {
+      console.error("[MegaMenu Adapter] failed", error);
     });
-};
-
-const initInitialPreviewImage = () => {
-    document.querySelectorAll('.mega-dropdown').forEach((dropdown) => {
-        if (dropdown.dataset.previewInit === 'true') {
-            return;
-        }
-
-        dropdown.dataset.previewInit = 'true';
-
-        const firstImage = dropdown.querySelector('.preview-image');
-        if (firstImage) {
-            firstImage.classList.add('active');
-        }
-    });
-};
-
-function initMegaMenu() {
-    bindScrollEffect();
-    bindDropdownHover();
-    bindPreviewHover();
-    initInitialPreviewImage();
-}
-
-window.initMegaMenu = initMegaMenu;
-
-document.addEventListener('DOMContentLoaded', initMegaMenu);
-document.addEventListener('mainHeaderLoaded', initMegaMenu);
+  }
+})();

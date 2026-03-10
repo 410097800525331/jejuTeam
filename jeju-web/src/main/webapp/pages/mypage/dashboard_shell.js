@@ -4,6 +4,7 @@ const SHELL_STORAGE_KEY = 'jeju:mypage-shell';
 const SHELLS = new Set(['main', 'stay', 'air']);
 const APP_ROOT = new URL('../../', import.meta.url).href;
 const DRAWER_ACTION = 'OPEN_RESERVATION_DRAWER';
+const LUCIDE_CDN_URL = 'https://unpkg.com/lucide@latest';
 
 let commonBindingsReady = false;
 let mountedShell = null;
@@ -12,6 +13,14 @@ const headerHost = document.getElementById('mypage-shell-header');
 const footerHost = document.getElementById('mypage-shell-footer');
 
 const toAbsoluteUrl = (path) => new URL(path, APP_ROOT).href;
+const isAuthPage = () => window.location.pathname.toLowerCase().includes('/pages/auth/');
+const normalizeShellForPage = (shell) => {
+  if (shell === 'stay' && isAuthPage()) {
+    return 'main';
+  }
+
+  return shell;
+};
 
 const loadText = async (path) => {
   const response = await fetch(toAbsoluteUrl(path));
@@ -105,20 +114,20 @@ const resolveShell = () => {
   const params = new URLSearchParams(window.location.search);
   const queryShell = params.get(SHELL_QUERY_KEY);
   if (SHELLS.has(queryShell)) {
-    return queryShell;
+    return normalizeShellForPage(queryShell);
   }
 
   const referrerShell = resolveShellFromReferrer();
   if (referrerShell) {
-    return referrerShell;
+    return normalizeShellForPage(referrerShell);
   }
 
   const storedShell = window.sessionStorage.getItem(SHELL_STORAGE_KEY);
   if (SHELLS.has(storedShell)) {
-    return storedShell;
+    return normalizeShellForPage(storedShell);
   }
 
-  return 'main';
+  return normalizeShellForPage('main');
 };
 
 const persistShell = (shell) => {
@@ -191,6 +200,7 @@ const renderStayShell = async () => {
   footerHost.innerHTML = footerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
 
   await Promise.all([
+    loadScript(LUCIDE_CDN_URL),
     loadScript('components/layout/header/header.js'),
     loadScript('components/layout/mega_menu/mega-menu.js'),
     loadScript('components/layout/footer/footer.js')
@@ -204,6 +214,10 @@ const renderStayShell = async () => {
   }
   if (typeof window.initFooter === 'function') {
     window.initFooter();
+  }
+
+  if (window.lucide?.createIcons) {
+    window.lucide.createIcons();
   }
 };
 

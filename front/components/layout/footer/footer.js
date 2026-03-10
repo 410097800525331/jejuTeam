@@ -1,10 +1,22 @@
-/**
- * JEJU STAY Component: Footer Logic
- */
+(function () {
+  const currentScript = document.currentScript;
+  const scriptSrc = currentScript instanceof HTMLScriptElement ? currentScript.src : window.location.href;
+  const runtimeUrl = new URL("../../runtime/shell-runtime.js", scriptSrc).href;
 
-function initFooter() {
-    // Current footer is static
-    console.log('Footer interaction initialized');
-}
+  const run = async () => {
+    const runtime = await import(runtimeUrl);
+    runtime.ensureFooterBehavior();
+  };
 
-window.initFooter = initFooter;
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      run().catch((error) => {
+        console.error("[Footer Adapter] failed", error);
+      });
+    });
+  } else {
+    run().catch((error) => {
+      console.error("[Footer Adapter] failed", error);
+    });
+  }
+})();

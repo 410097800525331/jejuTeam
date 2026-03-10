@@ -14,7 +14,8 @@
     "baseUrl": ".",
     "paths": {
       "@runtime/*": ["src/runtime/*"],
-      "@front-fab/*": ["../../components/react/ui/FAB/*"]
+      "@front-fab/*": ["../../components/react/ui/FAB/*"],
+      "@front-components/*": ["../../components/react/*"]
     }
   },
   "include": ["src"]

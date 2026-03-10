@@ -97,9 +97,9 @@ const initRouterBinderFallback = async () => {
   }
 };
 
-const ensureLegacyLoader = (relativeOrAbsolutePath, loaderName) => {
+const ensureRuntimeBootstrap = (relativeOrAbsolutePath, marker = 'components/runtime/bootstrap.js') => {
   const existing = Array.from(document.querySelectorAll('script')).some((script) =>
-    script.src && script.src.includes(loaderName)
+    script.src && script.src.includes(marker)
   );
   if (existing) {
     return Promise.resolve();
@@ -112,7 +112,8 @@ const ensureLegacyLoader = (relativeOrAbsolutePath, loaderName) => {
 
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
-    script.setAttribute('data-jeju-bootstrap', 'legacy-loader');
+    script.type = 'module';
+    script.setAttribute('data-jeju-bootstrap', 'runtime-bootstrap');
     script.src = src;
     script.onload = resolve;
     script.onerror = (error) => {
@@ -129,20 +130,13 @@ window[APP_BOOTSTRAP_STATE_KEY] = {
 };
 
 const detectAndBootstrap = async () => {
-
   const hasMainPlaceholder = Boolean(document.getElementById('main-header-placeholder'));
   const hasHotelPlaceholder = Boolean(document.getElementById('hotel-header-placeholder'));
-
-  if (hasMainPlaceholder) {
-    await ensureLegacyLoader(`${APP_ROOT_URL}components/adapters/layout/component_loader.js`, 'component_loader.js');
+  if (!hasMainPlaceholder && !hasHotelPlaceholder) {
+    return;
   }
 
-  if (hasHotelPlaceholder) {
-    await ensureLegacyLoader(
-      `${APP_ROOT_URL}components/adapters/layout/hotel_component_loader.js`,
-      'hotel_component_loader.js'
-    );
-  }
+  await ensureRuntimeBootstrap(`${APP_ROOT_URL}components/runtime/bootstrap.js`);
 };
 
 if (!hasBootstrap()) {

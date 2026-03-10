@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEJU STAY | 프라이빗 감성 숙소</title>
-    <meta name="description" content="제주스테이 프라이빗. 오직 나만을 위한 프리미엄 감성 숙소, 풀빌라, 독채 펜션을 예약하세요.">
+    <title>JEJU STAY | ?袁⑥뵬????揶쏅Ŋ苑???덈꺖</title>
+    <meta name="description" content="??뽳폒??쎈???袁⑥뵬???? ??쇱춦 ??롮춸???袁る립 ?袁ⓥ봺沃섎챷毓?揶쏅Ŋ苑???덈꺖, ????슢?? ??놁퐟 ??뽯????됰튋??뤾쉭??">
 
     <!-- Fonts: FlightSans is loaded via CSS @font-face, Noto Sans KR as fallback -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,10 +21,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../hotel/hotel.css">
     <link rel="stylesheet" href="./private_stay.css">
-    <link rel="stylesheet" href="../../../components/assets/layout/header/header.css">
-    <link rel="stylesheet" href="../../../components/assets/layout/footer/footer.css">
-    <link rel="stylesheet" href="../../../components/assets/ui/fab/fab.css">
-    <link rel="stylesheet" href="../../../components/assets/widget/chatbot-style.css">
+    <link rel="stylesheet" href="../../../components/react/layout/header.css">
+    <link rel="stylesheet" href="../../../components/react/layout/footer.css">
+    <link rel="stylesheet" href="../../../components/react/ui/FAB/fab.css">
+    <link rel="stylesheet" href="../../../components/react/widget/chatbot-style.css">
 </head>
 
 <body class="private-stay-page">
@@ -32,154 +32,154 @@
     <div id="hotel-header-placeholder"></div>
 
     <main>
-        <!-- ========== 섹션 2: 히어로 & 검색 위젯 ========== -->
+        <!-- ========== ?諭??2: ??됰선嚥?& 野꺜???袁⑹졐 ========== -->
         <section class="hero">
             <div class="hero-background">
-                <!-- 감성 숙소 이미지 (Pool Villa / Nature) -->
+                <!-- 揶쏅Ŋ苑???덈꺖 ???筌왖 (Pool Villa / Nature) -->
                 <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?q=80&w=2500&auto=format&fit=crop"
                     alt="Private Wellness Stay" class="hero-image">
                 <div class="hero-overlay"></div>
             </div>
 
             <div class="hero-content">
-                <p class="hero-subtitle-top" data-lang="heroSubtitlePrivate">온전히 나를 마주하는 시간, 프리미엄 프라이빗 스테이</p>
+                <p class="hero-subtitle-top" data-lang="heroSubtitlePrivate">??μ읈????? 筌띾뜆竊??롫뮉 ??볦퍢, ?袁ⓥ봺沃섎챷毓??袁⑥뵬??????쎈??/p>
 
-                <!-- 새로운 레이아웃 검색 위젯 -->
+                <!-- ??덉쨮????됱뵠?袁⑹뜍 野꺜???袁⑹졐 -->
                 <div class="search-widget-large">
-                    <!-- 검색 탭 -->
+                    <!-- 野꺜????-->
                     <div class="search-tabs-large">
                         <button class="search-tab-large active" data-tab="hotel">
                             <i data-lucide="building-2"></i>
-                            <span data-lang="tabHotel">호텔 & 리조트</span>
+                            <span data-lang="tabHotel">?紐낅?& ?귐듼??/span>
                         </button>
                         <button class="search-tab-large" data-tab="pension">
                             <i data-lucide="home"></i>
-                            <span data-lang="tabPension">펜션 & 풀빌라</span>
+                            <span data-lang="tabPension">??뽯?& ????슢??/span>
                         </button>
                         <button class="search-tab-large" data-tab="activity">
                             <i data-lucide="compass"></i>
-                            <span data-lang="tabActivity">즐길거리</span>
+                            <span data-lang="tabActivity">筌앸Þ留뚦쳞怨뺚봺</span>
                         </button>
                     </div>
 
-                    <!-- 검색 폼 - 호텔/펜션용 (NEW Global OTA Style) -->
+                    <!-- 野꺜????- ?紐낅???뽯??(NEW Global OTA Style) -->
                     <div class="search-form-new" id="searchFormHotel">
                         <div class="global-search-container">
                             <div class="global-search-bar">
-                                <!-- 1. 여행지 (Destination) -->
+                                <!-- 1. ??六억쭪? (Destination) -->
                                 <div class="search-item destination-item-new" id="destinationFieldLarge">
                                     <div class="item-icon">
                                         <i data-lucide="search"></i>
                                     </div>
                                     <div class="item-content">
-                                        <label class="item-label" data-lang="destLabel">여행지</label>
+                                        <label class="item-label" data-lang="destLabel">??六억쭪?</label>
                                         <input type="text" class="item-input" id="destinationInput"
-                                            placeholder="어디로 떠나시나요?" autocomplete="off"
+                                            placeholder="??逾믤에??醫딄돌??뺢돌??" autocomplete="off"
                                             data-lang-placeholder="destPlaceholder">
                                     </div>
 
-                                    <!-- 여행지 드롭다운 (위치 유지) -->
+                                    <!-- ??六억쭪? ??뺚댘??쇱뒲 (?袁⑺뒄 ?醫?) -->
                                     <div class="destination-dropdown" id="destinationDropdown">
                                         <div class="dropdown-columns">
                                             <div class="dropdown-column">
-                                                <div class="dropdown-header" data-lang="destKr">대한민국 내 여행지</div>
+                                                <div class="dropdown-header" data-lang="destKr">???????????六억쭪?</div>
                                                 <ul class="destination-list">
-                                                    <li class="destination-item" data-value="서울">
+                                                    <li class="destination-item" data-value="??뽰뒻">
                                                         <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
-                                                            alt="서울">
+                                                            alt="??뽰뒻">
                                                         <div class="destination-info">
                                                             <span class="destination-name"
-                                                                data-lang="destNameSeoul">서울</span>
+                                                                data-lang="destNameSeoul">??뽰뒻</span>
                                                             <span class="destination-count">(5,945)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descShoppingDining">쇼핑, 레스토랑</span>
+                                                                data-lang="descShoppingDining">??노릅, ??됰뮞?醫딆삂</span>
                                                         </div>
                                                     </li>
-                                                    <li class="destination-item" data-value="인천">
+                                                    <li class="destination-item" data-value="?紐꾩퓝">
                                                         <img src="https://images.unsplash.com/photo-1583425921686-c5daf5f49e4a?w=100&h=100&fit=crop"
-                                                            alt="인천">
+                                                            alt="?紐꾩퓝">
                                                         <div class="destination-info">
                                                             <span class="destination-name"
-                                                                data-lang="destNameIncheon">인천</span>
+                                                                data-lang="destNameIncheon">?紐꾩퓝</span>
                                                             <span class="destination-count">(2,147)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descTourism">관광</span>
+                                                                data-lang="descTourism">?온??/span>
                                                         </div>
                                                     </li>
-                                                    <li class="destination-item" data-value="부산">
+                                                    <li class="destination-item" data-value="?봔??>
                                                         <img src="https://images.unsplash.com/photo-1538485399081-7191377e8241?w=100&h=100&fit=crop"
-                                                            alt="부산">
+                                                            alt="?봔??>
                                                         <div class="destination-info">
                                                             <span class="destination-name"
-                                                                data-lang="destNameBusan">부산</span>
+                                                                data-lang="destNameBusan">?봔??/span>
                                                             <span class="destination-count">(2,734)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descBeachDining">해변,
-                                                                레스토랑</span>
+                                                                data-lang="descBeachDining">???,
+                                                                ??됰뮞?醫딆삂</span>
                                                         </div>
                                                     </li>
-                                                    <li class="destination-item" data-value="속초">
+                                                    <li class="destination-item" data-value="??욱겧">
                                                         <img src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=100&h=100&fit=crop"
-                                                            alt="속초">
+                                                            alt="??욱겧">
                                                         <div class="destination-info">
                                                             <span class="destination-name"
-                                                                data-lang="destNameSokcho">속초</span>
+                                                                data-lang="destNameSokcho">??욱겧</span>
                                                             <span class="destination-count">(800)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descBeachDining">해변,
-                                                                레스토랑</span>
+                                                                data-lang="descBeachDining">???,
+                                                                ??됰뮞?醫딆삂</span>
                                                         </div>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="dropdown-column">
-                                                <div class="dropdown-header" data-lang="destOverseas">해외 여행지</div>
+                                                <div class="dropdown-header" data-lang="destOverseas">??곸뇚 ??六억쭪?</div>
                                                 <ul class="destination-list overseas">
-                                                    <li class="destination-item" data-value="오사카">
+                                                    <li class="destination-item" data-value="??쇨텢燁?>
                                                         <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=100&h=100&fit=crop"
-                                                            alt="오사카">
+                                                            alt="??쇨텢燁?>
                                                         <div class="destination-info">
                                                             <span class="destination-name"
-                                                                data-lang="destNameOsaka">오사카</span>
+                                                                data-lang="destNameOsaka">??쇨텢燁?/span>
                                                             <span class="destination-count">(10,018)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descShoppingDining">쇼핑,
-                                                                레스토랑</span>
+                                                                data-lang="descShoppingDining">??노릅,
+                                                                ??됰뮞?醫딆삂</span>
                                                         </div>
                                                     </li>
-                                                    <li class="destination-item" data-value="도쿄">
+                                                    <li class="destination-item" data-value="?袁⑺뱳">
                                                         <img src="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=100&h=100&fit=crop"
-                                                            alt="도쿄">
+                                                            alt="?袁⑺뱳">
                                                         <div class="destination-info">
-                                                            <span class="destination-name" data-lang="destNameTokyo">도쿄
+                                                            <span class="destination-name" data-lang="destNameTokyo">?袁⑺뱳
                                                                 /
-                                                                동경</span>
+                                                                ??녾펾</span>
                                                             <span class="destination-count">(12,486)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descShoppingSightseeing">쇼핑, 관광</span>
+                                                                data-lang="descShoppingSightseeing">??노릅, ?온??/span>
                                                         </div>
                                                     </li>
-                                                    <li class="destination-item" data-value="후쿠오카">
+                                                    <li class="destination-item" data-value="?袁⑺벣??쇰춦">
                                                         <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=100&h=100&fit=crop"
-                                                            alt="후쿠오카">
+                                                            alt="?袁⑺벣??쇰춦">
                                                         <div class="destination-info">
                                                             <span class="destination-name"
-                                                                data-lang="destNameFukuoka">후쿠오카</span>
+                                                                data-lang="destNameFukuoka">?袁⑺벣??쇰춦</span>
                                                             <span class="destination-count">(2,181)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descSightseeingBeach">관광,
-                                                                해변</span>
+                                                                data-lang="descSightseeingBeach">?온??
+                                                                ???</span>
                                                         </div>
                                                     </li>
-                                                    <li class="destination-item" data-value="방콕">
+                                                    <li class="destination-item" data-value="獄쎻뫗??>
                                                         <img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=100&h=100&fit=crop"
-                                                            alt="방콕">
+                                                            alt="獄쎻뫗??>
                                                         <div class="destination-info">
                                                             <span class="destination-name"
-                                                                data-lang="destNameBangkok">방콕</span>
+                                                                data-lang="destNameBangkok">獄쎻뫗??/span>
                                                             <span class="destination-count">(8,450)</span>
                                                             <span class="destination-desc"
-                                                                data-lang="descShoppingSightseeing">쇼핑, 관광</span>
+                                                                data-lang="descShoppingSightseeing">??노릅, ?온??/span>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -190,27 +190,27 @@
 
                                 <div class="search-divider"></div>
 
-                                <!-- 2. 일정 (Dates: Check-in & Check-out merged) -->
+                                <!-- 2. ??깆젟 (Dates: Check-in & Check-out merged) -->
                                 <div class="search-item date-item-new" id="checkInField">
                                     <div class="item-icon">
                                         <i data-lucide="calendar"></i>
                                     </div>
                                     <div class="item-content">
-                                        <label class="item-label" data-lang="dateLabel">체크인 - 체크아웃</label>
+                                        <label class="item-label" data-lang="dateLabel">筌ｋ똾寃??- 筌ｋ똾寃?袁⑹뜍</label>
                                         <div class="date-display-text">
-                                            <span id="checkInDisplay" data-lang="dateSelect">날짜 선택</span>
+                                            <span id="checkInDisplay" data-lang="dateSelect">?醫롮? ?醫뤾문</span>
                                             <span class="date-separator"> - </span>
-                                            <span id="checkOutDisplay" data-lang="dateSelect">날짜 선택</span>
+                                            <span id="checkOutDisplay" data-lang="dateSelect">?醫롮? ?醫뤾문</span>
                                         </div>
                                     </div>
 
-                                    <!-- 캘린더 팝업 (위치 유지) -->
+                                    <!-- 筌?꼶?????밸씜 (?袁⑺뒄 ?醫?) -->
                                     <div class="Popup RangePicker RangePicker--checkIn RangePicker--with-dayuse"
-                                        id="calendarPopup" role="dialog" aria-modal="true" aria-label="체크인 날짜 선택 달력">
+                                        id="calendarPopup" role="dialog" aria-modal="true" aria-label="筌ｋ똾寃???醫롮? ?醫뤾문 ????>
                                         <div class="Popup__content Popup__content_Occupancy">
-                                            <span class="ScreenReaderOnly">엔터 키를 눌러 캘린더를 여세요. 방향키를 사용해 체크인 및 체크아웃 날짜를
-                                                탐색할 수
-                                                있습니다.</span>
+                                            <span class="ScreenReaderOnly">?酉苑???? ???쑎 筌?꼶??遺? ??苑?? 獄쎻뫚堉??? ?????筌ｋ똾寃??獄?筌ｋ똾寃?袁⑹뜍 ?醫롮???
+                                                ?癒?퉳????
+                                                ??됰뮸??덈뼄.</span>
                                             <div class="RangePicker-Header">
                                                 <div class="RangePicker-NavPrev">
                                                     <button type="button" class="NavBtn NavBtn--prev" id="prevMonth"
@@ -221,12 +221,12 @@
                                                 <div role="tablist" class="RangePicker-Tabs">
                                                     <div class="RangePicker-Tab Item">
                                                         <button role="tab" aria-selected="true" id="tab-calendar"
-                                                            class="TabBtn active" data-lang="calTitle">캘린더</button>
+                                                            class="TabBtn active" data-lang="calTitle">筌?꼶???/button>
                                                         <div class="TabIndicator"></div>
                                                     </div>
                                                     <div class="RangePicker-Tab Item">
                                                         <button role="tab" aria-selected="false" id="tab-flexible"
-                                                            class="TabBtn" data-lang="calFlexible">날짜 미정</button>
+                                                            class="TabBtn" data-lang="calFlexible">?醫롮? 沃섎챷??/button>
                                                     </div>
                                                 </div>
                                                 <div class="RangePicker-NavNext">
@@ -246,25 +246,25 @@
                                                 <div class="RangePicker-Footer">
                                                     <button type="button" class="ActionBtn ActionBtn--clear"
                                                         id="btn-clear">
-                                                        <span data-lang="btnReset">선택 해제</span>
+                                                        <span data-lang="btnReset">?醫뤾문 ??곸젫</span>
                                                     </button>
                                                     <button type="button" class="ActionBtn ActionBtn--confirm"
                                                         id="btn-confirm">
-                                                        <span data-lang="btnConfirm">확인</span>
+                                                        <span data-lang="btnConfirm">?類ㅼ뵥</span>
                                                     </button>
                                                 </div>
                                             </div>
 
                                             <div role="tabpanel" id="panel-flexible" class="RangePicker-Panel">
                                                 <div class="Flexible-Content">
-                                                    <h3 data-lang="calFlexTitle">투숙 기간은 얼마나 되시나요?</h3>
+                                                    <h3 data-lang="calFlexTitle">????疫꿸퀗而?? ??곗춳????뤿뻻??륁뒄?</h3>
                                                     <div class="Flexible-Options">
                                                         <button class="Flexible-Option" data-val="3"
-                                                            data-lang="calFlex3">3박</button>
+                                                            data-lang="calFlex3">3獄?/button>
                                                         <button class="Flexible-Option" data-val="7"
-                                                            data-lang="calFlex7">1주일</button>
+                                                            data-lang="calFlex7">1雅뚯눘??/button>
                                                         <button class="Flexible-Option" data-val="30"
-                                                            data-lang="calFlex30">1개월</button>
+                                                            data-lang="calFlex30">1揶쏆뮇??/button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -274,23 +274,23 @@
 
                                 <div class="search-divider"></div>
 
-                                <!-- 3. 여행자 (Guests) -->
+                                <!-- 3. ??六??(Guests) -->
                                 <div class="search-item guest-item-new" id="guestFieldLarge">
                                     <div class="item-icon">
                                         <i data-lucide="users"></i>
                                     </div>
                                     <div class="item-content">
-                                        <label class="item-label" data-lang="guestLabel">여행자</label>
+                                        <label class="item-label" data-lang="guestLabel">??六??/label>
                                         <div class="guest-display-text">
-                                            <span id="guestSummary">성인 1명, 객실 1개</span>
+                                            <span id="guestSummary">?源놁뵥 1筌? 揶쏆빘??1揶?/span>
                                         </div>
                                     </div>
 
-                                    <!-- 인원 선택 팝업 -->
+                                    <!-- ?紐꾩뜚 ?醫뤾문 ??밸씜 -->
                                     <div class="guest-popup-new" id="guestPopupLarge">
                                         <div class="guest-row-new">
                                             <div class="guest-info-new">
-                                                <span class="guest-type-new" data-lang="guestRooms">객실</span>
+                                                <span class="guest-type-new" data-lang="guestRooms">揶쏆빘??/span>
                                             </div>
                                             <div class="guest-counter-new">
                                                 <button class="counter-btn-new minus" data-target="rooms">
@@ -304,8 +304,8 @@
                                         </div>
                                         <div class="guest-row-new">
                                             <div class="guest-info-new">
-                                                <span class="guest-type-new" data-lang="guestAdults">성인</span>
-                                                <span class="guest-desc-new" data-lang="guestAdultsDesc">18세 이상</span>
+                                                <span class="guest-type-new" data-lang="guestAdults">?源놁뵥</span>
+                                                <span class="guest-desc-new" data-lang="guestAdultsDesc">18????곴맒</span>
                                             </div>
                                             <div class="guest-counter-new">
                                                 <button class="counter-btn-new minus" data-target="adults">
@@ -319,9 +319,9 @@
                                         </div>
                                         <div class="guest-row-new">
                                             <div class="guest-info-new">
-                                                <span class="guest-type-new" data-lang="guestChildren">아동</span>
+                                                <span class="guest-type-new" data-lang="guestChildren">?袁⑤짗</span>
                                                 <span class="guest-desc-new" data-lang="guestChildrenDesc">0 -
-                                                    17세</span>
+                                                    17??/span>
                                             </div>
                                             <div class="guest-counter-new">
                                                 <button class="counter-btn-new minus" data-target="children">
@@ -336,37 +336,37 @@
                                     </div>
                                 </div>
 
-                                <!-- 4. 검색 버튼 (Pill Button inside the bar) -->
+                                <!-- 4. 野꺜??甕곌쑵??(Pill Button inside the bar) -->
                                 <div class="search-btn-wrapper">
                                     <button class="search-btn-pill" id="searchBtn">
                                         <i data-lucide="search" class="search-btn-icon"></i>
-                                        <span class="search-btn-text" data-lang="searchBtn">검색</span>
+                                        <span class="search-btn-text" data-lang="searchBtn">野꺜??/span>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 검색 폼 - 즐길거리용 (Placeholder) -->
+                    <!-- 野꺜????- 筌앸Þ留뚦쳞怨뺚봺??(Placeholder) -->
                     <div class="search-form-new hidden" id="searchFormActivity">
                         <div class="global-search-container">
                             <div class="global-search-bar">
-                                <!-- 여행지 (Destination) -->
+                                <!-- ??六억쭪? (Destination) -->
                                 <div class="search-item destination-item-new" id="destinationFieldActivity">
                                     <div class="item-icon">
                                         <i data-lucide="search"></i>
                                     </div>
                                     <div class="item-content">
-                                        <label class="item-label">떠나고 싶은 곳</label>
+                                        <label class="item-label">?醫딄돌????? ??/label>
                                         <input type="text" class="item-input" id="destinationInputActivity"
-                                            placeholder="액티비티, 체험 명 검색" autocomplete="off">
+                                            placeholder="??ル뼒??쑵?? 筌ｋ똾肉?筌?野꺜?? autocomplete="off">
                                     </div>
                                 </div>
 
                                 <div class="search-btn-wrapper">
                                     <button class="search-btn-pill" id="searchBtnActivity">
                                         <i data-lucide="search" class="search-btn-icon"></i>
-                                        <span class="search-btn-text">검색</span>
+                                        <span class="search-btn-text">野꺜??/span>
                                     </button>
                                 </div>
                             </div>
@@ -376,7 +376,7 @@
             </div>
         </section>
 
-        <!-- ========== 섹션 3: 큐레이션 (Premium Benefits) ========== -->
+        <!-- ========== ?諭??3: ?癒?쟿??곷?(Premium Benefits) ========== -->
         <section class="promo-section">
             <div class="container">
                 <div class="promo-grid">
@@ -387,10 +387,10 @@
                         </div>
                         <div class="promo-content">
                             <span class="promo-badge" style="background: #c7916b; color: #fff;">PREMIUM CHECK-IN</span>
-                            <h3 class="promo-title">프라이빗 스테이 예약 시<br><strong style="color: #c7916b;">얼리 체크인 & 웰컴
-                                    키트</strong> 제공</h3>
-                            <p class="promo-desc" style="color: rgba(255,255,255,0.7);">제주 유니버스 회원을 위한 특별한 시작</p>
-                            <a href="#" class="promo-link" style="color: #fff;"><span>혜택 확인하기</span> <i
+                            <h3 class="promo-title">?袁⑥뵬??????쎈????됰튋 ??br><strong style="color: #c7916b;">??겸봺 筌ｋ똾寃??& ?怨쀫벰
+                                    ??쎈뱜</strong> ??볥궗</h3>
+                            <p class="promo-desc" style="color: rgba(255,255,255,0.7);">??뽳폒 ?醫딅빍甕곌쑴?????뜚???袁る립 ?諛명????뽰삂</p>
+                            <a href="#" class="promo-link" style="color: #fff;"><span>??쀪문 ?類ㅼ뵥??띾┛</span> <i
                                     data-lucide="arrow-right"></i></a>
                         </div>
                     </div>
@@ -400,8 +400,8 @@
                         </div>
                         <div class="promo-content">
                             <span class="promo-badge" style="background: #eee; color: #333;">SNAP PHOTO</span>
-                            <h3 class="promo-title" style="color: #333;">인생샷 포인트<br>스냅 촬영 할인</h3>
-                            <a href="#" class="promo-link" style="color: #333;"><span>작가 보기</span> <i
+                            <h3 class="promo-title" style="color: #333;">?紐꾧문???????br>??산퉬 ?Ρ딆겫 ?醫롮뵥</h3>
+                            <a href="#" class="promo-link" style="color: #333;"><span>?臾? 癰귣떯由?/span> <i
                                     data-lucide="arrow-right"></i></a>
                         </div>
                     </div>
@@ -411,8 +411,8 @@
                         </div>
                         <div class="promo-content">
                             <span class="promo-badge" style="background: #eee; color: #333;">DINING</span>
-                            <h3 class="promo-title" style="color: #333;">인룸 다이닝<br>와인 & 플래터</h3>
-                            <a href="#" class="promo-link" style="color: #333;"><span>메뉴 보기</span> <i
+                            <h3 class="promo-title" style="color: #333;">?紐껓폍 ??쇱뵠??br>????& ???삋??/h3>
+                            <a href="#" class="promo-link" style="color: #333;"><span>筌롫뗀??癰귣떯由?/span> <i
                                     data-lucide="arrow-right"></i></a>
                         </div>
                     </div>
@@ -420,62 +420,62 @@
             </div>
         </section>
 
-        <!-- ========== 섹션 4: 추천 여행지 (Private Spots) ========== -->
+        <!-- ========== ?諭??4: ?곕뗄荑???六억쭪? (Private Spots) ========== -->
         <section class="destinations-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">감성이 머무는 곳</h2>
-                    <p class="section-subtitle">일상의 소음이 사라진, 오직 당신만을 위한 숨겨진 스테이</p>
+                    <h2 class="section-title">揶쏅Ŋ苑???믩챶龜????/h2>
+                    <p class="section-subtitle">??깃맒?????벉?????わ쭪? ??쇱춦 ?諭?딉쭕??뱽 ?袁る립 ??ｊ볼筌???쎈??/p>
                 </div>
 
                 <div class="destinations-grid">
                     <a href="#" class="destination-card large">
-                        <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=800&q=80" alt="숲속 독채"
+                        <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=800&q=80" alt="??곷꺗 ??놁퐟"
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <span class="destination-badge">인기</span>
-                            <h3 class="destination-name">숲속의 요새</h3>
-                            <p class="destination-hotels">프라이빗 캐빈 모음</p>
+                            <span class="destination-badge">?硫몃┛</span>
+                            <h3 class="destination-name">??곷꺗???遺욧퉱</h3>
+                            <p class="destination-hotels">?袁⑥뵬????筌?Ŧ??筌뤴뫁??/p>
                         </div>
                     </a>
                     <a href="#" class="destination-card">
                         <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=600&q=80"
-                            alt="바다 앞 풀빌라" class="destination-image">
+                            alt="獄쏅뗀????????슢?? class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <h3 class="destination-name">오션뷰 풀빌라</h3>
-                            <p class="destination-hotels">인피니티 풀 완비</p>
+                            <h3 class="destination-name">??쇰↓뀎?????슢??/h3>
+                            <p class="destination-hotels">?紐낅돗??딅뼒 ?? ?袁⑦돩</p>
                         </div>
                     </a>
                     <a href="#" class="destination-card">
-                        <img src="https://images.unsplash.com/photo-1512918760532-3c46000e3b94?w=600&q=80" alt="한옥 스테이"
+                        <img src="https://images.unsplash.com/photo-1512918760532-3c46000e3b94?w=600&q=80" alt="??뽰궑 ??쎈??
                             class="destination-image">
                         <div class="destination-overlay"></div>
                         <div class="destination-content">
-                            <h3 class="destination-name">모던 한옥</h3>
-                            <p class="destination-hotels">전통과 현대의 조화</p>
+                            <h3 class="destination-name">筌뤴뫀????뽰궑</h3>
+                            <p class="destination-hotels">?袁る꽰???袁???鈺곌퀬??/p>
                         </div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- ========== 섹션 5: 프리미엄 큐레이션 (Listings) ========== -->
+        <!-- ========== ?諭??5: ?袁ⓥ봺沃섎챷毓??癒?쟿??곷?(Listings) ========== -->
         <section class="deals-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">이달의 큐레이션</h2>
-                    <p class="section-subtitle">건축가의 철학이 담긴 공간을 소개합니다</p>
+                    <h2 class="section-title">??????癒?쟿??곷?/h2>
+                    <p class="section-subtitle">椰꾨똻?욃첎???筌ｌ쥚釉????용┸ ?⑤벀而?????뻣??몃빍??/p>
                 </div>
 
                 <div class="hotel-list">
-                    <!-- 숙소 카드 1 -->
+                    <!-- ??덈꺖 燁삳?諭?1 -->
                     <article class="hotel-card">
                         <div class="hotel-image-wrap">
                             <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=400&q=80"
-                                alt="제주 서귀포, 스테이 무드" class="hotel-image">
-                            <button class="wishlist-btn" aria-label="위시리스트 추가">
+                                alt="??뽳폒 ????? ??쎈???얜?諭? class="hotel-image">
+                            <button class="wishlist-btn" aria-label="?袁⑸뻻?귐딅뮞???곕떽?">
                                 <i data-lucide="heart"></i>
                             </button>
                         </div>
@@ -483,39 +483,39 @@
                             <div class="hotel-header">
                                 <span class="hotel-tag jj-pick">Premium</span>
                                 <div class="hotel-rating">
-                                    <span style="font-size: 0.8rem; color: #888;">독채</span>
+                                    <span style="font-size: 0.8rem; color: #888;">??놁퐟</span>
                                 </div>
                             </div>
-                            <h3 class="hotel-name">제주 서귀포, 스테이 무드</h3>
+                            <h3 class="hotel-name">??뽳폒 ????? ??쎈???얜?諭?/h3>
                             <p class="hotel-location">
-                                <i data-lucide="map-pin"></i> 제주 안덕면 · 산방산 뷰
+                                <i data-lucide="map-pin"></i> ??뽳폒 ??덈쐮筌?夷??怨뺢컩????
                             </p>
                             <div class="hotel-amenities">
-                                <span class="amenity"><i data-lucide="coffee"></i> <span>핸드드립</span></span>
-                                <span class="amenity"><i data-lucide="music"></i> <span>LP 플레이어</span></span>
-                                <span class="amenity"><i data-lucide="bath"></i> <span>자쿠지</span></span>
+                                <span class="amenity"><i data-lucide="coffee"></i> <span>?紐껊굡??뺚뵲</span></span>
+                                <span class="amenity"><i data-lucide="music"></i> <span>LP ???쟿??곷선</span></span>
+                                <span class="amenity"><i data-lucide="bath"></i> <span>?癒?벣筌왖</span></span>
                             </div>
                             <div class="hotel-review">
                                 <span class="review-score">9.8</span>
-                                <span class="review-text">완벽함 · 128개 후기</span>
+                                <span class="review-text">?袁④펾??夷?128揶??袁㏓┛</span>
                             </div>
                         </div>
                         <div class="hotel-price">
                             <div class="price-info">
-                                <span class="price-label">1박 요금</span>
+                                <span class="price-label">1獄??遺쏀닊</span>
                             </div>
-                            <div class="price-original"><span>₩450,000</span></div>
-                            <div class="price-final"><span>₩380,000</span></div>
-                            <span class="price-tax">세금 포함</span>
+                            <div class="price-original"><span>??50,000</span></div>
+                            <div class="price-final"><span>??80,000</span></div>
+                            <span class="price-tax">?硫명닊 ??釉?/span>
                         </div>
                     </article>
 
-                    <!-- 숙소 카드 2 -->
+                    <!-- ??덈꺖 燁삳?諭?2 -->
                     <article class="hotel-card">
                         <div class="hotel-image-wrap">
                             <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=400&q=80"
-                                alt="가평, 포레스트 하우스" class="hotel-image">
-                            <button class="wishlist-btn" aria-label="위시리스트 추가">
+                                alt="揶쎛?? ?????쎈뱜 ??륁뒭?? class="hotel-image">
+                            <button class="wishlist-btn" aria-label="?袁⑸뻻?귐딅뮞???곕떽?">
                                 <i data-lucide="heart"></i>
                             </button>
                         </div>
@@ -523,39 +523,39 @@
                             <div class="hotel-header">
                                 <span class="hotel-tag jj-pick">Design Award</span>
                                 <div class="hotel-rating">
-                                    <span style="font-size: 0.8rem; color: #888;">풀빌라</span>
+                                    <span style="font-size: 0.8rem; color: #888;">????슢??/span>
                                 </div>
                             </div>
-                            <h3 class="hotel-name">가평, 포레스트 하우스</h3>
+                            <h3 class="hotel-name">揶쎛?? ?????쎈뱜 ??륁뒭??/h3>
                             <p class="hotel-location">
-                                <i data-lucide="map-pin"></i> 경기 가평군 · 프라이빗 온수풀
+                                <i data-lucide="map-pin"></i> 野껋럡由?揶쎛???럵 夷??袁⑥뵬??????λ땾??
                             </p>
                             <div class="hotel-amenities">
-                                <span class="amenity"><i data-lucide="waves"></i> <span>개별 수영장</span></span>
-                                <span class="amenity"><i data-lucide="flame"></i> <span>불멍 존</span></span>
-                                <span class="amenity"><i data-lucide="bed-double"></i> <span>킹 사이즈</span></span>
+                                <span class="amenity"><i data-lucide="waves"></i> <span>揶쏆뮆????륁겫??/span></span>
+                                <span class="amenity"><i data-lucide="flame"></i> <span>?븍뜄李?鈺?/span></span>
+                                <span class="amenity"><i data-lucide="bed-double"></i> <span>?????좑쭩?/span></span>
                             </div>
                             <div class="hotel-review">
                                 <span class="review-score">9.5</span>
-                                <span class="review-text">훌륭함 · 84개 후기</span>
+                                <span class="review-text">?????夷?84揶??袁㏓┛</span>
                             </div>
                         </div>
                         <div class="hotel-price">
                             <div class="price-info">
-                                <span class="price-label">1박 요금</span>
+                                <span class="price-label">1獄??遺쏀닊</span>
                             </div>
-                            <div class="price-original"><span>₩620,000</span></div>
-                            <div class="price-final"><span>₩550,000</span></div>
-                            <span class="price-tax">세금 포함</span>
+                            <div class="price-original"><span>??20,000</span></div>
+                            <div class="price-final"><span>??50,000</span></div>
+                            <span class="price-tax">?硫명닊 ??釉?/span>
                         </div>
                     </article>
 
-                    <!-- 숙소 카드 3 -->
+                    <!-- ??덈꺖 燁삳?諭?3 -->
                     <article class="hotel-card">
                         <div class="hotel-image-wrap">
                             <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&q=80"
-                                alt="교토, 마치야 스테이" class="hotel-image">
-                            <button class="wishlist-btn" aria-label="위시리스트 추가">
+                                alt="?대??? 筌띾뜆?????쎈?? class="hotel-image">
+                            <button class="wishlist-btn" aria-label="?袁⑸뻻?귐딅뮞???곕떽?">
                                 <i data-lucide="heart"></i>
                             </button>
                         </div>
@@ -563,30 +563,30 @@
                             <div class="hotel-header">
                                 <span class="hotel-tag jj-pick">Historic</span>
                                 <div class="hotel-rating">
-                                    <span style="font-size: 0.8rem; color: #888;">전통 가옥</span>
+                                    <span style="font-size: 0.8rem; color: #888;">?袁る꽰 揶쎛??/span>
                                 </div>
                             </div>
-                            <h3 class="hotel-name">교토, 히노키 마치야</h3>
+                            <h3 class="hotel-name">?대??? ??덈걗??筌띾뜆???/h3>
                             <p class="hotel-location">
-                                <i data-lucide="map-pin"></i> 일본 교토 · 기온 거리
+                                <i data-lucide="map-pin"></i> ??곕궚 ?대???夷?疫꿸퀣??椰꾧퀡??
                             </p>
                             <div class="hotel-amenities">
-                                <span class="amenity"><i data-lucide="bath"></i> <span>히노키탕</span></span>
-                                <span class="amenity"><i data-lucide="trees"></i> <span>중정 정원</span></span>
-                                <span class="amenity"><i data-lucide="utensils"></i> <span>가이세키</span></span>
+                                <span class="amenity"><i data-lucide="bath"></i> <span>??덈걗??쎄묄</span></span>
+                                <span class="amenity"><i data-lucide="trees"></i> <span>餓λ쵐???類ㅼ뜚</span></span>
+                                <span class="amenity"><i data-lucide="utensils"></i> <span>揶쎛??곴쉭??/span></span>
                             </div>
                             <div class="hotel-review">
                                 <span class="review-score">9.9</span>
-                                <span class="review-text">최고 · 210개 후기</span>
+                                <span class="review-text">筌ㅼ뮄??夷?210揶??袁㏓┛</span>
                             </div>
                         </div>
                         <div class="hotel-price">
                             <div class="price-info">
-                                <span class="price-label">1박 요금</span>
+                                <span class="price-label">1獄??遺쏀닊</span>
                             </div>
-                            <div class="price-original"><span>₩850,000</span></div>
-                            <div class="price-final"><span>₩720,000</span></div>
-                            <span class="price-tax">세금 포함</span>
+                            <div class="price-original"><span>??50,000</span></div>
+                            <div class="price-final"><span>??20,000</span></div>
+                            <span class="price-tax">?硫명닊 ??釉?/span>
                         </div>
                     </article>
                 </div>
@@ -594,7 +594,7 @@
                 <div class="more-hotels-container" style="margin-top: 40px; text-align: center;">
                     <a href="#" class="btn-more-hotels"
                         style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 32px; border: 1px solid #e5e5e5; border-radius: 30px; color: #666; font-weight: 500; transition: all 0.3s ease;">
-                        <span>더 많은 감성 숙소 보기</span>
+                        <span>??筌띾‘? 揶쏅Ŋ苑???덈꺖 癰귣떯由?/span>
                         <i data-lucide="chevron-right" style="width: 18px; height: 18px;"></i>
                     </a>
                 </div>
@@ -608,13 +608,12 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="../../../core/constants/lang_data.js"></script>
-    <script src="../../../components/adapters/ui/range_calendar.js"></script>
-    <script src="./private_stay.js"></script>
-    <script src="../../../components/adapters/ui/fab.js"></script>
-    <script src="../../../components/adapters/widget/chatbot.js"></script>
-    <script src="../../../components/adapters/ui/stagger_nav.js"></script>
-    <script src="../../../components/adapters/layout/hotel_component_loader.js"></script>
+<script src="./private_stay.js"></script>
+    <script type="module" src="../../../components/runtime/bootstrap.js"></script>
 </body>
 
 </html>
+
+
+
 

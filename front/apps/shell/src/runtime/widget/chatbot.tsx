@@ -1,11 +1,10 @@
 import { createRoot, Root } from "react-dom/client";
-import { ChatbotPanel } from "@runtime/components/widget/ChatbotPanel";
-import { Language } from "@runtime/types";
+import { ChatbotPanel, type ChatbotLanguage } from "@front-components/widget";
 
 let chatbotRoot: Root | null = null;
 let chatbotHost: HTMLElement | null = null;
 let chatbotOpen = false;
-let language: Language = localStorage.getItem("jeju_fab_lang") === "en" ? "en" : "ko";
+let language: ChatbotLanguage = localStorage.getItem("jeju_fab_lang") === "en" ? "en" : "ko";
 
 const rerender = () => {
   if (!chatbotRoot) {
@@ -65,7 +64,7 @@ export const setupLegacyChatbot = () => {
       chatbotOpen = !chatbotOpen;
       rerender();
     },
-    updateLanguage: (nextLanguage: Language) => {
+    updateLanguage: (nextLanguage: ChatbotLanguage) => {
       language = nextLanguage;
       localStorage.setItem("jeju_fab_lang", nextLanguage);
       rerender();

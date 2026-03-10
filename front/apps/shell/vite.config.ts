@@ -22,7 +22,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@runtime": path.resolve(import.meta.dirname, "src/runtime"),
-      "@front-fab": path.resolve(import.meta.dirname, "../../components/react/ui/FAB")
+      "@front-fab": path.resolve(import.meta.dirname, "../../components/react/ui/FAB"),
+      "@front-components": path.resolve(import.meta.dirname, "../../components/react")
     }
   },
   server: {
@@ -30,7 +31,8 @@ export default defineConfig({
       strict: true,
       allow: [
         path.resolve(import.meta.dirname, "src"),
-        path.resolve(import.meta.dirname, "../../components/react/ui/FAB")
+        path.resolve(import.meta.dirname, "../../components/react/ui/FAB"),
+        path.resolve(import.meta.dirname, "../../components/react")
       ]
     }
   }

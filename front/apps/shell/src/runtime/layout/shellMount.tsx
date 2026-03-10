@@ -1,16 +1,21 @@
+import type { ReactElement } from "react";
 import { createRoot, Root } from "react-dom/client";
-import { HtmlTemplate } from "@runtime/components/layout/HtmlTemplate";
+import { HotelHeaderTemplate, MainFooterTemplate, MainHeaderTemplate } from "@front-components/layout";
 import { initFooter } from "@runtime/layout/footer";
 import { initHeader } from "@runtime/layout/header";
-import { resolveFromAppRoot, getAppRoot } from "@runtime/utils/appRoot";
+import { getAppRoot } from "@runtime/utils/appRoot";
 
 const roots = new Map<string, Root>();
 
-const renderTemplate = (
-  hostId: string,
-  templatePath: string,
-  onLoaded?: () => Promise<void> | void
-) => {
+const runAfterRender = (onLoaded?: () => Promise<void> | void) => {
+  requestAnimationFrame(() => {
+    Promise.resolve(onLoaded?.()).catch((error) => {
+      console.error("[ShellRuntime] onLoaded failed", error);
+    });
+  });
+};
+
+const renderComponent = (hostId: string, component: ReactElement, onLoaded?: () => Promise<void> | void) => {
   const host = document.getElementById(hostId);
   if (!host) {
     return;
@@ -23,18 +28,9 @@ const renderTemplate = (
 
   const root = createRoot(host);
   roots.set(hostId, root);
+  root.render(component);
 
-  root.render(
-    <HtmlTemplate
-      path={templatePath}
-      basePath={getAppRoot()}
-      onLoaded={() => {
-        Promise.resolve(onLoaded?.()).catch((error) => {
-          console.error("[ShellRuntime] onLoaded failed", error);
-        });
-      }}
-    />
-  );
+  runAfterRender(onLoaded);
 };
 
 const dispatchLoadedEvent = (eventName: "mainHeaderLoaded" | "mainFooterLoaded") => {
@@ -49,16 +45,15 @@ const ensureLucideIcons = () => {
 };
 
 export const mountMainShell = async () => {
-  const headerPath = resolveFromAppRoot("components/assets/layout/header/main_header.html");
-  const footerPath = resolveFromAppRoot("components/assets/layout/footer/main_footer.html");
+  const basePath = getAppRoot();
 
-  renderTemplate("main-header-placeholder", headerPath, async () => {
+  renderComponent("main-header-placeholder", <MainHeaderTemplate basePath={basePath} />, async () => {
     initHeader();
     ensureLucideIcons();
     dispatchLoadedEvent("mainHeaderLoaded");
   });
 
-  renderTemplate("main-footer-placeholder", footerPath, async () => {
+  renderComponent("main-footer-placeholder", <MainFooterTemplate />, async () => {
     initFooter();
     ensureLucideIcons();
     dispatchLoadedEvent("mainFooterLoaded");
@@ -66,16 +61,15 @@ export const mountMainShell = async () => {
 };
 
 export const mountHotelShell = async () => {
-  const headerPath = resolveFromAppRoot("components/assets/layout/header/header.html");
-  const footerPath = resolveFromAppRoot("components/assets/layout/footer/footer.html");
+  const basePath = getAppRoot();
 
-  renderTemplate("hotel-header-placeholder", headerPath, async () => {
+  renderComponent("hotel-header-placeholder", <HotelHeaderTemplate basePath={basePath} />, async () => {
     initHeader();
     ensureLucideIcons();
     dispatchLoadedEvent("mainHeaderLoaded");
   });
 
-  renderTemplate("hotel-footer-placeholder", footerPath, async () => {
+  renderComponent("hotel-footer-placeholder", <MainFooterTemplate />, async () => {
     initFooter();
     ensureLucideIcons();
     dispatchLoadedEvent("mainFooterLoaded");

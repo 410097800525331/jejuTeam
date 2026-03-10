@@ -1,8 +1,12 @@
+import { createElement } from "react";
+import { createRoot, Root } from "react-dom/client";
+import { ReservationDrawerMarkup } from "@front-components/ui/reservationDrawer";
 import { resolveFromAppRoot } from "@runtime/utils/appRoot";
 
 class ReservationDrawer {
   private isInitialized = false;
   private isOpen = false;
+  private root: Root | null = null;
   private backdrop: HTMLElement | null = null;
   private panel: HTMLElement | null = null;
   private closeButton: HTMLElement | null = null;
@@ -12,7 +16,7 @@ class ReservationDrawer {
       return;
     }
 
-    const cssHref = new URL("components/assets/ui/reservation_drawer/drawer.css", resolveFromAppRoot("./")).href;
+    const cssHref = new URL("components/react/ui/reservationDrawer/drawer.css", resolveFromAppRoot("./")).href;
     const styleExists = Array.from(document.querySelectorAll("link")).some((link) => link.href === cssHref);
     if (!styleExists) {
       const cssLink = document.createElement("link");
@@ -21,17 +25,21 @@ class ReservationDrawer {
       document.head.appendChild(cssLink);
     }
 
-    const htmlUrl = resolveFromAppRoot("components/assets/ui/reservation_drawer/drawer.html");
-    const response = await fetch(htmlUrl);
-    const htmlText = await response.text();
-
-    const existing = document.getElementById("reservation-drawer-container");
-    if (!existing) {
-      const container = document.createElement("div");
+    let container = document.getElementById("reservation-drawer-container");
+    if (!container) {
+      container = document.createElement("div");
       container.id = "reservation-drawer-container";
-      container.innerHTML = htmlText;
       document.body.appendChild(container);
     }
+
+    if (!this.root) {
+      this.root = createRoot(container);
+    }
+
+    this.root.render(createElement(ReservationDrawerMarkup));
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => resolve());
+    });
 
     this.backdrop = document.getElementById("resDrawerBackdrop");
     this.panel = document.getElementById("resDrawerPanel");

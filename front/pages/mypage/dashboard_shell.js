@@ -1,40 +1,33 @@
-/* ????? ? ?? */
-const SHELL_QUERY_KEY = 'shell';
-const SHELL_STORAGE_KEY = 'jeju:mypage-shell';
-const SHELLS = new Set(['main', 'stay', 'air']);
-const APP_ROOT = new URL('../../', import.meta.url).href;
-const DRAWER_ACTION = 'OPEN_RESERVATION_DRAWER';
-const LUCIDE_CDN_URL = 'https://unpkg.com/lucide@latest';
+const SHELL_QUERY_KEY = "shell";
+const SHELL_STORAGE_KEY = "jeju:mypage-shell";
+const SHELLS = new Set(["main", "stay", "air"]);
+const DRAWER_ACTION = "OPEN_RESERVATION_DRAWER";
+const APP_ROOT = new URL("../../", import.meta.url).href;
 
-let commonBindingsReady = false;
 let mountedShell = null;
+let commonBindingsReady = false;
+let shellRuntimePromise = null;
 
-const headerHost = document.getElementById('mypage-shell-header');
-const footerHost = document.getElementById('mypage-shell-footer');
+const headerHost = document.getElementById("mypage-shell-header");
+const footerHost = document.getElementById("mypage-shell-footer");
 
 const toAbsoluteUrl = (path) => new URL(path, APP_ROOT).href;
-const isAuthPage = () => window.location.pathname.toLowerCase().includes('/pages/auth/');
-const normalizeShellForPage = (shell) => {
-  if (shell === 'stay' && isAuthPage()) {
-    return 'main';
-  }
+const isAuthPage = () => window.location.pathname.toLowerCase().includes("/pages/auth/");
 
-  return shell;
+const getShellRuntime = async () => {
+  if (!shellRuntimePromise) {
+    shellRuntimePromise = import("../../components/runtime/shell-runtime.js");
+  }
+  return shellRuntimePromise;
 };
 
-const loadText = async (path) => {
-  const response = await fetch(toAbsoluteUrl(path));
-  if (!response.ok) {
-    throw new Error(`Failed to load ${path}`);
-  }
-  return response.text();
-};
+const normalizeShellForPage = (shell) => (shell === "stay" && isAuthPage() ? "main" : shell);
 
 const loadScript = (src) => {
   return new Promise((resolve, reject) => {
     const absoluteSrc = /^[a-z]+:/i.test(src) ? src : toAbsoluteUrl(src);
     const alreadyLoaded = Array.from(document.scripts).some((script) => {
-      const currentSrc = script.getAttribute('src') || script.src;
+      const currentSrc = script.getAttribute("src") || script.src;
       return currentSrc === absoluteSrc;
     });
 
@@ -43,7 +36,7 @@ const loadScript = (src) => {
       return;
     }
 
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = absoluteSrc;
     script.onload = resolve;
     script.onerror = reject;
@@ -58,29 +51,31 @@ const loadStyle = (href) => {
     return;
   }
 
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
   link.href = absoluteHref;
   document.head.appendChild(link);
 };
 
 const setDocumentBase = (shell) => {
-  let baseElement = document.getElementById('mypage-shell-base');
-  if (shell === 'air') {
+  let baseElement = document.getElementById("mypage-shell-base");
+  if (shell === "air") {
     if (!baseElement) {
-      baseElement = document.createElement('base');
-      baseElement.id = 'mypage-shell-base';
+      baseElement = document.createElement("base");
+      baseElement.id = "mypage-shell-base";
       document.head.prepend(baseElement);
     }
-    baseElement.href = toAbsoluteUrl('jejuair/');
-    document.body.classList.add('jejuair-main-content');
+
+    baseElement.href = toAbsoluteUrl("jejuair/");
+    document.body.classList.add("jejuair-main-content");
     return;
   }
 
   if (baseElement) {
     baseElement.remove();
   }
-  document.body.classList.remove('jejuair-main-content');
+
+  document.body.classList.remove("jejuair-main-content");
 };
 
 const resolveShellFromReferrer = () => {
@@ -92,18 +87,16 @@ const resolveShellFromReferrer = () => {
     const referrerUrl = new URL(document.referrer);
     const pathname = referrerUrl.pathname.toLowerCase();
 
-    if (pathname.includes('/jejuair/')) {
-      return 'air';
+    if (pathname.includes("/jejuair/")) {
+      return "air";
     }
-
-    if (pathname.includes('/jejustay/')) {
-      return 'stay';
+    if (pathname.includes("/jejustay/")) {
+      return "stay";
     }
-
-    if (pathname.endsWith('/index.html') || pathname === '/' || pathname.includes('/front/index.html')) {
-      return 'main';
+    if (pathname.endsWith("/index.html") || pathname === "/" || pathname.includes("/front/index.html")) {
+      return "main";
     }
-  } catch (error) {
+  } catch (_error) {
     return null;
   }
 
@@ -127,12 +120,17 @@ const resolveShell = () => {
     return normalizeShellForPage(storedShell);
   }
 
-  return normalizeShellForPage('main');
+  return normalizeShellForPage("main");
 };
 
 const persistShell = (shell) => {
   window.sessionStorage.setItem(SHELL_STORAGE_KEY, shell);
   document.body.dataset.mypageShell = shell;
+};
+
+const dispatchShellEvents = () => {
+  document.dispatchEvent(new Event("mainHeaderLoaded"));
+  document.dispatchEvent(new Event("mainFooterLoaded"));
 };
 
 const initCommonBindings = async () => {
@@ -142,10 +140,10 @@ const initCommonBindings = async () => {
 
   commonBindingsReady = true;
 
-  const { initRouterBinder } = await import('../../core/utils/router_binder.js');
+  const { initRouterBinder } = await import("../../core/utils/router_binder.js");
   initRouterBinder();
 
-  document.body.addEventListener('click', async (event) => {
+  document.body.addEventListener("click", async (event) => {
     const actionElement = event.target.closest(`[data-action="${DRAWER_ACTION}"]`);
     if (!actionElement) {
       return;
@@ -154,86 +152,55 @@ const initCommonBindings = async () => {
     event.preventDefault();
 
     try {
-      const { reservationDrawer } = await import('../../components/adapters/ui/reservation_drawer.js');
-      reservationDrawer.open();
+      const runtime = await getShellRuntime();
+      await runtime.openReservationDrawer();
     } catch (error) {
-      console.error('[MyPageShell] Drawer open failed:', error);
+      console.error("[MyPageShell] Drawer open failed", error);
     }
   });
 };
 
-const dispatchShellEvents = () => {
-  document.dispatchEvent(new Event('mainHeaderLoaded'));
-  document.dispatchEvent(new Event('mainFooterLoaded'));
+const mountReactMainShell = async () => {
+  if (!headerHost || !footerHost) {
+    return;
+  }
+
+  headerHost.innerHTML = '<div id="main-header-placeholder"></div>';
+  footerHost.innerHTML = '<div id="main-footer-placeholder"></div>';
+
+  const runtime = await getShellRuntime();
+  await runtime.mountMainShellRuntime();
 };
 
-const renderMainShell = async () => {
-  const [headerHtml, footerHtml] = await Promise.all([
-    loadText('components/assets/layout/header/main_header.html'),
-    loadText('components/assets/layout/footer/main_footer.html')
-  ]);
-
-  headerHost.innerHTML = headerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
-  footerHost.innerHTML = footerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
-
-  await Promise.all([
-    loadScript('components/adapters/layout/header.js'),
-    loadScript('components/adapters/layout/mega-menu.js'),
-    loadScript('components/adapters/layout/footer.js')
-  ]);
-
-  if (typeof window.initHeader === 'function') {
-    window.initHeader();
+const mountReactStayShell = async () => {
+  if (!headerHost || !footerHost) {
+    return;
   }
-  if (typeof window.initFooter === 'function') {
-    window.initFooter();
-  }
+
+  headerHost.innerHTML = '<div id="hotel-header-placeholder"></div>';
+  footerHost.innerHTML = '<div id="hotel-footer-placeholder"></div>';
+
+  const runtime = await getShellRuntime();
+  await runtime.mountHotelShellRuntime();
 };
 
-const renderStayShell = async () => {
-  const [headerHtml, footerHtml] = await Promise.all([
-    loadText('components/assets/layout/header/header.html'),
-    loadText('components/assets/layout/footer/footer.html')
-  ]);
-
-  headerHost.innerHTML = headerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
-  footerHost.innerHTML = footerHtml.replace(/\{BASE_PATH\}/g, APP_ROOT);
-
-  await Promise.all([
-    loadScript(LUCIDE_CDN_URL),
-    loadScript('components/adapters/layout/header.js'),
-    loadScript('components/adapters/layout/mega-menu.js'),
-    loadScript('components/adapters/layout/footer.js')
-  ]);
-
-  if (typeof window.initHeader === 'function') {
-    window.initHeader();
-  }
-  if (typeof window.initMegaMenu === 'function') {
-    window.initMegaMenu();
-  }
-  if (typeof window.initFooter === 'function') {
-    window.initFooter();
+const mountAirShell = async () => {
+  if (!headerHost || !footerHost) {
+    return;
   }
 
-  if (window.lucide?.createIcons) {
-    window.lucide.createIcons();
-  }
-};
-
-const renderAirShell = async () => {
-  loadStyle('jejuair/css/main.css');
+  loadStyle("jejuair/css/main.css");
   headerHost.innerHTML = '<header id="header_wrap"></header>';
   footerHost.innerHTML = '<footer id="footer_wrap"></footer>';
 
-  await loadScript('https://code.jquery.com/jquery-3.7.1.min.js');
-  await loadScript('jejuair/js/header.js');
-  await loadScript('jejuair/js/footer.js');
+  await loadScript("https://code.jquery.com/jquery-3.7.1.min.js");
+  await loadScript("jejuair/js/header.js");
+  await loadScript("jejuair/js/footer.js");
 };
 
 export const mountMyPageShell = async () => {
   if (!headerHost || !footerHost) {
-    return 'main';
+    return "main";
   }
 
   const shell = resolveShell();
@@ -246,13 +213,13 @@ export const mountMyPageShell = async () => {
     return shell;
   }
 
-  if (shell === 'air') {
-    await renderAirShell();
+  if (shell === "air") {
+    await mountAirShell();
     await new Promise((resolve) => window.setTimeout(resolve, 40));
-  } else if (shell === 'stay') {
-    await renderStayShell();
+  } else if (shell === "stay") {
+    await mountReactStayShell();
   } else {
-    await renderMainShell();
+    await mountReactMainShell();
   }
 
   mountedShell = shell;

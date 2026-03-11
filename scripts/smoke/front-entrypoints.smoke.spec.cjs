@@ -64,6 +64,21 @@ test("로그인 페이지 스모크 체크", async ({ page }) => {
   expectNoRuntimeIssues(issues);
 });
 
+test("로그인 air shell footer 스모크 체크", async ({ page }) => {
+  const issues = createIssueTracker(page);
+
+  await page.goto(server.url("/pages/auth/login.html?shell=air"), {
+    waitUntil: "domcontentloaded",
+  });
+
+  await expect(page).toHaveTitle("로그인 | 제주그룹");
+  await expect(page.getByText("(주)제주항공")).toBeVisible();
+  await expect(page.getByRole("link", { name: "회사소개" }).first()).toBeVisible();
+  await expect(page.getByAltText("유튜브")).toBeVisible();
+
+  expectNoRuntimeIssues(issues);
+});
+
 test("회원가입 페이지 스모크 체크", async ({ page }) => {
   const issues = createIssueTracker(page);
 

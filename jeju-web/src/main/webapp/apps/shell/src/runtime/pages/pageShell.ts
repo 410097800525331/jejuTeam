@@ -1,3 +1,4 @@
+import { clearAirShellBase, mountAirPageShell, syncAirShellBase } from "@runtime/pages/airShell";
 import { installLegacyGlobals } from "@runtime/globals";
 import { mountHotelShell, mountMainShell } from "@runtime/layout/shellMount";
 import { getAppRoot } from "@runtime/utils/appRoot";
@@ -67,24 +68,12 @@ const loadStyle = (href: string) => {
 };
 
 const setDocumentBase = (shell: string) => {
-  let baseElement = document.getElementById("jeju-page-shell-base") as HTMLBaseElement | null;
   if (shell === "air") {
-    if (!baseElement) {
-      baseElement = document.createElement("base");
-      baseElement.id = "jeju-page-shell-base";
-      document.head.prepend(baseElement);
-    }
-
-    baseElement.href = toAbsoluteUrl("jejuair/");
-    document.body.classList.add("jejuair-main-content");
+    syncAirShellBase(toAbsoluteUrl);
     return;
   }
 
-  if (baseElement) {
-    baseElement.remove();
-  }
-
-  document.body.classList.remove("jejuair-main-content");
+  clearAirShellBase();
 };
 
 const resolveShellFromReferrer = () => {
@@ -172,13 +161,16 @@ const mountAirShell = async () => {
     return;
   }
 
-  loadStyle("jejuair/css/main.css");
-  headerHost.innerHTML = '<header id="header_wrap"></header>';
-  footerHost.innerHTML = '<footer id="footer_wrap"></footer>';
-
-  await loadScript("https://code.jquery.com/jquery-3.7.1.min.js");
-  await loadScript("jejuair/js/header.js");
-  await loadScript("jejuair/js/footer.js");
+  await mountAirPageShell(
+    {
+      footerHost,
+      headerHost,
+    },
+    {
+      loadScript,
+      loadStyle,
+    },
+  );
 };
 
 export const hasPageShellHosts = () => {

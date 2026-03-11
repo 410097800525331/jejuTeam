@@ -24,19 +24,19 @@
 - `shell runtime`
   - `jeju-signup-app`, `jeju-pass-auth-app` 자동 감지 후 mount 연결
   - runtime bootstrap 산출물 갱신 대상에 auth 신규 island 포함
+  - auth 와 mypage shell host mount 를 runtime 내부 `pageShell` 모듈로 승격
+  - `dashboard_shell.js` 는 호환용 얇은 wrapper 로 축소
 
 ## 남은 브리지
 - PASS 성공 전달
   - `pass_auth.html` 팝업이 opener로 `postMessage` 전달하는 브리지 유지 상태
 - 소셜 가입
   - Kakao, Naver SDK는 외부 스크립트 의존성과 팝업 흐름 때문에 브리지성 연동 유지 상태
-- 공통 셸
-  - auth 페이지 header, footer는 기존 `dashboard_shell.js` 브리지를 통해 mount 유지 상태
 - reCAPTCHA
   - widget render와 reset은 Google 스크립트 API 호출이 필요해서 imperative bridge 유지 상태
 
 ## 다음 제거 대상
-1. `dashboard_shell.js` 의 auth 전용 shell bridge 제거 후 runtime 직접 mount 일원화
+1. `mypage-shell-*` fallback host id 제거 후 `jeju-page-shell-*` 만 유지
 2. Kakao, Naver quick join을 reducer 액션 기반 후처리로 정리하고 성공 화면과 실제 가입 플로우 분리
 3. reCAPTCHA render 상태를 전용 adapter로 감싸서 page component에서 직접 다루는 DOM ref 축소
 

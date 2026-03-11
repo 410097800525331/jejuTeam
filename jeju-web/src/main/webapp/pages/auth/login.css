@@ -49,8 +49,8 @@ body.login-page {
 }
 
 /* ==================== Header/Footer Layout Overrides ==================== */
-.login-page #mypage-shell-header,
-.login-page #mypage-shell-footer {
+.login-page #jeju-page-shell-header,
+.login-page #jeju-page-shell-footer {
   width: 100%;
   flex-shrink: 0;
 }

@@ -1,6 +1,6 @@
 import { getDashboardData } from './dashboard_data.js';
 import { createDashboardMarkup, createErrorMarkup, createLoadingMarkup } from './dashboard_markup.js';
-import { mountMyPageShell } from './dashboard_shell.js';
+import { mountPageShellBridgeRuntime } from '../../components/runtime/shell-runtime.js';
 
 // ==========================================
 // Meta-Design Controller
@@ -56,7 +56,7 @@ export const bootstrapMyPage = async () => {
   if (!root) return;
 
   try {
-    await mountMyPageShell();
+    await mountPageShellBridgeRuntime();
   } catch (error) {
     console.error('Shell mount failed', error);
   }

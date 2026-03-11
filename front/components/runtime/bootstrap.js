@@ -2,6 +2,7 @@ import {
   installLegacyGlobals,
   mountAuthLoginRuntime,
   mountAuthPassRuntime,
+  mountPageShellBridgeRuntime,
   mountAuthSignupRuntime,
   mountHotelShellRuntime,
   mountMainShellRuntime,
@@ -139,17 +140,13 @@ const hasPassAuthIsland = () => Boolean(document.getElementById("jeju-pass-auth-
 
 const hasMyPageIsland = () => Boolean(document.getElementById("mypage-dashboard-root"));
 
-const hasMyPageShellHosts = () =>
-  Boolean(document.getElementById("mypage-shell-header") || document.getElementById("mypage-shell-footer"));
-
-const mountBridgeShellIfNeeded = async () => {
-  if (!hasMyPageShellHosts()) {
-    return;
-  }
-
-  const { mountMyPageShell } = await import("../../pages/mypage/dashboard_shell.js");
-  await mountMyPageShell();
-};
+const hasPageShellHosts = () =>
+  Boolean(
+    document.getElementById("jeju-page-shell-header") ||
+      document.getElementById("jeju-page-shell-footer") ||
+      document.getElementById("mypage-shell-header") ||
+      document.getElementById("mypage-shell-footer")
+  );
 
 const bootRuntime = async () => {
   ensureNavigator();
@@ -173,7 +170,9 @@ const bootRuntime = async () => {
     setupWeatherWidgetRuntime();
   }
 
-  await mountBridgeShellIfNeeded();
+  if (hasPageShellHosts()) {
+    await mountPageShellBridgeRuntime();
+  }
 
   if (hasLoginIsland()) {
     mountAuthLoginRuntime();
@@ -207,7 +206,7 @@ const start = () => {
       !hasSignupIsland() &&
       !hasPassAuthIsland() &&
       !hasMyPageIsland() &&
-      !hasMyPageShellHosts()
+      !hasPageShellHosts()
     ) {
       ensureNavigator();
       installLegacyGlobals();

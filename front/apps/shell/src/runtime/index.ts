@@ -1,59 +1,18 @@
-import { bindHeaderGlobalEvents, initHeader } from "@runtime/layout/header";
-import { initMegaMenu } from "@runtime/layout/megaMenu";
-import { ensureRouteBinder } from "@runtime/layout/routeBridge";
-import { mountHotelShell, mountMainShell } from "@runtime/layout/shellMount";
-import { ensureStaggerBinding, initStaggerNav } from "@runtime/layout/stagger";
 import { initFooter } from "@runtime/layout/footer";
-import { reservationDrawer } from "@runtime/ui/drawer";
-import { setupLegacyFab } from "@runtime/ui/fab";
-import { createRangeCalendar, installRangeCalendarGlobal } from "@runtime/ui/rangeCalendar";
-import { setupLegacyChatbot } from "@runtime/widget/chatbot";
-import { setupWeatherWidget } from "@runtime/widget/weather";
+import { initHeader } from "@runtime/layout/header";
+import { initMegaMenu } from "@runtime/layout/megaMenu";
+import { mountHotelShell, mountMainShell } from "@runtime/layout/shellMount";
+import { initStaggerNav } from "@runtime/layout/stagger";
+import { createRangeCalendarRuntime, installLegacyGlobals } from "@runtime/globals";
 import { mountLoginRuntime } from "@runtime/pages/login";
 import { mountPassAuthRuntime } from "@runtime/pages/passAuth";
 import { mountMyPageDashboardRuntime } from "@runtime/pages/mypage";
+import { mountPageShellRuntime } from "@runtime/pages/pageShell";
 import { mountSignupRuntime } from "@runtime/pages/signup";
-
-let globalsInstalled = false;
-let drawerBound = false;
-
-const bindDrawerAction = () => {
-  if (drawerBound) {
-    return;
-  }
-
-  drawerBound = true;
-
-  document.body.addEventListener("click", async (event) => {
-    const actionElement = (event.target as HTMLElement | null)?.closest('[data-action="OPEN_RESERVATION_DRAWER"]');
-    if (!actionElement) {
-      return;
-    }
-
-    event.preventDefault();
-    await reservationDrawer.open();
-  });
-};
-
-export const installLegacyGlobals = () => {
-  if (globalsInstalled) {
-    return;
-  }
-
-  globalsInstalled = true;
-
-  window.initHeader = () => initHeader();
-  window.initFooter = () => initFooter();
-  window.initMegaMenu = () => initMegaMenu();
-  window.initStaggerNav = () => initStaggerNav();
-
-  installRangeCalendarGlobal();
-  bindHeaderGlobalEvents();
-  ensureStaggerBinding();
-  bindDrawerAction();
-
-  void ensureRouteBinder();
-};
+import { reservationDrawer } from "@runtime/ui/drawer";
+import { setupLegacyFab } from "@runtime/ui/fab";
+import { setupLegacyChatbot } from "@runtime/widget/chatbot";
+import { setupWeatherWidget } from "@runtime/widget/weather";
 
 export const mountMainShellRuntime = async () => {
   installLegacyGlobals();
@@ -63,6 +22,11 @@ export const mountMainShellRuntime = async () => {
 export const mountHotelShellRuntime = async () => {
   installLegacyGlobals();
   await mountHotelShell();
+};
+
+export const mountPageShellBridgeRuntime = async () => {
+  installLegacyGlobals();
+  return mountPageShellRuntime();
 };
 
 export const ensureHeaderBehavior = () => {
@@ -110,10 +74,7 @@ export const setupWeatherWidgetRuntime = () => {
   setupWeatherWidget();
 };
 
-export const createRangeCalendarRuntime = (config?: Record<string, unknown>) => {
-  installLegacyGlobals();
-  return createRangeCalendar(config);
-};
+export { createRangeCalendarRuntime, installLegacyGlobals };
 
 export const mountAuthLoginRuntime = () => {
   mountLoginRuntime();

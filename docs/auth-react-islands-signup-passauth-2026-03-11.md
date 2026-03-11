@@ -42,10 +42,9 @@
   - widget render와 reset은 Google 스크립트 API 호출이 필요해서 imperative bridge 유지 상태
 
 ## 다음 제거 대상
-1. `mypage-shell-*` fallback host id 제거 후 `jeju-page-shell-*` 만 유지
-2. Kakao, Naver quick join을 reducer 액션 기반 후처리로 정리하고 성공 화면과 실제 가입 플로우 분리
-3. reCAPTCHA render 상태를 전용 adapter로 감싸서 page component에서 직접 다루는 DOM ref 축소
-4. 제주에어 본 페이지들까지 runtime header, footer 구현으로 교체 가능한지 parity 확인 후 확장
+1. Kakao, Naver quick join을 reducer 액션 기반 후처리로 정리하고 성공 화면과 실제 가입 플로우 분리
+2. reCAPTCHA render 상태를 전용 adapter로 감싸서 page component에서 직접 다루는 DOM ref 축소
+3. 제주에어 본 페이지들까지 runtime header, footer 구현으로 교체 가능한지 parity 확인 후 확장
 
 ## 검증 기준
 ```bash

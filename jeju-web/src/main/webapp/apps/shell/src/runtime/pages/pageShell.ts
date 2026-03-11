@@ -7,17 +7,15 @@ const SHELL_QUERY_KEY = "shell";
 const SHELL_STORAGE_KEY = "jeju:mypage-shell";
 const SHELLS = new Set(["main", "stay", "air"]);
 const AUTH_PATH_SEGMENT = "/pages/auth/";
-const HEADER_HOST_IDS = ["jeju-page-shell-header", "mypage-shell-header"] as const;
-const FOOTER_HOST_IDS = ["jeju-page-shell-footer", "mypage-shell-footer"] as const;
 
 let mountedShell: string | null = null;
 
 const getHeaderHost = () => {
-  return HEADER_HOST_IDS.map((id) => document.getElementById(id)).find(Boolean) ?? null;
+  return document.getElementById("jeju-page-shell-header");
 };
 
 const getFooterHost = () => {
-  return FOOTER_HOST_IDS.map((id) => document.getElementById(id)).find(Boolean) ?? null;
+  return document.getElementById("jeju-page-shell-footer");
 };
 
 const getPageShellHosts = () => {

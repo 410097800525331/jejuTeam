@@ -143,9 +143,7 @@ const hasMyPageIsland = () => Boolean(document.getElementById("mypage-dashboard-
 const hasPageShellHosts = () =>
   Boolean(
     document.getElementById("jeju-page-shell-header") ||
-      document.getElementById("jeju-page-shell-footer") ||
-      document.getElementById("mypage-shell-header") ||
-      document.getElementById("mypage-shell-footer")
+      document.getElementById("jeju-page-shell-footer")
   );
 
 const bootRuntime = async () => {

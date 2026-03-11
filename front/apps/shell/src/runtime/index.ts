@@ -9,6 +9,8 @@ import { setupLegacyFab } from "@runtime/ui/fab";
 import { createRangeCalendar, installRangeCalendarGlobal } from "@runtime/ui/rangeCalendar";
 import { setupLegacyChatbot } from "@runtime/widget/chatbot";
 import { setupWeatherWidget } from "@runtime/widget/weather";
+import { mountLoginRuntime } from "@runtime/pages/login";
+import { mountMyPageDashboardRuntime } from "@runtime/pages/mypage";
 
 let globalsInstalled = false;
 let drawerBound = false;
@@ -109,6 +111,14 @@ export const setupWeatherWidgetRuntime = () => {
 export const createRangeCalendarRuntime = (config?: Record<string, unknown>) => {
   installLegacyGlobals();
   return createRangeCalendar(config);
+};
+
+export const mountAuthLoginRuntime = () => {
+  mountLoginRuntime();
+};
+
+export const mountMyPageRuntime = () => {
+  mountMyPageDashboardRuntime();
 };
 
 export const runtimeReservationDrawer = reservationDrawer;

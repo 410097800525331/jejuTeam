@@ -10,6 +10,7 @@ const ROOT_DIR = path.resolve("front");
 const ENTRY_POINTS = [
   path.join(ROOT_DIR, "index.html"),
   path.join(ROOT_DIR, "pages", "auth", "login.html"),
+  path.join(ROOT_DIR, "pages", "mypage", "dashboard.html"),
   path.join(ROOT_DIR, "jejustay", "pages", "hotel", "jejuhotel.html"),
 ];
 const server = createStaticServerController({
@@ -54,8 +55,23 @@ test("로그인 페이지 스모크 체크", async ({ page }) => {
 
   await expect(page).toHaveTitle("로그인 | 제주그룹");
   await expect(page.getByRole("heading", { name: "로그인" })).toBeVisible();
-  await expect(page.getByRole("textbox", { name: "아이디 또는 이메일 입력" })).toBeVisible();
+  await expect(page.getByLabel("이메일/아이디")).toBeVisible();
   await expect(page.getByRole("button", { name: "로그인" })).toBeVisible();
+  await expect(page.locator('[data-state="idle"]')).toBeVisible();
+
+  expectNoRuntimeIssues(issues);
+});
+
+test("마이페이지 대시보드 스모크 체크", async ({ page }) => {
+  const issues = createIssueTracker(page);
+
+  await page.goto(server.url("/pages/mypage/dashboard.html"), {
+    waitUntil: "domcontentloaded",
+  });
+
+  await expect(page).toHaveTitle("마이페이지 | 제주그룹 통합 대시보드");
+  await expect(page.getByText("통합 예약 관리")).toBeVisible();
+  await expect(page.getByText("Jeju Ocean Suite")).toBeVisible();
 
   expectNoRuntimeIssues(issues);
 });

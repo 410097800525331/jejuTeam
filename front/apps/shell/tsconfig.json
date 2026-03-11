@@ -18,5 +18,10 @@
       "@front-components/*": ["../../components/react/*"]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "../../components/react/**/*.ts",
+    "../../components/react/**/*.tsx",
+    "../../components/react/**/*.d.ts"
+  ]
 }

@@ -10,8 +10,10 @@ const outputFile = path.join(outputDir, "bootstrap.js");
 
 const bootstrapSource = `import {
   installLegacyGlobals,
+  mountAuthLoginRuntime,
   mountHotelShellRuntime,
   mountMainShellRuntime,
+  mountMyPageRuntime,
   setupLegacyChatbotRuntime,
   setupLegacyFabRuntime,
   setupWeatherWidgetRuntime
@@ -137,6 +139,22 @@ const hasWeatherUi = () => {
   );
 };
 
+const hasLoginIsland = () => Boolean(document.getElementById("jeju-login-app"));
+
+const hasMyPageIsland = () => Boolean(document.getElementById("mypage-dashboard-root"));
+
+const hasMyPageShellHosts = () =>
+  Boolean(document.getElementById("mypage-shell-header") || document.getElementById("mypage-shell-footer"));
+
+const mountBridgeShellIfNeeded = async () => {
+  if (!hasMyPageShellHosts()) {
+    return;
+  }
+
+  const { mountMyPageShell } = await import("../../pages/mypage/dashboard_shell.js");
+  await mountMyPageShell();
+};
+
 const bootRuntime = async () => {
   ensureNavigator();
   installLegacyGlobals();
@@ -158,6 +176,16 @@ const bootRuntime = async () => {
   if (hasWeatherUi()) {
     setupWeatherWidgetRuntime();
   }
+
+  await mountBridgeShellIfNeeded();
+
+  if (hasLoginIsland()) {
+    mountAuthLoginRuntime();
+  }
+
+  if (hasMyPageIsland()) {
+    mountMyPageRuntime();
+  }
 };
 
 const start = () => {
@@ -166,7 +194,15 @@ const start = () => {
   }
 
   const run = async () => {
-    if (!hasShellPlaceholders() && !hasFabStyle() && !hasChatbotStyle() && !hasWeatherUi()) {
+    if (
+      !hasShellPlaceholders() &&
+      !hasFabStyle() &&
+      !hasChatbotStyle() &&
+      !hasWeatherUi() &&
+      !hasLoginIsland() &&
+      !hasMyPageIsland() &&
+      !hasMyPageShellHosts()
+    ) {
       ensureNavigator();
       installLegacyGlobals();
       return;

@@ -23,6 +23,10 @@ const HTML_BROKEN_CLOSING_TAG =
   /(?<![<\\])\/(?:title|h[1-6]|p|span|strong|button|label|a|li|option|small|div|section|script|textarea|th|td)>/;
 
 const scanFile = (filePath) => {
+  if (!fs.existsSync(filePath)) {
+    return [];
+  }
+
   const text = fs.readFileSync(filePath, "utf8");
   const lines = text.split(/\r?\n/);
   const issues = [];

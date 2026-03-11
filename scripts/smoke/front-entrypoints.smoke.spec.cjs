@@ -10,6 +10,8 @@ const ROOT_DIR = path.resolve("front");
 const ENTRY_POINTS = [
   path.join(ROOT_DIR, "index.html"),
   path.join(ROOT_DIR, "pages", "auth", "login.html"),
+  path.join(ROOT_DIR, "pages", "auth", "signup.html"),
+  path.join(ROOT_DIR, "pages", "auth", "pass_auth.html"),
   path.join(ROOT_DIR, "pages", "mypage", "dashboard.html"),
   path.join(ROOT_DIR, "jejustay", "pages", "hotel", "jejuhotel.html"),
 ];
@@ -58,6 +60,36 @@ test("로그인 페이지 스모크 체크", async ({ page }) => {
   await expect(page.getByLabel("이메일/아이디")).toBeVisible();
   await expect(page.getByRole("button", { name: "로그인" })).toBeVisible();
   await expect(page.locator('[data-state="idle"]')).toBeVisible();
+
+  expectNoRuntimeIssues(issues);
+});
+
+test("회원가입 페이지 스모크 체크", async ({ page }) => {
+  const issues = createIssueTracker(page);
+
+  await page.goto(server.url("/pages/auth/signup.html"), {
+    waitUntil: "domcontentloaded",
+  });
+
+  await expect(page).toHaveTitle("회원가입 | 제주그룹");
+  await expect(page.getByRole("heading", { name: "약관동의" })).toBeVisible();
+  await expect(page.getByText("전체 동의")).toBeVisible();
+  await expect(page.getByRole("button", { name: "다음" })).toBeVisible();
+
+  expectNoRuntimeIssues(issues);
+});
+
+test("PASS 인증 페이지 스모크 체크", async ({ page }) => {
+  const issues = createIssueTracker(page);
+
+  await page.goto(server.url("/pages/auth/pass_auth.html"), {
+    waitUntil: "domcontentloaded",
+  });
+
+  await expect(page).toHaveTitle("PASS 인증 | 제주그룹");
+  await expect(page.getByRole("heading", { name: "이용 중인 통신사를 선택해 주세요" })).toBeVisible();
+  await expect(page.getByRole("button", { exact: true, name: "SKT" })).toBeVisible();
+  await expect(page.getByRole("button", { exact: true, name: "KT" })).toBeVisible();
 
   expectNoRuntimeIssues(issues);
 });

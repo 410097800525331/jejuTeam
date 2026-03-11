@@ -1,196 +1,30 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <title>회원가입 | 제주그룹</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- 통합 스타일 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../../styles/globals.css">
-    <link rel="stylesheet" href="../../components/react/layout/header.css">
-    <link rel="stylesheet" href="../../components/react/layout/mega-menu.css">
-    <link rel="stylesheet" href="../../components/react/layout/footer.css">
-    <link rel="stylesheet" href="./signup.css">
-
-    <!-- Daum Postcode API -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
-
-    <!-- Social SDKs -->
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"></script>
-    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+  <meta charset="UTF-8">
+  <title>회원가입 | 제주그룹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../styles/globals.css">
+  <link rel="stylesheet" href="../../components/react/layout/header.css">
+  <link rel="stylesheet" href="../../components/react/layout/mega-menu.css">
+  <link rel="stylesheet" href="../../components/react/layout/footer.css">
+  <link rel="stylesheet" href="./signup.css">
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"></script>
+  <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 </head>
 
 <body class="signup-page">
-    <div id="mypage-shell-header"></div>
+  <div id="mypage-shell-header"></div>
 
-    <main class="signup-wrapper" id="jeju-signup-app">
-        <section class="signup-container">
-            <!-- Step Header & Progress -->
-            <header class="step-header">
-                <div class="step-header-text">
-                    <h1 class="step-title" id="stepTitle">약관동의</h1>
-                </div>
+  <main class="signup-wrapper">
+    <div id="jeju-signup-app" aria-live="polite"></div>
+  </main>
 
-                <div class="step-indicator">
-                    <div class="progress-bg"></div>
-                    <div class="progress-bar" id="progressBar"></div>
-                    <div class="step-circles">
-                        <div class="step-circle active" data-step="1"><i class="fa-solid fa-plane"></i></div>
-                        <div class="step-circle" data-step="2"></div>
-                        <div class="step-circle" data-step="3"></div>
-                        <div class="step-circle" data-step="4"></div>
-                    </div>
-                </div>
-            </header>
+  <div id="mypage-shell-footer"></div>
 
-            <form id="signup_form" class="user_form">
-
-                <!-- Step 1: 약관 동의 -->
-                <div class="step-panel active" id="step1">
-                    <div class="agree_box flat-agree-box">
-                        <div class="check-all-wrapper">
-                            <label class="custom-chk check-all">
-                                <input type="checkbox" id="termAll" class="hidden-chk">
-                                <span class="chk-mark"></span>
-                                <span>전체 동의</span>
-                            </label>
-                            <div class="agree-desc">
-                                전체동의에는 필수 및 선택동의가 포함되며, 개별적으로 동의를 선택할 수 있습니다.
-                                선택항목 동의여부 관계없이 정상적 서비스 이용가능합니다.
-                            </div>
-                        </div>
-                        <label class="custom-chk">
-                            <input type="checkbox" class="term-item req hidden-chk" name="termService" required>
-                            <span class="chk-mark"></span>
-                            [필수] 이용약관 동의 <i class="fa-solid fa-chevron-right arrow-right"></i>
-                        </label>
-                        <label class="custom-chk">
-                            <input type="checkbox" class="term-item req hidden-chk" name="termPrivacy" required>
-                            <span class="chk-mark"></span>
-                            [필수] 개인정보 수집 및 이용 동의 <i class="fa-solid fa-chevron-right arrow-right"></i>
-                        </label>
-                        <label class="custom-chk opt-chk">
-                            <input type="checkbox" class="term-item opt hidden-chk" name="termMarketing">
-                            <span class="chk-mark"></span>
-                            [선택] 마케팅 정보 수신 동의 <i class="fa-solid fa-chevron-right arrow-right"></i>
-                        </label>
-                        <div class="opt-desc">
-                            * 마케팅 정보 수신에 동의하시면 특가 및 이벤트 정보를 받아보실 수 있으며, 미동의 시에도 서비스 이용은 가능합니다.
-                        </div>
-                    </div>
-                    <div class="form-actions flat-actions">
-                        <button type="button" class="btn-flat" id="btnNext1" disabled>다음</button>
-                    </div>
-                </div>
-
-                <!-- Step 2: 본인 인증 -->
-                <div class="step-panel" id="step2">
-                    <div class="auth-methods">
-                        <button type="button" class="auth-btn kakao" id="btnKakao"><i class="fa-solid fa-comment"></i>
-                            카카오로 3초만에 가입하기</button>
-                        <button type="button" class="auth-btn naver" id="btnNaver"><i class="fa-solid fa-n"
-                                style="font-weight:900;"></i> 네이버로 가입하기</button>
-                        <button type="button" class="auth-btn pass" id="btnPass">
-                            <div class="pass-logo-text">PASS</div> 휴대전화 인증
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 3: 정보 입력 -->
-                <div class="step-panel" id="step3">
-                    <div class="input_group">
-                        <label for="userName">이름</label>
-                        <input type="text" id="userName" name="userName" readonly class="readonly-input">
-                    </div>
-                    <div class="input_group">
-                        <label for="verifiedPhone">휴대전화번호</label>
-                        <input type="text" id="verifiedPhone" name="verifiedPhone" readonly class="readonly-input">
-                        <input type="hidden" name="verifiedGender" id="verifiedGender" value="">
-                        <input type="hidden" name="verifiedBirthDate" id="verifiedBirthDate" value="">
-                        <input type="hidden" name="verifiedRrnBackFirstDigit" id="verifiedRrnBackFirstDigit" value="">
-                    </div>
-                    <div class="input_group">
-                        <label for="userId">아이디</label>
-                        <div class="input-with-button">
-                            <input type="text" id="userId" name="userId" placeholder="영문, 숫자 4~20자" required>
-                            <button type="button" class="btn-secondary btn-verify" id="btnCheckId">중복확인</button>
-                        </div>
-                        <span class="input-feedback" id="feedbackId"></span>
-                    </div>
-
-                    <div class="input_group">
-                        <label for="password">비밀번호</label>
-                        <input type="password" id="password" name="password" placeholder="영문, 숫자 혼합 8자 이상" required>
-                        <div class="password-strength-container" id="pwStrengthContainer" style="display: none;">
-                            <div class="password-strength-meter">
-                                <div class="meter-bar" id="meterBar1"></div>
-                                <div class="meter-bar" id="meterBar2"></div>
-                                <div class="meter-bar" id="meterBar3"></div>
-                            </div>
-                            <span class="strength-text" id="strengthText"></span>
-                        </div>
-                        <span class="input-feedback" id="feedbackPw"></span>
-                    </div>
-
-                    <div class="input_group">
-                        <label for="passwordConfirm">비밀번호 확인</label>
-                        <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호 다시 입력"
-                            required>
-                        <span class="input-feedback" id="feedbackPwConfirm"></span>
-                    </div>
-
-                    <div class="input_group">
-                        <label for="userEmail">이메일</label>
-                        <input type="email" id="userEmail" name="userEmail" placeholder="example@email.com" required>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn-primary" id="btnSignupSubmit">가입 완료</button>
-                    </div>
-                </div>
-
-                <!-- Step 4: 가입 완료 -->
-                <div class="step-panel" id="step4">
-                    <div class="success-content">
-                        <i class="fa-solid fa-circle-check success-icon"></i>
-                        <h2 class="success-title">환영합니다!</h2>
-                        <p class="success-desc">제주그룹의 회원이 되신 것을 진심으로 환영합니다.</p>
-                        <div class="form-actions">
-                            <a href="login.html" class="btn-primary">로그인 페이지로 이동</a>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-
-        </section>
-    </main>
-
-    <div id="mypage-shell-footer"></div>
-
-    <!-- Core Scripts (Zero Monolith Architecture) -->
-    <script src="../../core/constants/lang_data.js"></script>
-    <script src="../../jejustay/pages/hotel/main.js"></script>
-
-    <!-- Reuse existing MyPage Shell Logic -->
-    <script type="module">
-        import { mountMyPageShell } from '../mypage/dashboard_shell.js';
-        document.addEventListener('DOMContentLoaded', () => {
-            mountMyPageShell();
-        });
-    </script>
-
-    <script type="module">
-        import { initSignupLogic } from './js/signup_main.js';
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initSignupLogic();
-        });
-    </script>
+  <script type="module" src="../../components/runtime/bootstrap.js"></script>
 </body>
 
 </html>
-
-

@@ -764,3 +764,45 @@ html {
 .strength-strong #meterBar2,
 .strength-strong #meterBar3 { background-color: #52c41a; }
 .strength-strong #strengthText { color: #52c41a; }
+
+#jeju-signup-app {
+  max-width: 480px;
+  width: 100%;
+}
+
+.auth-method-note {
+  color: #666;
+  font-size: 13px;
+  margin: 16px 0 0;
+  text-align: center;
+}
+
+.auth-feedback {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.auth-summary-chip {
+  align-items: center;
+  background: rgba(255, 80, 0, 0.08);
+  border-radius: 12px;
+  color: #ff5000;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 14px;
+}
+
+.auth-summary-chip span {
+  color: #333;
+}
+
+.signup-submit-feedback {
+  margin-top: 8px;
+}
+
+.input-feedback.warning {
+  color: #faad14;
+}

@@ -14,7 +14,7 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "client", "src"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
-      "@front-fab": path.resolve(import.meta.dirname, "../../components/ui/FAB"),
+      "@front-fab": path.resolve(import.meta.dirname, "../../components/react/ui/FAB"),
     },
   },
   envDir: path.resolve(import.meta.dirname),
@@ -42,7 +42,7 @@ export default defineConfig({
       strict: true,
       allow: [
         path.resolve(import.meta.dirname, "client"),
-        path.resolve(import.meta.dirname, "../../components/ui/FAB"),
+        path.resolve(import.meta.dirname, "../../components/react/ui/FAB"),
       ],
       deny: ["**/.*"],
     },

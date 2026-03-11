@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -8,8 +8,8 @@
     <title data-lang="pageTitle">제주 그룹 - 모든 여행을 제주그룹 하나로</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./styles/globals.css">
-    <link rel="stylesheet" href="./components/layout/header/header.css">
-    <link rel="stylesheet" href="./components/widget/weather.css">
+    <link rel="stylesheet" href="./components/react/layout/header.css">
+    <link rel="stylesheet" href="./components/react/widget/weather.css">
 
 </head>
 
@@ -54,15 +54,14 @@
                             <span class="service-tag" data-lang="airTag">제주에어</span>
                             <h2 data-lang="airTitle">가장 빠르고 편안한 하늘길</h2>
                         </div>
-                        <p class="service-description" data-lang="airDesc">제주에어는 합리적인 운임으로 최고의 서비스를 제공합니다...</p>
+                        <p class="service-description" data-lang="airDesc">제주에어는 합리적인 운임으로 최고의 서비스를 제공합니다. 국내외 주요 노선을 운항하며, 편안한 객실 환경과 친절한 승무원 서비스로 당신의 여행을 더욱 특별하게 만들어드립니다.</p>
                         <ul class="service-features">
                             <li><i class="fas fa-check"></i> <span data-lang="airFeature1">합리적인 운임</span></li>
                             <li><i class="fas fa-check"></i> <span data-lang="airFeature2">편안한 객실</span></li>
                             <li><i class="fas fa-check"></i> <span data-lang="airFeature3">친절한 서비스</span></li>
                         </ul>
                         <a href="jejuair/index.html" class="route-link" data-route="SERVICES.AIR.MAIN"><button
-                                class="cta-button" data-lang="airButton">항공권
-                                예약하기</button></a>
+                                class="cta-button" data-lang="airButton">항공권 예약하기</button></a>
                     </div>
                 </div>
             </div>
@@ -80,15 +79,14 @@
                             <span class="service-tag" data-lang="hotelTag">제주호텔</span>
                             <h2 data-lang="hotelTitle">자연을 품은 프리미엄 휴식처</h2>
                         </div>
-                        <p class="service-description" data-lang="hotelDesc">제주호텔은 아름다운 자연 속에서 프리미엄한 휴식을 제공합니다...</p>
+                        <p class="service-description" data-lang="hotelDesc">제주호텔은 아름다운 자연 속에서 프리미엄한 휴식을 제공합니다. 현대적인 시설과 전통의 따뜻함이 어우러진 객실에서 잊을 수 없는 밤을 경험하세요.</p>
                         <ul class="service-features">
                             <li><i class="fas fa-check"></i> <span data-lang="hotelFeature1">프리미엄 객실</span></li>
                             <li><i class="fas fa-check"></i> <span data-lang="hotelFeature2">자연 친화적 설계</span></li>
                             <li><i class="fas fa-check"></i> <span data-lang="hotelFeature3">최고의 서비스</span></li>
                         </ul>
                         <a href="#" class="route-link" data-route="SERVICES.STAY.MAIN"><button class="cta-button"
-                                data-lang="hotelButton">객실
-                                둘러보기</button></a>
+                                data-lang="hotelButton">객실 둘러보기</button></a>
                     </div>
                 </div>
             </div>
@@ -106,7 +104,7 @@
                             <span class="service-tag" data-lang="rentCarTag">제주렌트카</span>
                             <h2 data-lang="rentCarTitle">완벽한 드라이빙을 위한 최신형 차량</h2>
                         </div>
-                        <p class="service-description" data-lang="rentCarDesc">제주렌트카는 최신형 차량으로 완벽한 드라이빙 경험을 제공합니다...</p>
+                        <p class="service-description" data-lang="rentCarDesc">제주렌트카는 최신형 차량으로 완벽한 드라이빙 경험을 제공합니다. 여행지의 도로를 자유롭게 누비며, 당신만의 특별한 여행을 만들어보세요. 24시간 고객지원으로 안전한 여행을 보장합니다.</p>
                         <ul class="service-features">
                             <li><i class="fas fa-check"></i> <span data-lang="rentCarFeature1">최신형 차량</span></li>
                             <li><i class="fas fa-check"></i> <span data-lang="rentCarFeature2">합리적인 가격</span></li>
@@ -176,7 +174,7 @@
                 </div>
                 <div class="plan-sub">
                     <p data-lang="membershipNotice1">모든 멤버십은 언제든지 취소할 수 있습니다.</p>
-                    <p data-lang="membershipNotice2">추가 혜택과 이벤트는 <strong data-lang="appStrong">제주 그룹 앱</strong>에서 확인하세요.
+                    <p data-lang="membershipNotice2">추가 혜택과 이벤트는 <strong data-lang="appStrong">제주 그룹 앱</strong>에서 확인하세요.</p>
                     </p>
                 </div>
             </div>
@@ -203,7 +201,7 @@
         <div class="weather-overlay-content">
             <button class="weather-close-btn" id="weather-close-btn">&times;</button>
             <div class="weather-search-bar">
-                <input type="text" id="weather-search-input" placeholder="도시 이름을 입력하세요 (예: Seoul, Jeju)">
+                <input type="text" id="weather-search-input" placeholder="도시 이름을 입력해 주세요. 예: Seoul, Jeju">
                 <button id="weather-search-btn"><i class="fas fa-search"></i></button>
                 <ul id="weather-suggestions" class="weather-suggestions"></ul>
             </div>
@@ -211,7 +209,7 @@
                 <!-- Detailed weather info will be injected here -->
                 <div class="weather-loading-large">
                     <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>날씨 정보를 불러오는 중...</p>
+                    <p>날씨 정보를 불러오는 중입니다.</p>
                 </div>
             </div>
         </div>
@@ -220,13 +218,8 @@
     <script src="core/constants/lang_data.js"></script>
     <script src="jejustay/pages/hotel/main.js"></script>
     <script src="core/constants/city_data.js"></script>
-    <script src="components/widget/weather.js"></script>
-    <script type="module" src="core/utils/app_bootstrap.js"></script>
-
-    <!-- Component Loader for index.html -->
-    <script src="components/layout/component_loader.js"></script>
-
-    <!-- UI State Reconciliation -> Sync Global Auth State -->
+<!-- Component Loader for index.html -->
+<!-- UI State Reconciliation -> Sync Global Auth State -->
     <script>
         let isAuthSyncInitialized = false;
 
@@ -283,6 +276,9 @@
         document.addEventListener('DOMContentLoaded', initAuthSync);
         document.addEventListener('mainHeaderLoaded', initAuthSync);
     </script>
+        <script type="module" src="components/runtime/bootstrap.js"></script>
 </body>
 
 </html>
+
+

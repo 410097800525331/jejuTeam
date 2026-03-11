@@ -38,9 +38,11 @@ for (const filePath of targetFiles) {
     }
 
     if (!targetFiles.has(frontPath)) {
-      issues.push(
-        `${filePath} :: webapp mirror 단독 수정 금지 상태, front 원본 먼저 수정 후 sync 필요 상태`,
-      );
+      if (!sameContent(frontPath, filePath)) {
+        issues.push(
+          `${filePath} :: webapp mirror 단독 수정 금지 상태, front 원본 먼저 수정 후 sync 필요 상태`,
+        );
+      }
       continue;
     }
 
@@ -56,9 +58,11 @@ for (const filePath of targetFiles) {
     }
 
     if (!targetFiles.has(webappPath)) {
-      issues.push(
-        `${filePath} :: front 원본 수정 후 webapp mirror 미갱신 상태, pnpm run sync 필요 상태`,
-      );
+      if (!sameContent(filePath, webappPath)) {
+        issues.push(
+          `${filePath} :: front 원본 수정 후 webapp mirror 미갱신 상태, pnpm run sync 필요 상태`,
+        );
+      }
       continue;
     }
 
@@ -77,4 +81,3 @@ if (issues.length > 0) {
 }
 
 console.log(`[guard:mirror] 점검 완료 상태 (${targetFiles.size} files)`);
-

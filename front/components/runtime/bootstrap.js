@@ -1,6 +1,8 @@
 import {
   installLegacyGlobals,
   mountAuthLoginRuntime,
+  mountAuthPassRuntime,
+  mountAuthSignupRuntime,
   mountHotelShellRuntime,
   mountMainShellRuntime,
   mountMyPageRuntime,
@@ -131,6 +133,10 @@ const hasWeatherUi = () => {
 
 const hasLoginIsland = () => Boolean(document.getElementById("jeju-login-app"));
 
+const hasSignupIsland = () => Boolean(document.getElementById("jeju-signup-app"));
+
+const hasPassAuthIsland = () => Boolean(document.getElementById("jeju-pass-auth-app"));
+
 const hasMyPageIsland = () => Boolean(document.getElementById("mypage-dashboard-root"));
 
 const hasMyPageShellHosts = () =>
@@ -173,6 +179,14 @@ const bootRuntime = async () => {
     mountAuthLoginRuntime();
   }
 
+  if (hasSignupIsland()) {
+    mountAuthSignupRuntime();
+  }
+
+  if (hasPassAuthIsland()) {
+    mountAuthPassRuntime();
+  }
+
   if (hasMyPageIsland()) {
     mountMyPageRuntime();
   }
@@ -190,6 +204,8 @@ const start = () => {
       !hasChatbotStyle() &&
       !hasWeatherUi() &&
       !hasLoginIsland() &&
+      !hasSignupIsland() &&
+      !hasPassAuthIsland() &&
       !hasMyPageIsland() &&
       !hasMyPageShellHosts()
     ) {

@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEJU STAY | ?紐낅?野꺜??野껉퀗??/title>
+    <title>JEJU STAY | 호텔 검색 결과</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,392 +28,392 @@
 </head>
 
 <body>
-    <!-- 疫꼲嚥≪뮆苡???삳쐭 -->
+    <!-- 글로벌 헤더 -->
     <div id="hotel-header-placeholder"></div>
 
-    <!-- ??쎈뼒??野꺜??곗뺍 -->
+    <!-- 스티키 검색바 -->
     <div class="sticky-search-wrapper" id="stickySearch">
         <div class="container-wide">
             <div class="search-bar-compact">
                 <div class="search-item-mini">
                     <i data-lucide="map-pin"></i>
                     <div class="search-info">
-                        <span class="search-label">??六억쭪?</span>
-                        <span class="search-value">??덉쨮??뺤춳, ??곕궚</span>
+                        <span class="search-label">여행지</span>
+                        <span class="search-value">히로시마, 일본</span>
                     </div>
                 </div>
                 <div class="search-item-mini">
                     <i data-lucide="calendar"></i>
                     <div class="search-info">
-                        <span class="search-label">??깆젟</span>
-                        <span class="search-value">2??13??- 2??15??/span>
+                        <span class="search-label">일정</span>
+                        <span class="search-value">2월 13일 - 2월 15일</span>
                     </div>
                 </div>
                 <div class="search-item-mini">
                     <i data-lucide="users"></i>
                     <div class="search-info">
-                        <span class="search-label">?紐꾩뜚</span>
-                        <span class="search-value">?源놁뵥 1筌? 揶쏆빘??1揶?/span>
+                        <span class="search-label">인원</span>
+                        <span class="search-value">성인 1명, 객실 1개</span>
                     </div>
                 </div>
-                <button class="search-btn-mini">野꺜??/button>
+                <button class="search-btn-mini">검색</button>
             </div>
         </div>
     </div>
 
     <main class="container-wide">
         <div class="hotel-feed-container">
-            <!-- ?袁り숲 ?????뺤뺍 (Agoda Clone - Detailed) -->
+            <!-- 필터 사이드바 (Agoda Clone - Detailed) -->
             <aside class="filter-sidebar">
-                <!-- 筌왖??癰귣떯由?獄쏄퀡瑗?-->
+                <!-- 지도 보기 배너 -->
                 <div class="map-banner-widget">
                     <div class="map-bg"></div>
-                    <button class="map-btn">筌왖?袁⑸퓠???紐낅?癰귣떯由?/button>
+                    <button class="map-btn">지도에서 호텔 보기</button>
                 </div>
 
-                <!-- 1. ??덉쨮??뺤춳 ?硫몃┛ 野꺜??鈺곌퀗援?-->
+                <!-- 1. 히로시마 인기 검색 조건 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">??덉쨮??뺤춳 ?硫몃┛ 野꺜??鈺곌퀗援?/h3>
+                    <h3 class="filter-title">히로시마 인기 검색 조건</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>雅뚯눖媛?/span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>筌왖疫?獄쏅뗀以?野껉퀣??/span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쇱뒲????/span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>疫꿸퀬?</span></label>
-                        <label class="filter-checkbox"><input type="checkbox" checked> <span>???뺝첎???깆젎: 8+
-                                ?怨쀫땾</span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐낃숲??/span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>24??볦퍢 ?袁⑥쑕???怨쀫뮞??/span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쎈솁/?????/span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>주방</span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>지금 바로 결제</span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>다운타운</span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>기타</span></label>
+                        <label class="filter-checkbox"><input type="checkbox" checked> <span>투숙객 평점: 8+
+                                우수</span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>인터넷</span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>24시간 프런트 데스크</span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>스파/사우나</span></label>
                     </div>
                 </div>
 
-                <!-- 2. ??덈꺖 ?ル굝履?-->
+                <!-- 2. 숙소 종류 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">??덈꺖 ?ル굝履?/h3>
+                    <h3 class="filter-title">숙소 종류</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐낅?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>호텔 <span
                                     class="count">(302)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?귐듼??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>리조트 <span
                                     class="count">(4)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>野껊슣??紐낅릭?怨쀫뮞 / ??쑴釉삯뜮?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>게스트하우스 / 비앤비 <span
                                     class="count">(12)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐꾨뮞??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>호스텔 <span
                                     class="count">(11)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁る솁??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>아파트 <span
                                     class="count">(53)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??뺥돩???袁る솁??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>서비스 아파트 <span
                                     class="count">(4)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>인 <span
                                     class="count">(1)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?귐듼????슢??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>리조트 빌라 <span
                                     class="count">(1)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?룸슣萸?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>료칸 <span
                                     class="count">(20)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑥뵬??????륁뒭???袁⑷퍥 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>프라이빗 하우스 전체 <span
                                     class="count">(7)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>筌╈돦???紐낅?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>캡슐 호텔 <span
                                     class="count">(4)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>????紐낅?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>러브호텔 <span
                                     class="count">(1)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??슢??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>빌라 <span
                                     class="count">(2)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 3. 筌왖??(Data Dynamic) -->
+                <!-- 3. 지역 (Data Dynamic) -->
                 <div class="filter-section" id="filter-region" data-dynamic-region="true">
-                    <h3 class="filter-title">筌왖??/h3>
+                    <h3 class="filter-title">지역</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??덉쨮??뺤춳 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>히로시마 <span
                                     class="count">(306)</span></span></label>
                         <label class="filter-checkbox"><input type="checkbox">
-                            <span>沃섎챷鍮욑쭪?筌?<span class="count">(63)</span>
-                                <span style="display:block; font-size:11px; color:#e12d2d; margin-top:2px;">???쏁뵳???뉗뺏, ?硫몃┛
-                                    筌뤿굞??/span>
+                            <span>미야지마 <span class="count">(63)</span>
+                                <span style="display:block; font-size:11px; color:#e12d2d; margin-top:2px;">럭셔리 숙박, 인기
+                                    명소</span>
                             </span>
                         </label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??뤿쾺燁삳똻?좂㎉?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>하쓰카이치 <span
                                     class="count">(12)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??뤿춦 ???굡 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>나카 워드 <span
                                     class="count">(8)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>疫꿸퀬? <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>기타 <span
                                     class="count">(6)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?癒?筌왖筌?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>에타지마 <span
                                     class="count">(6)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쇱뒲????<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>다운타운 <span
                                     class="count">(5)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??됰뻻??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>니시구 <span
                                     class="count">(3)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>????냈 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>오타케 <span
                                     class="count">(3)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?遺욱맜揶쎛?? <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>요코가와 <span
                                     class="count">(3)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>揶쎛??? <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>가이타 <span
                                     class="count">(2)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??덉쨮??뺤춳??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>히로시마역 <span
                                     class="count">(1)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 4. 野껉퀣???온??????-->
+                <!-- 4. 결제 관련 옵션 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">野껉퀣???온??????/h3>
+                    <h3 class="filter-title">결제 관련 옵션</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??됰튋 ?얜?利??띯뫁??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>예약 무료 취소 <span
                                     class="count">(5)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??덈꺖?癒?퐣 ?遺쏀닊 野껉퀣??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>숙소에서 요금 결제 <span
                                     class="count">(34)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>筌왖疫?獄쏅뗀以?野껉퀣??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>지금 바로 결제 <span
                                     class="count">(157)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 5. ??덈꺖 ?源껎닋 -->
+                <!-- 5. 숙소 성급 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">??덈꺖 ?源껎닋</h3>
+                    <h3 class="filter-title">숙소 성급</h3>
                     <div class="filter-items">
                         <label class="filter-checkbox">
                             <input type="checkbox">
                             <span>Jeju Luxe <span class="count">(2)</span>
                                 <span
                                     style="background:linear-gradient(135deg, #ff7a22, #ff9d42); color:white; font-size:9px; padding:1px 4px; border-radius:2px; margin-left:4px;">NEW</span>
-                                <span style="display:block; font-size:11px; color:#666; margin-top:2px;">???뺝첎?뱀뵠 筌믩쵐? 筌ㅼ뮄??????쏁뵳?
-                                    ??덈꺖</span>
+                                <span style="display:block; font-size:11px; color:#666; margin-top:2px;">투숙객이 뽑은 최고의 럭셔리
+                                    숙소</span>
                             </span>
                         </label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>5-?源껎닋 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>5-성급 <span
                                     class="count">(10)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>4-?源껎닋 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>4-성급 <span
                                     class="count">(47)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>3-?源껎닋 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>3-성급 <span
                                     class="count">(149)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>2-?源껎닋 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>2-성급 <span
                                     class="count">(63)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>1-?源껎닋 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>1-성급 <span
                                     class="count">(44)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 6. ??곸뒠 揶쎛????뺥돩??/ ????-->
+                <!-- 6. 이용 가능 서비스 / 옵션 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">??곸뒠 揶쎛????뺥돩??/ ????/h3>
+                    <h3 class="filter-title">이용 가능 서비스 / 옵션</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>鈺곌퀣????釉?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>조식 포함 <span
                                     class="count">(63)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??밸뻼(???? ??釉?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>석식(저녁) 포함 <span
                                     class="count">(17)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??????얜?利???곸뒠 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>사우나 무료 이용 <span
                                     class="count">(3)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??겸봺 筌ｋ똾寃??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>얼리 체크인 <span
                                     class="count">(2)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??됱뵠??筌ｋ똾寃?袁⑹뜍 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>레이트 체크아웃 <span
                                     class="count">(2)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>餓λ쵐???癒?뼎) ??釉?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>중식(점심) 포함 <span
                                     class="count">(1)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?얜?利??酉? ??뺥돩??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>무료 셔틀 서비스 <span
                                     class="count">(1)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 7. ??덈꺖 ?紐꾩벥 ??뽮퐬 獄???뺥돩??-->
+                <!-- 7. 숙소 편의 시설 및 서비스 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">??덈꺖 ?紐꾩벥 ??뽮퐬 獄???뺥돩??/h3>
+                    <h3 class="filter-title">숙소 편의 시설 및 서비스</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??륁겫??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>수영장 <span
                                     class="count">(5)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐낃숲??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>인터넷 <span
                                     class="count">(193)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>雅뚯눘媛??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>주차장 <span
                                     class="count">(99)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?⑤벏鍮???猷??대??????뺥돩??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>공항 이동 교통편 서비스 <span
                                     class="count">(1)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>筌ｋ똻?곫꽴?/??노뱜??됰뮞 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>체육관/피트니스 <span
                                     class="count">(6)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>24??볦퍢 ?袁⑥쑕???怨쀫뮞??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>24시간 프런트 데스크 <span
                                     class="count">(92)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>揶쎛鈺??袁⑤짗 ??六얍첎?燁살뮉?????뽮퐬 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>가족/아동 여행객 친화형 시설 <span
                                     class="count">(117)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>疫뀀뜆肉?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>금연 <span
                                     class="count">(133)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쎈솁/?????<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>스파/사우나 <span
                                     class="count">(20)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??됰뮞?醫딆삂 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>레스토랑 <span
                                     class="count">(63)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??る염 ?닌딅열 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>흡연 구역 <span
                                     class="count">(94)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>獄쏆꼶???눺???뉗뺘 揶쎛??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>반려동물 동반 가능 <span
                                     class="count">(19)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?關釉?紐꾩뒠 ?紐꾩벥 ??뽮퐬/??뺥돩??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>장애인용 편의 시설/서비스 <span
                                     class="count">(42)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쑴已??됰뮞 ?온???紐꾩벥 ??뽮퐬 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>비즈니스 관련 편의 시설 <span
                                     class="count">(29)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 8. ???뺝첎???? ?癒?땾 -->
+                <!-- 8. 투숙객 평가 점수 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">???뺝첎???? ?癒?땾</h3>
+                    <h3 class="filter-title">투숙객 평가 점수</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>9+ 筌ㅼ뮄??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>9+ 최고 <span
                                     class="count">(72)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>8+ ?怨쀫땾 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>8+ 우수 <span
                                     class="count">(228)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>7+ ?ル뿭??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>7+ 좋음 <span
                                     class="count">(290)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>6+ ?臾볦깈 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>6+ 양호 <span
                                     class="count">(305)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 9. 揶쏆빘???紐꾩벥 ??뽮퐬/??뺥돩??-->
+                <!-- 9. 객실 편의 시설/서비스 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">揶쏆빘???紐꾩벥 ??뽮퐬/??뺥돩??/h3>
+                    <h3 class="filter-title">객실 편의 시설/서비스</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??뺢컩 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>난방 <span
                                     class="count">(193)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??깆삢??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>냉장고 <span
                                     class="count">(185)</span></span></label>
                         <label class="filter-checkbox"><input type="checkbox"> <span>TV <span
                                     class="count">(177)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?類ㅲ?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>욕조 <span
                                     class="count">(155)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?癒?선??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>에어컨 <span
                                     class="count">(111)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐낃맒疫?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>세탁기 <span
                                     class="count">(78)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐낃숲??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>인터넷 <span
                                     class="count">(70)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?뚣끋逾???筌롫뗄?좄?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>커피/티 메이커 <span
                                     class="count">(43)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>獄쏆뮇??????뵬??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>발코니/테라스 <span
                                     class="count">(39)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>雅뚯눖媛?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>주방 <span
                                     class="count">(22)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??삘뵝筌??袁㏓럡 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>다림질 도구 <span
                                     class="count">(20)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>獄쏆꼶???눺???뉗뺘 揶쎛??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>반려동물 동반 가능 <span
                                     class="count">(5)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑹뒠 ??륁겫??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>전용 수영장 <span
                                     class="count">(2)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>癰귢쑨????袁⑺뒄 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>별관에 위치 <span
                                     class="count">(1)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 10. ?袁⑸뼎繹먮슣???椰꾧퀡??-->
+                <!-- 10. 도심까지의 거리 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">?袁⑸뼎繹먮슣???椰꾧퀡??/h3>
+                    <h3 class="filter-title">도심까지의 거리</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑸뼎???袁⑺뒄 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>도심에 위치 <span
                                     class="count">(96)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑸뼎繹먮슣? 2km 沃섎챶彛?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>도심까지 2km 미만 <span
                                     class="count">(200)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑸뼎繹먮슣? 2~5km <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>도심까지 2~5km <span
                                     class="count">(16)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑸뼎繹먮슣? 5~10km <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>도심까지 5~10km <span
                                     class="count">(14)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑸뼎繹먮슣? 10km 沃섎챶彛?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>도심까지 10km 미만 <span
                                     class="count">(92)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 11. 燁삘뫀? ?ル굝履?-->
+                <!-- 11. 침대 종류 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">燁삘뫀? ?ル굝履?/h3>
+                    <h3 class="filter-title">침대 종류</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?遺얩닜甕곗쥓諭?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>더블베드 <span
                                     class="count">(251)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?源?/?紐꾩맊甕곗쥓諭?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>싱글/트윈베드 <span
                                     class="count">(151)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐껋퓢??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>퀸베드 <span
                                     class="count">(73)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>甕곗닀寃뺠린醫딅굡 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>벙크베드 <span
                                     class="count">(24)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?諛몄퓢??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>킹베드 <span
                                     class="count">(17)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 12. 揶쎛鈺???六얍첎?밸퓠 ?硫몃┛ -->
+                <!-- 12. 가족 여행객에 인기 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">揶쎛鈺???六얍첎?밸퓠 ?硫몃┛</h3>
+                    <h3 class="filter-title">가족 여행객에 인기</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?袁⑤짗 ?얜?利?????揶쎛??/span></label>
+                        <label class="filter-checkbox"><input type="checkbox"> <span>아동 무료 투숙 가능</span></label>
                     </div>
                 </div>
 
-                <!-- 13. ??덈꺖 ?袁⑺뒄 ??? -->
+                <!-- 13. 숙소 위치 평가 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">??덈꺖 ?袁⑺뒄 ???</h3>
+                    <h3 class="filter-title">숙소 위치 평가</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>9+ 筌ㅼ뮄??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>9+ 최고 <span
                                     class="count">(72)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>8+ ?怨쀫땾 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>8+ 우수 <span
                                     class="count">(196)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>7+ ?ル뿭??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>7+ 좋음 <span
                                     class="count">(262)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 14. 雅뚯눖? ?硫몃┛ 筌뤿굞??-->
+                <!-- 14. 주변 인기 명소 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">雅뚯눖? ?硫몃┛ 筌뤿굞??/h3>
+                    <h3 class="filter-title">주변 인기 명소</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쇳맜?紐??얜???<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>오코노미무라 <span
                                     class="count">(134)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?癒곕： ??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>원폭 돔 <span
                                     class="count">(128)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??덉쨮??뺤춳 ??뀁넅 疫꿸퀡?쀦꽴? <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>히로시마 평화 기념관 <span
                                     class="count">(113)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??뀁넅 疫꿸퀡???⑤벊??- ??덉쨮??뺤춳 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>평화 기념 공원 - 히로시마 <span
                                     class="count">(111)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?곕뗀?덆뜮?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>추모비 <span
                                     class="count">(111)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??깅뮞 筌롫뗀?덄뵳?堉??? <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>피스 메모리얼 홀 <span
                                     class="count">(109)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??뀁넅????<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>평화의 종 <span
                                     class="count">(108)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?????s ??깅뮞 疫꿸퀡?쀩뜮?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>어린이's 피스 기념비 <span
                                     class="count">(105)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?????곷퓦 ?類ㅼ뜚 <span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>수케이엔 정원 <span
                                     class="count">(87)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??덉쨮??뺤춳 ??<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>히로시마 성 <span
                                     class="count">(45)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 15. 燁삘뫁????-->
+                <!-- 15. 침실 수 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">燁삘뫁????/h3>
+                    <h3 class="filter-title">침실 수</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쎈뮔?遺우궎 / 燁삘뫁??1揶?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>스튜디오 / 침실 1개 <span
                                     class="count">(279)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>燁삘뫁??2揶?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>침실 2개 <span
                                     class="count">(12)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>燁삘뫁??3+揶?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>침실 3+개 <span
                                     class="count">(6)</span></span></label>
                     </div>
                 </div>
 
-                <!-- 16. ?硫몃┛ ?紐낅??됰슢???-->
+                <!-- 16. 인기 호텔 브랜드 -->
                 <div class="filter-section">
-                    <h3 class="filter-title">?硫몃┛ ?紐낅??됰슢???/h3>
+                    <h3 class="filter-title">인기 호텔 브랜드</h3>
                     <div class="filter-items">
-                        <label class="filter-checkbox"><input type="checkbox"> <span>APA ?紐낅?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>APA 호텔 <span
                                     class="count">(3)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?紐낅???깆뵠?됰슢???<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>호텔 라이브맥스 <span
                                     class="count">(4)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?醫롮뒄????<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>토요코 인 <span
                                     class="count">(6)</span></span></label>
                         <label class="filter-checkbox"><input type="checkbox"> <span>Nest Hotel <span
                                     class="count">(2)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??쇱뵠?? 嚥≪뮇????紐낅?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>다이와 로이넷 호텔 <span
                                     class="count">(2)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>甕곗쥙? ?紐낅?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>베셀 호텔 <span
                                     class="count">(3)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>?癒곕뱣 ?遺얜굡????諭?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>힐튼 월드와이드 <span
                                     class="count">(2)</span></span></label>
-                        <label class="filter-checkbox"><input type="checkbox"> <span>??딅쓠 ?紐낅?<span
+                        <label class="filter-checkbox"><input type="checkbox"> <span>슈퍼 호텔 <span
                                     class="count">(2)</span></span></label>
                         <label class="filter-checkbox"><input type="checkbox"> <span>Breakfast_JP <span
                                     class="count">(2)</span></span></label>
@@ -423,20 +423,20 @@
                 </div>
             </aside>
 
-            <!-- ?紐낅??귐딅뮞??-->
+            <!-- 호텔 리스트 -->
             <section class="hotel-main-list" id="hotelList">
                 <!-- Hotel Card 1 -->
                 <article class="hotel-card-premium">
                     <div class="hotel-card-image">
                         <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80"
                             alt="Hotel Hiroshima">
-                        <span class="badge-overlay">?諛? ?怨밸?</span>
+                        <span class="badge-overlay">특가 상품</span>
                         <button class="wishlist-btn-premium"><i data-lucide="heart"></i></button>
                     </div>
                     <div class="hotel-card-content">
                         <div class="hotel-card-header">
                             <div class="hotel-title-group">
-                                <h3>??덉쨮??뺤춳 ?袁ⓥ봺沃섎챷毓??紐낅?/h3>
+                                <h3>히로시마 프리미엄 호텔</h3>
                                 <div class="hotel-stars">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -452,17 +452,17 @@
                         </div>
                         <div class="hotel-location-text">
                             <i data-lucide="map-pin" style="width: 14px; display: inline; vertical-align: middle;"></i>
-                            ??덉쨮??뺤춳 ??뺢땀 餓λ쵐??夷??癒곕： ???硫몃젏
+                            히로시마 시내 중심 · 원폭 돔 인근
                         </div>
                         <div class="hotel-tags">
-                            <span class="tag-item">?얜?利?Wi-Fi</span>
-                            <span class="tag-item">??쎈솁 & 筌띾뜆沅쀯쭪?</span>
-                            <span class="tag-item">??노뱜??됰뮞 ??녠숲</span>
+                            <span class="tag-item">무료 Wi-Fi</span>
+                            <span class="tag-item">스파 & 마사지</span>
+                            <span class="tag-item">피트니스 센터</span>
                         </div>
                         <div class="hotel-price-zone">
-                            <div class="price-original">??50,000</div>
-                            <div class="price-current">??89,000</div>
-                            <div class="price-unit">1獄쏅베??/ ?硫명닊 ??釉?/div>
+                            <div class="price-original">₩250,000</div>
+                            <div class="price-current">₩189,000</div>
+                            <div class="price-unit">1박당 / 세금 포함</div>
                         </div>
                     </div>
                 </article>
@@ -472,13 +472,13 @@
                     <div class="hotel-card-image">
                         <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80"
                             alt="Miyajima Resort">
-                        <span class="badge-overlay">?硫몃┛ ??덈꺖</span>
+                        <span class="badge-overlay">인기 숙소</span>
                         <button class="wishlist-btn-premium"><i data-lucide="heart"></i></button>
                     </div>
                     <div class="hotel-card-content">
                         <div class="hotel-card-header">
                             <div class="hotel-title-group">
-                                <h3>沃섎챷鍮욑쭪?筌?域밸챶????귐듼??/h3>
+                                <h3>미야지마 그랜드 리조트</h3>
                                 <div class="hotel-stars">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -493,17 +493,17 @@
                         </div>
                         <div class="hotel-location-text">
                             <i data-lucide="map-pin" style="width: 14px; display: inline; vertical-align: middle;"></i>
-                            沃섎챷鍮욑쭪?筌????揶쎛 夷??醫롪컩???袁⑤궖 10??
+                            미야지마 해변가 · 선착장 도보 10분
                         </div>
                         <div class="hotel-tags">
-                            <span class="tag-item">鈺곌퀣????釉?/span>
-                            <span class="tag-item">??쇰↓뀎?/span>
-                            <span class="tag-item">?⑤벏鍮??酉?</span>
+                            <span class="tag-item">조식 포함</span>
+                            <span class="tag-item">오션뷰</span>
+                            <span class="tag-item">공항 셔틀</span>
                         </div>
                         <div class="hotel-price-zone">
-                            <div class="price-original">??20,000</div>
-                            <div class="price-current">??65,000</div>
-                            <div class="price-unit">1獄쏅베??/ ?硫명닊 ??釉?/div>
+                            <div class="price-original">₩320,000</div>
+                            <div class="price-current">₩265,000</div>
+                            <div class="price-unit">1박당 / 세금 포함</div>
                         </div>
                     </div>
                 </article>
@@ -515,23 +515,20 @@
             <div id="loadMoreContainer" class="load-more-container"
                 style="display: none; text-align: center; margin-top: 30px; padding-bottom: 20px;">
                 <button id="loadMoreBtn" class="btn-load-more">
-                    ?紐낅???癰귣떯由?<i class="fas fa-chevron-down"></i>
+                    호텔 더 보기 <i class="fas fa-chevron-down"></i>
                 </button>
             </div>
         </div>
     </main>
 
-    <!-- 疫꼲嚥≪뮆苡??紐낃숲 -->
+    <!-- 글로벌 푸터 -->
     <div id="hotel-footer-placeholder"></div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="../../../core/constants/lang_data.js"></script>
-<script src="./hotel-list.js"></script>
+    <script src="./hotel-list.js"></script>
     <script type="module" src="../../../components/runtime/bootstrap.js"></script>
 </body>
 
 </html>
-
-
-

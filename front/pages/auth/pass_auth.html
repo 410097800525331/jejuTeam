@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PASS ?몄쬆</title>
+    <title>PASS 인증</title>
     <link rel="stylesheet" href="../../styles/globals.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
@@ -403,36 +403,36 @@
     <div class="pass-modal-content">
         <div class="pass-header">
             <div class="pass-logo-red">PASS</div>
-            <div class="pass-header-text">?몄쬆???섏뼱<br>?쇱긽?쇰줈 PASS</div>
+            <div class="pass-header-text">인증부터 본인확인까지<br>일상으로 PASS</div>
         </div>
 
         <!-- Screen 1: Telecom Selection -->
         <div class="pass-screen active" id="passScreen1">
-            <h2 class="pass-title">?댁슜以묒씤 ?듭떊?щ?<br>?좏깮??二쇱꽭??/h2>
+            <h2 class="pass-title">이용 중인 통신사를<br>선택해 주세요</h2>
             <div class="telecom-grid">
                 <button type="button" class="telecom-btn">SKT</button>
                 <button type="button" class="telecom-btn">KT</button>
                 <button type="button" class="telecom-btn">LG U+</button>
-                <button type="button" class="telecom-btn mvno">SKT<br>?뚮쑑??/button>
-                <button type="button" class="telecom-btn mvno">KT<br>?뚮쑑??/button>
-                <button type="button" class="telecom-btn mvno">LG U+<br>?뚮쑑??/button>
+                <button type="button" class="telecom-btn mvno">SKT<br>알뜰폰</button>
+                <button type="button" class="telecom-btn mvno">KT<br>알뜰폰</button>
+                <button type="button" class="telecom-btn mvno">LG U+<br>알뜰폰</button>
             </div>
         </div>
 
         <!-- Screen 2: Auth Method -->
         <div class="pass-screen" id="passScreen2">
-            <h2 class="pass-title">?몄쬆諛⑸쾿??br>?좏깮?댁＜?몄슂</h2>
+            <h2 class="pass-title">인증 방법을<br>선택해 주세요</h2>
             <div class="authmethod-list">
                 <button type="button" class="authmethod-btn">
                     <div class="method-info">
-                        <strong>PASS ?몄쬆</strong>
-                        <span>?깆쑝濡?媛꾪렪?섍퀬 ?덉쟾?섍쾶!</span>
+                        <strong>PASS 인증</strong>
+                        <span>더 빠르고 간편하게 인증하세요</span>
                     </div>
                 </button>
                 <button type="button" class="authmethod-btn sms-btn" id="btnSelectSms">
                     <div class="method-info">
-                        <strong>臾몄옄(SMS) ?몄쬆</strong>
-                        <span>SMS ?몄쬆踰덊샇濡?蹂몄씤?뺤씤</span>
+                        <strong>문자(SMS) 인증</strong>
+                        <span>SMS 인증번호로 본인확인</span>
                     </div>
                 </button>
             </div>
@@ -440,29 +440,29 @@
 
         <!-- Screen 3: Name Input -->
         <div class="pass-screen" id="passScreen3">
-            <h2 class="pass-title">?대쫫??br>?낅젰??二쇱꽭??/h2>
+            <h2 class="pass-title">이름을<br>입력해 주세요</h2>
             <div class="pass-input-group">
-                <input type="text" id="passNameInput" placeholder="?대쫫" value="">
+                <input type="text" id="passNameInput" placeholder="이름" value="">
             </div>
-            <button type="button" class="pass-next-btn" id="btnPassNextToPhone">?ㅼ쓬</button>
+            <button type="button" class="pass-next-btn" id="btnPassNextToPhone">다음</button>
         </div>
 
         <!-- Screen 4: Phone & Captcha Flow -->
         <div class="pass-screen" id="passScreen4">
-            <h2 class="pass-title" id="screen4Title">?앸뀈?붿씪/?깅퀎??br>?낅젰??二쇱꽭??/h2>
+            <h2 class="pass-title" id="screen4Title">생년월일/성별을<br>입력해 주세요</h2>
             <div class="pass-input-group">
                 <input type="text" id="passNameDisplay" value="" readonly class="readonly">
             </div>
 
             <div class="pass-reg-group">
-                <input type="text" id="passRegNum1" placeholder="?앸뀈?붿씪 6?먮━" maxlength="6">
+                <input type="text" id="passRegNum1" placeholder="생년월일 6자리" maxlength="6">
                 <span class="dash">-</span>
                 <input type="text" id="passRegNum2" maxlength="1">
-                <span class="dots">?뤴뿈?뤴뿈?뤴뿈</span>
+                <span class="dots">●●●●●●</span>
             </div>
 
             <div class="pass-input-group phone-input-group" id="phoneInputGroup">
-                <input type="text" id="passPhoneInput" placeholder="?대??곕쾲?? value="" maxlength="13">
+                <input type="text" id="passPhoneInput" placeholder="휴대폰 번호" value="" maxlength="13">
             </div>
 
             <div class="captcha-wrapper" id="captchaWrapper"
@@ -470,7 +470,7 @@
                 <div id="recaptchaContainer"></div>
             </div>
 
-            <button type="button" class="pass-next-btn" id="btnPassSubmitAuth" style="display: none;">?뺤씤</button>
+            <button type="button" class="pass-next-btn" id="btnPassSubmitAuth" style="display: none;">확인</button>
         </div>
 
         <!-- Screen 5: Authenticating Wait -->
@@ -480,15 +480,15 @@
                     style="width: 50px; height: 50px; border-width: 4px; border-color: rgba(247, 50, 63, 0.2); border-top-color: #f7323f; margin-bottom: 30px;">
                 </div>
                 <div class="pass-title-center" style="margin-bottom: 10px;">
-                    <strong>?몄쬆 以묒엯?덈떎</strong>
+                    <strong>인증 중입니다</strong>
                 </div>
-                <div style="font-size: 14px; color: #888;">?좎떆留?湲곕떎??二쇱꽭??/div>
+                <div style="font-size: 14px; color: #888;">잠시만 기다려 주세요</div>
             </div>
         </div>
 
         <div class="pass-footer">
-            ?댁슜?쎄? <strong>媛쒖씤?뺣낫泥섎━諛⑹묠</strong><br>
-            VeriSign 256-bit SSL ?뷀샇???곸슜
+            이용약관 <strong>개인정보처리방침</strong><br>
+            VeriSign 256-bit SSL 암호화 적용
         </div>
     </div>
 
@@ -518,7 +518,7 @@
         // Name -> Phone Transition
         document.getElementById('btnPassNextToPhone').addEventListener('click', () => {
             const passName = document.getElementById('passNameInput').value;
-            if (!passName) return alert('?대쫫???낅젰?댁＜?몄슂.');
+            if (!passName) return alert('이름을 입력해 주세요.');
             document.getElementById('passNameDisplay').value = passName;
             showPassScreen(3);
         });
@@ -601,11 +601,11 @@
                 phoneInputGroup.style.display = 'block';
                 captchaWrapper.style.display = 'none';
                 btnPassSubmitAuth.style.display = 'none';
-                screen4Title.innerHTML = '?대??곕쾲?몃?<br>?낅젰??二쇱꽭??;
+                screen4Title.innerHTML = '휴대폰 번호를<br>입력해 주세요';
             } else if (regFull && phoneFull) {
                 phoneInputGroup.style.display = 'block';
                 captchaWrapper.style.display = 'flex';
-                screen4Title.innerHTML = '蹂댁븞臾몄옄瑜?br>?낅젰??二쇱꽭??;
+                screen4Title.innerHTML = '보안문자를<br>입력해 주세요';
 
                 if (isRecaptchaVerified) {
                     btnPassSubmitAuth.style.display = 'block';
@@ -616,7 +616,7 @@
                 phoneInputGroup.style.display = 'none';
                 captchaWrapper.style.display = 'none';
                 btnPassSubmitAuth.style.display = 'none';
-                screen4Title.innerHTML = '?앸뀈?붿씪/?깅퀎??br>?낅젰??二쇱꽭??;
+                screen4Title.innerHTML = '생년월일/성별을<br>입력해 주세요';
             }
         };
 
@@ -662,10 +662,10 @@
 
         // Captcha Submit & Auto-Authenticate Wait
         btnPassSubmitAuth.addEventListener('click', () => {
-            // ?붾㈃ ?꾪솚 -> ?몄쬆 以묒엯?덈떎...
+            // 화면 전환 후 인증 진행 상태 표시
             showPassScreen(4);
 
-            // 3珥??湲????먮룞 ?몄쬆 ?깃났 泥섎━
+            // 3초 대기 후 자동 인증 성공 처리
             setTimeout(() => {
                 const passName = document.getElementById('passNameInput').value || '홍길동';
                 const passPhone = document.getElementById('passPhoneInput').value || '01012345678';
